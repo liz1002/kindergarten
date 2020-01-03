@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.ClassMapper">
+	
+	<resultMap type="ClassVO" id="classResultMap">
+		<id column="c_no" property="cNo"/>
+		<result column="c_code" property="cCode"/>
+		<result column="c_name" property="cName"/>
+		<result column="k_no" property="kNo"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="ClassVO">
+		insert into class(c_code, c_name, k_no) 
+		values(#{cCode}, #{cName}, #{kNo})
+	</insert>
+	
+	<select id="selectList" resultMap="classResultMap">
+		select * from class
+	</select>
+	
+	<select id="selectByNo" resultMap="classResultMap">
+		select * from class where c_no=#{cNo}
+	</select>
+	
+	<select id="selectByCode" resultMap="classResultMap">
+		select * from class where c_code=#{cCode}
+	</select>
+</mapper>
