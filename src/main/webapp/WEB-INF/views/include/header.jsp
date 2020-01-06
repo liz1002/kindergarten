@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>유치원 커뮤니티 &amp; 알림장</title>
 
 <!-- All style -->
 <style>
@@ -51,6 +51,20 @@
 		vertical-align: middle;
 		line-height: 200px;
 	}
+	div#wrap{
+		background: #A782E8;
+	}
+	#wrap a{
+		display: inline-block;
+		padding: 5px 20px;
+		height: 20px;
+		color: #fff;
+		text-align: center;
+	}
+	#wrap a span{
+		text-decoration: underline;
+		font-size: 17px;
+	}
 </style>
 
 </head>
@@ -61,4 +75,17 @@
 				H E A D E R
 			</h1>
 		</div>
+		<div id="wrap">
+			<c:if test="${Auth == null}">
+				<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
+			</c:if>
+			<c:if test="${Auth != null}">
+				<a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>
+			</c:if>
+			<a href="${pageContext.request.contextPath}/member/joinIntro">회원가입</a>
+			<c:if test="${Auth != null}">
+				<a href="${pageContext.request.contextPath}/info/regist"><span>${Nick}</span>님</a>
+			</c:if>
+		</div>
 	</header>
+	

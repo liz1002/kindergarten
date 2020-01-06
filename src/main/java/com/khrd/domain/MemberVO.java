@@ -2,12 +2,15 @@ package com.khrd.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class MemberVO {
 	private int mNo; //회원번호
 	private int mType; //회원타입
 	private String mId; //아이디
 	private String mPwd; //비밀번호
 	private String mName; //회원이름
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date mRegdate; //생년월일
 	private String mTel; //휴대폰번호
 	private String mNickname; //닉네임

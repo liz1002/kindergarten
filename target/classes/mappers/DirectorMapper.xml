@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.DirectorMapper">
+	
+	<resultMap type="DirectorVO" id="directorResultMap">
+		<id column="d_no" property="dNo"/>
+		<result column="m_no" property="mNo"/>
+		<result column="k_no" property="kNo"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="DirectorVO">
+		insert into director(m_no, k_no) 
+		values(#{mNo}, LAST_INSERT_ID())
+	</insert>
+
+</mapper>

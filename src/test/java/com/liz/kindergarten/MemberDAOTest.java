@@ -22,12 +22,12 @@ public class MemberDAOTest {
 		dao.insert(new MemberVO(0, 3, "parent1", "1111", "학부모", null, "010-2222-3333", "보라반 희윤맘"));
 	}
 	
-	@Test
+//	@Test
 	public void testSelectList() {
 		dao.selectList();
 	}
 	
-	@Test
+//	@Test
 	public void testSelectByNo() {
 		dao.selectByNo(1);
 	}

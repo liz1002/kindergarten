@@ -10,7 +10,7 @@
 		<result column="k_address" property="kAddress"/>
 	</resultMap>
 	
-	<insert id="insert" parameterType="KindergartenVO">
+	<insert id="insert" parameterType="KindergartenVO" useGeneratedKeys="true" keyColumn="k_no" keyProperty="kNo">
 		insert into kindergarten(k_code, k_name, k_tel, k_address) 
 		values(#{kCode}, #{kName}, #{kTel}, #{kAddress})
 	</insert>

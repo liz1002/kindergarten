@@ -1,6 +1,8 @@
 package com.khrd.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +33,18 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace + "selectByNo", mNo);
 	}
 
+	@Override
+	public MemberVO selectById(String mId) {
+		return sqlSession.selectOne(namespace + "selectById", mId);
+	}
+
+	@Override
+	public MemberVO selectByIdAndPwd(String mId, String mPwd) {
+		Map<String, String> map = new HashMap<>();
+		map.put("mId", mId);
+		map.put("mPwd", mPwd);
+		return sqlSession.selectOne(namespace + "selectByIdAndPwd", map);		
+	}
+
 }
+

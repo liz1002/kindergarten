@@ -8,6 +8,7 @@ function check(objs){
 		if($(obj).val() == ""){
 			cnt++;
 			res = $(obj).attr("data-msg"); //에러 메세지
+			$(obj).focus();
 			return false;
 		}
 	})

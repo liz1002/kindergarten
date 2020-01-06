@@ -32,4 +32,19 @@
 		<beans:constructor-arg value="c:/photoManage/upload"/> <!-- 생성자 호출 -->
 	</beans:bean>	
 	
+	<!-- login -->
+	<beans:bean id="loginIntercepter" class="com.khrd.intercepter.LoginIntercepter"/>
+	<beans:bean id="authIntercepter" class="com.khrd.intercepter.AuthIntercepter"/>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/auth/loginPost"/>
+			<beans:ref bean="loginIntercepter"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/#"/>
+			<beans:ref bean="authIntercepter"/>
+		</interceptor>
+	</interceptors>
+	
 </beans:beans>

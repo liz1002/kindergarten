@@ -4,17 +4,16 @@
 
 <style>
 	div#container{
-		width: 80%;
+		width: 100%;
 		overflow: hidden;
-		margin: 0 auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 	div.type_wrap{
-		width: 300px;
-		height: 300px;
-		margin: 50px;
+		width: 250px;
+		height: 250px;
+		margin: 20px;
 		padding: 20px;
 		background: #8FDBFF;
 		float: left;
@@ -24,15 +23,25 @@
 	div.type_wrap:hover{
 		box-shadow: 1px 1px 3px gray;
 	}
+	.type_wrap a{
+		display: inline-block;
+		width: 100%;
+		height: 100%;
+		font-size: 25px;
+		font-weight: bold;
+	}
 </style>
 
 <section>
 	<div id="container">
 		<div class="type_wrap">
-			<h3>회원 가입(14세 이상)</h3>
+			<a href="joinParent">학부모로 가입</a>
 		</div>
 		<div class="type_wrap">
-			<h3>유치원 등록</h3>
+			<a href="joinTeacher">교사로 가입</a>
+		</div>
+		<div class="type_wrap">
+			<a href="joinDirector">원장으로 가입 (유치원 등록)</a>
 		</div>
 	</div>
 </section>

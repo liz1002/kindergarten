@@ -13,7 +13,7 @@
 		<result column="m_nickname" property="mNickname"/>
 	</resultMap>
 	
-	<insert id="insert" parameterType="MemberVO">
+	<insert id="insert" parameterType="MemberVO" useGeneratedKeys="true" keyColumn="m_no" keyProperty="mNo">
 		insert into member(m_type, m_id, m_pwd, m_name, m_regdate, m_tel, m_nickname) 
 		values(#{mType}, #{mId}, #{mPwd}, #{mName}, #{mRegdate}, #{mTel}, #{mNickname})
 	</insert>
@@ -28,6 +28,10 @@
 	
 	<select id="selectById" resultMap="memberResultMap">
 		select * from member where m_id=#{mId}
+	</select>
+	
+	<select id="selectByIdAndPwd" resultMap="memberResultMap">
+		select * from member where m_id=#{mId} and m_pwd=#{mPwd}
 	</select>
 	
 </mapper>
