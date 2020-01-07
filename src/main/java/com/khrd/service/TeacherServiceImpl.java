@@ -23,5 +23,20 @@ public class TeacherServiceImpl implements TeacherService{
 	public List<TeacherVO> selectList() {
 		return dao.selectList();
 	}
+
+	@Override
+	public List<TeacherVO> selectByMNo(int mNo) {
+		return dao.selectByMNo(mNo);
+	}
+
+	@Override
+	public List<TeacherVO> selectListByKNo(int kNo) {
+		return dao.selectListByKNo(kNo);
+	}
+	
+	@Override
+	public void modify(TeacherVO vo, int tNo) {
+		dao.update(vo, tNo);
+	}
 	
 }

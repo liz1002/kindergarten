@@ -9,21 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.khrd.domain.DirectorVO;
 import com.khrd.domain.KindergartenVO;
 import com.khrd.domain.MemberVO;
-import com.khrd.domain.TeacherVO;
 import com.khrd.persistence.DirectorDAO;
 import com.khrd.persistence.KindergartenDAO;
 import com.khrd.persistence.MemberDAO;
-import com.khrd.persistence.TeacherDAO;
 
 @Service
 public class MemberServiceImpl implements MemberService{
 	
 	@Autowired
 	private MemberDAO dao;
-
-	@Autowired
-	private TeacherDAO tDao;
-
+	
 	@Autowired
 	private DirectorDAO dDao;	
 	
@@ -32,11 +27,8 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	@Transactional
-	public void regist(MemberVO vo, int tType) {
-		dao.insert(vo); //회원추가		
-		if(tType != 0) {
-			tDao.insert(new TeacherVO(0, tType, vo.getmNo(), 0, 0)); //교사 추가
-		}
+	public void regist(MemberVO vo) {
+		dao.insert(vo); //회원추가
 	}
 
 	@Override

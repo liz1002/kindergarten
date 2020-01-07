@@ -24,6 +24,7 @@
 	<div id="container">
 		<div>
 			<h3>성공적으로 가입하셨습니다.</h3>
+			
 			<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
 		</div>
 	</div>

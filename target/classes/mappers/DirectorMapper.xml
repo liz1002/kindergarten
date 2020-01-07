@@ -12,5 +12,9 @@
 		insert into director(m_no, k_no) 
 		values(#{mNo}, LAST_INSERT_ID())
 	</insert>
+	
+	<select id="selectByNo" resultMap="directorResultMap">
+		select * from director where m_no=#{mNo}
+	</select>
 
 </mapper>

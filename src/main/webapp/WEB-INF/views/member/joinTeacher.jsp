@@ -88,14 +88,6 @@
 					<input type="text" name="mNickname" data-msg="별명을 입력하세요.">
 					<span id="coment"> [예시] 무지개반 담임, 은하수반 부담임 등</span>
 				</p>
-				<p>
-					<label><span class="necessary">*</span>역할</label>
-					<select name="tType" data-msg="역할을 선택하세요.">
-						<option value="" selected="selected">선택</option>
-						<option value="1">담임</option>
-						<option value="2">부담임</option>
-					</select>
-				</p>
 				<p class="guid">
 					<span class="necessary">*</span>은 필수 입력 사항입니다.
 				</p>

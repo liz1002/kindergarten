@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.ParentMapper">
+	
+	<resultMap type="ParentVO" id="parentResultMap">
+		<id column="p_no" property="pNo"/>
+		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
+		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="ParentVO">
+		insert into parent(m_no, k_no, c_no) values(#{mVo.mNo}, #{kVo.kNo}, #{cVo.cNo})
+	</insert>
+	
+	<select id="selectListByMNo" resultMap="parentResultMap">
+		select * from parent p join member m on p.m_no=m.m_no where p.m_no=#{mNo};
+	</select>
+	
+	<select id="selectListByMNoAndKNO" resultMap="parentResultMap">
+		select * from parent p join `member` m on p.m_no=m.m_no 
+			join class c on p.c_no=c.c_no where p.m_no=#{mNo} and p.k_no=#{kNo}
+	</select>
+
+	<select id="selectListByKNo" resultMap="parentResultMap">
+		select * from parent p join member m on p.m_no=m.m_no
+			join class c on p.c_no=c.c_no where p.k_no=#{kNo};
+	</select>
+
+</mapper>

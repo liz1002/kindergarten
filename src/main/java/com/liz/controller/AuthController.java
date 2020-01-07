@@ -38,7 +38,8 @@ public class AuthController {
 		
 		//일치
 		model.addAttribute("login", dbVo.getmId());
-		model.addAttribute("nick", dbVo.getmNickname());		
+		model.addAttribute("nick", dbVo.getmNickname());	
+		model.addAttribute("type", dbVo.getmType());
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)

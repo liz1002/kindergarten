@@ -1,74 +1,40 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
+
 <style>
-	div#form_wrap{
-		width: 70%;
-		margin: 20px auto;
+	div#container{
+		width: 100%;
+		min-height: 400px; 
+		text-align: center;
 	}
-	fieldset {
-		margin: 50px auto;
-		padding: 20px 50px;
-		background: #F2F3F5;
+	#container > p{
+		line-height: 100px;
 	}
-	legend{
-		padding: 0px 10px;
-		font-weight: bold;
-	}
-	form p{
-		overflow: hidden;
-		line-height: 50px;
-	}
-	label {
-		display: inline-block;
-		width: 20%;
-		float: left;
-	}
-	span.necessary{
-		margin-right: 5px; 
-		color: #f00;
-		vertical-align: middle;
-	}
-	input{
-		padding: 3px;
-	}
-	span#coment{
-		font-size: 13px;
-		color: gray;
-		margin-left: 15px;
+	#container a{
+		text-decoration: underline;
+		background: #fff;
 	}
 </style>
 
 <section>
-	<div id="form_wrap">
-		<form action="joinUser" method="post">			
-			<fieldset>
-				<legend>유치원 정보</legend>
-				<p>
-					<label><span class="necessary">*</span>유치원 코드</label>
-					<input type="text" name="kCode" data-msg="유치원 코드를 입력하세요.">
-				</p>				
-				<p>
-					<label><span class="necessary">*</span>반 코드</label>
-					<input type="text" name="cCode" data-msg="반 코드를 입력하세요.">
-				</p>
-			</fieldset>
-			
-			<fieldset>
-				<legend>자녀 정보</legend>
-				<p>
-					<label><span class="necessary">*</span>자녀 선택</label>
-					<select name="chNo" data-msg="자녀를 선택하세요.">
-					
-					</select>
-				</p>
-			</fieldset>
-			
-			<p>
-				<input type="submit" value="등록 완료">
-			</p>
-		</form>
+	<div id="container">
+		<p>이름 : ${mVo.mName}</p>
+		<p>별명 : ${mVo.mNickname}</p>
+		<p>연락처 : ${mVo.mTel}</p>
+		<p>나중에 해당 유치원+해당 부모의 모든 자녀 보이기</p>
+		
+		<!-- 접속자가 본인이면 -->
+		<c:if test="${mVo.mId == Auth}">
+			<p>생년월일 : ${mVo.mRegdate}</p>
+			<p>생년월일 : ${mVo.mRegdate}</p>
+		</c:if>
 	</div>
 </section>
+
+<!----- S C R I P T ----->
+<script>
+
+</script>
 
 <%@include file="../include/footer.jsp" %>

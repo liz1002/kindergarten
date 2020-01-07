@@ -54,7 +54,7 @@
 				<legend>회원 정보</legend>
 				<p>
 					<label><span class="necessary">*</span>타입</label>
-					<select name="mType" disabled="disabled">
+					<select name="mType">
 						<option value="1" selected="selected">원장</option>
 					</select>
 				</p>

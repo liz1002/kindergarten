@@ -42,50 +42,80 @@
 		margin: 0 auto;
 		background: #FF9CB3;
 	}
-	header div{
-		width: 100%;
-		height: 200px;
-	}
 	header div h1{
 		text-align: center;
 		vertical-align: middle;
 		line-height: 200px;
 	}
 	div#wrap{
+		height: 100px;
 		background: #A782E8;
+		text-align: center;
 	}
 	#wrap a{
 		display: inline-block;
-		padding: 5px 20px;
-		height: 20px;
+		padding: 0px 20px;
 		color: #fff;
-		text-align: center;
+		font-size: 20px;
+		line-height: 100px;
+	}
+	#wrap a.active{
+		background: #8FDBFF;
 	}
 	#wrap a span{
 		text-decoration: underline;
-		font-size: 17px;
+	}
+	#wrap img{
+		width: 70px;
+		vertical-align: middle;
 	}
 </style>
-
 </head>
 <body>
 	<header>
-		<div>
-			<h1>
-				H E A D E R
-			</h1>
-		</div>
 		<div id="wrap">
-			<c:if test="${Auth == null}">
-				<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
-			</c:if>
-			<c:if test="${Auth != null}">
+			<a href="${pageContext.request.contextPath}">
+				<img src="${pageContext.request.contextPath}/resources/images/stitch (2).png">
+			</a>
+			<c:if test="${Auth != null}">				
+				<c:if test="${Type == 1}">
+					<!-- 원장 -->
+					<a href="${pageContext.request.contextPath}/manage/manageMain">유치원 관리</a>
+				</c:if>
+				<c:if test="${Type == 2}">
+					<!-- 교사 -->
+					<a href="${pageContext.request.contextPath}">게시판</a>
+					<a href="${pageContext.request.contextPath}">알림장</a>
+					<a href="${pageContext.request.contextPath}">앨범</a>
+					<a href="${pageContext.request.contextPath}">일정표</a>
+					<a href="${pageContext.request.contextPath}">투약의뢰서</a>
+					<a href="${pageContext.request.contextPath}/manage/manageMain">반 관리</a>
+				</c:if>
+				<c:if test="${Type == 3}">
+					<!-- 학부모 -->
+					<a href="${pageContext.request.contextPath}">게시판</a>
+					<a href="${pageContext.request.contextPath}">알림장</a>
+					<a href="${pageContext.request.contextPath}">앨범</a>
+					<a href="${pageContext.request.contextPath}">일정표</a>
+					<a href="${pageContext.request.contextPath}">투약의뢰서</a>
+					<a href="${pageContext.request.contextPath}/manage/manageMain">자녀 관리</a>
+				</c:if>
+				<a href="${pageContext.request.contextPath}"><span>${Nick}</span>님</a>
 				<a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>
 			</c:if>
-			<a href="${pageContext.request.contextPath}/member/joinIntro">회원가입</a>
-			<c:if test="${Auth != null}">
-				<a href="${pageContext.request.contextPath}/info/regist"><span>${Nick}</span>님</a>
+			<c:if test="${Auth == null}">
+				<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
+				<a href="${pageContext.request.contextPath}/member/joinIntro">회원가입</a>
 			</c:if>
 		</div>
 	</header>
+
+	<!----- S C R I P T ----->	
+	<script>
+		/* 선택한 a태그 배경 주기(갱신 때메 안 통하는 중) */
+		$("#wrap a").click(function() {
+			$("#wrap a").removeClass("active");
+			$(this).addClass("active");
+		})
+	</script>
 	

@@ -3,66 +3,68 @@ package com.khrd.domain;
 public class TeacherVO {
 	private int tNo; //교사번호
 	private int tType; //교사타입
-	private int mNo; //회원번호
-	private int kNo; //유치원번호
-	private int cNo; //반번호	
+	private MemberVO mVo; //회원정보
+	private KindergartenVO kVo; //유치원정보
+	private ClassVO cVo; //반정보
+	
 	
 	public TeacherVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TeacherVO(int tNo, int tType, int mNo, int kNo, int cNo) {
-		super();
-		this.tNo = tNo;
-		this.tType = tType;
-		this.mNo = mNo;
-		this.kNo = kNo;
-		this.cNo = cNo;
-	}
 
 	public int gettNo() {
 		return tNo;
 	}
 
+
 	public void settNo(int tNo) {
 		this.tNo = tNo;
 	}
+
 
 	public int gettType() {
 		return tType;
 	}
 
+
 	public void settType(int tType) {
 		this.tType = tType;
 	}
 
-	public int getmNo() {
-		return mNo;
+
+	public KindergartenVO getkVo() {
+		return kVo;
 	}
 
-	public void setmNo(int mNo) {
-		this.mNo = mNo;
+
+	public void setkVo(KindergartenVO kVo) {
+		this.kVo = kVo;
 	}
 
-	public int getkNo() {
-		return kNo;
+
+	public MemberVO getmVo() {
+		return mVo;
 	}
 
-	public void setkNo(int kNo) {
-		this.kNo = kNo;
+
+	public void setmVo(MemberVO mVo) {
+		this.mVo = mVo;
 	}
 
-	public int getcNo() {
-		return cNo;
+
+	public ClassVO getcVo() {
+		return cVo;
 	}
 
-	public void setcNo(int cNo) {
-		this.cNo = cNo;
+
+	public void setcVo(ClassVO cVo) {
+		this.cVo = cVo;
 	}
 
 	@Override
 	public String toString() {
-		return "TeacherVO [tNo=" + tNo + ", tType=" + tType + ", mNo=" + mNo + ", kNo=" + kNo + ", cNo=" + cNo + "]";
+		return "TeacherVO [tNo=" + tNo + ", tType=" + tType + ", kVo=" + kVo + ", mVo=" + mVo + ", cVo=" + cVo + "]";
 	}
 }

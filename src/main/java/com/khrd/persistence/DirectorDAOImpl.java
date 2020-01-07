@@ -19,5 +19,10 @@ public class DirectorDAOImpl implements DirectorDAO{
 		sqlSession.insert(namespace + "insert", vo);
 	}
 
+	@Override
+	public DirectorVO selectByNo(int mNo) {
+		return sqlSession.selectOne(namespace + "selectByNo", mNo);
+	}
+
 	
 }

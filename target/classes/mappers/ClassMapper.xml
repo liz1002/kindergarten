@@ -9,7 +9,7 @@
 		<result column="k_no" property="kNo"/>
 	</resultMap>
 	
-	<insert id="insert" parameterType="ClassVO">
+	<insert id="insert" parameterType="ClassVO" useGeneratedKeys="true" keyColumn="c_no" keyProperty="cNo">
 		insert into class(c_code, c_name, k_no) 
 		values(#{cCode}, #{cName}, #{kNo})
 	</insert>

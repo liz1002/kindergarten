@@ -5,17 +5,30 @@
 	<resultMap type="TeacherVO" id="teacherResultMap">
 		<id column="t_no" property="tNo"/>
 		<result column="t_type" property="tType"/>
-		<result column="m_no" property="mNo"/>
-		<result column="k_no" property="kNo"/>
-		<result column="c_no" property="cNo"/>
+		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
+		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="TeacherVO">
-		insert into teacher(t_type, m_no) 
-		values(#{tType}, #{mNo})
+		insert into teacher(t_type, m_no, k_no, c_no) 
+		values(#{tType}, #{mVo.mNo}, #{kVo.kNo}, LAST_INSERT_ID())
 	</insert>
 	
 	<select id="selectList" resultMap="teacherResultMap">
 		select * from teacher
 	</select>
+	
+	<select id="selectByMNo" resultMap="teacherResultMap">
+		select * from teacher where m_no=#{mNo}
+	</select>
+	
+	<select id="selectListByKNo" resultMap="teacherResultMap">
+		select * from teacher t join member m on t.m_no=m.m_no 
+			join class c on t.c_no=c.c_no where t.k_no=#{kNo}; 
+	</select>
+	
+	<update id="update">
+		update teacher set k_no=#{kNo}, c_no=#{cNo} where t_no=${tNo};
+	</update>
 </mapper>
