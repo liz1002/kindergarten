@@ -2,19 +2,19 @@ package com.khrd.domain;
 
 public class DirectorVO {
 	private int dNo; //원장번호
-	private int mNo; //회원번호
-	private int kNo; //유치원번호
+	private MemberVO mVo; //회원정보
+	private KindergartenVO kVo; //유치원정보
 	
 	public DirectorVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public DirectorVO(int dNo, int mNo, int kNo) {
+	public DirectorVO(int dNo, MemberVO mVo, KindergartenVO kVo) {
 		super();
 		this.dNo = dNo;
-		this.mNo = mNo;
-		this.kNo = kNo;
+		this.mVo = mVo;
+		this.kVo = kVo;
 	}
 
 	public int getdNo() {
@@ -25,24 +25,24 @@ public class DirectorVO {
 		this.dNo = dNo;
 	}
 
-	public int getmNo() {
-		return mNo;
+	public MemberVO getmVo() {
+		return mVo;
 	}
 
-	public void setmNo(int mNo) {
-		this.mNo = mNo;
+	public void setmVo(MemberVO mVo) {
+		this.mVo = mVo;
 	}
 
-	public int getkNo() {
-		return kNo;
+	public KindergartenVO getkVo() {
+		return kVo;
 	}
 
-	public void setkNo(int kNo) {
-		this.kNo = kNo;
+	public void setkVo(KindergartenVO kVo) {
+		this.kVo = kVo;
 	}
 
 	@Override
 	public String toString() {
-		return "DirectorVO [dNo=" + dNo + ", mNo=" + mNo + ", kNo=" + kNo + "]";
+		return "DirectorVO [dNo=" + dNo + ", mVo=" + mVo + ", kVo=" + kVo + "]";
 	}
 }

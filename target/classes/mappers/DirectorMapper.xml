@@ -4,17 +4,18 @@
 	
 	<resultMap type="DirectorVO" id="directorResultMap">
 		<id column="d_no" property="dNo"/>
-		<result column="m_no" property="mNo"/>
-		<result column="k_no" property="kNo"/>
+		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="DirectorVO">
 		insert into director(m_no, k_no) 
-		values(#{mNo}, LAST_INSERT_ID())
+		values(#{mVo.mNo}, #{kVo.kNo})
 	</insert>
 	
-	<select id="selectByNo" resultMap="directorResultMap">
-		select * from director where m_no=#{mNo}
+	<select id="selectListByNo" resultMap="directorResultMap">
+		select * from director d join member m on d.m_no=m.m_no 
+			join kindergarten k on d.k_no=k.k_no where m.m_no=#{mNo}
 	</select>
 
 </mapper>

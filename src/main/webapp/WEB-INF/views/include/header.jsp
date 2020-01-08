@@ -100,7 +100,7 @@
 					<a href="${pageContext.request.contextPath}">투약의뢰서</a>
 					<a href="${pageContext.request.contextPath}/manage/manageMain">자녀 관리</a>
 				</c:if>
-				<a href="${pageContext.request.contextPath}"><span>${Nick}</span>님</a>
+				<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}"><span>${Nick}</span>님</a>
 				<a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>
 			</c:if>
 			<c:if test="${Auth == null}">

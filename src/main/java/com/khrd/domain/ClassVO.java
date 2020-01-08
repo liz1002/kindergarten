@@ -4,7 +4,7 @@ public class ClassVO {
 	private int cNo; //반번호
 	private String cCode; //반코드
 	private String cName; //반이름
-	private int kNo; //유치원번호
+	private int kNo; //유치원번호  *유치원 전체 정보
 	
 	public ClassVO() {
 		super();

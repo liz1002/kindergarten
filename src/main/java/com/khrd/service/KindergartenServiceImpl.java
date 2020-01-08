@@ -12,25 +12,20 @@ import com.khrd.persistence.KindergartenDAO;
 public class KindergartenServiceImpl implements KindergartenService{
 	
 	@Autowired
-	private KindergartenDAO dao;
-
-	@Override
-	public void regist(KindergartenVO vo) {
-		dao.insert(vo);
-	}
+	private KindergartenDAO kDao;
 
 	@Override
 	public List<KindergartenVO> selectList() {
-		return dao.selectList();
+		return kDao.selectList();
 	}
 
 	@Override
 	public KindergartenVO selectByNo(int kNo) {
-		return dao.selectByNo(kNo);
+		return kDao.selectByNo(kNo);
 	}
 
 	@Override
 	public KindergartenVO selectByCode(String kCode) {
-		return dao.selectByCode(kCode);
+		return kDao.selectByCode(kCode);
 	}
 }

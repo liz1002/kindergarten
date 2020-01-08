@@ -9,22 +9,32 @@
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 	
+	<sql id="selectJoin">
+		select * from parent p join member m on p.m_no=m.m_no
+			join class c on p.c_no=c.c_no join kindergarten k on p.k_no=k.k_no
+	</sql>
+	
 	<insert id="insert" parameterType="ParentVO">
 		insert into parent(m_no, k_no, c_no) values(#{mVo.mNo}, #{kVo.kNo}, #{cVo.cNo})
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="parentResultMap">
-		select * from parent p join member m on p.m_no=m.m_no where p.m_no=#{mNo};
+		<include refid="selectJoin" /> where p.m_no=#{mNo};
 	</select>
 	
 	<select id="selectListByMNoAndKNO" resultMap="parentResultMap">
-		select * from parent p join `member` m on p.m_no=m.m_no 
-			join class c on p.c_no=c.c_no where p.m_no=#{mNo} and p.k_no=#{kNo}
+		<include refid="selectJoin" /> where p.m_no=#{mNo} and p.k_no=#{kNo}
 	</select>
 
 	<select id="selectListByKNo" resultMap="parentResultMap">
-		select * from parent p join member m on p.m_no=m.m_no
-			join class c on p.c_no=c.c_no where p.k_no=#{kNo};
+		<include refid="selectJoin" /> where p.k_no=#{kNo};
 	</select>
 
+	<select id="selectFamilyListByMNo" resultMap="mappers.FamilyMapper.familyResultMap">
+		select * from family f join parent p on f.p_no=p.p_no
+						join children ch on f.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						where p.m_no=#{mNo}
+	</select>
 </mapper>

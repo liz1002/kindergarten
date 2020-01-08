@@ -3,8 +3,8 @@
 <mapper namespace="mappers.FamilyMapper">
 	
 	<resultMap type="FamilyVO" id="familyResultMap">
-		<id column="p_no" property="pNo"/>
-		<result column="ch_no" property="chNo"/>
+		<association property="pVo" resultMap="mappers.ParentMapper.parentResultMap"/>
+		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="FamilyVO">

@@ -19,16 +19,10 @@
 
 <section>
 	<div id="container">
-		<p>이름 : ${mVo.mName}</p>
-		<p>별명 : ${mVo.mNickname}</p>
-		<p>연락처 : ${mVo.mTel}</p>
-		<p>나중에 해당 유치원+해당 부모의 모든 자녀 보이기</p>
-		
-		<!-- 접속자가 본인이면 -->
-		<c:if test="${mVo.mId == Auth}">
-			<p>생년월일 : ${mVo.mRegdate}</p>
-			<p>생년월일 : ${mVo.mRegdate}</p>
-		</c:if>
+		<h1>원아 정보</h1>
+		<p>이름 : ${kVo.kName}</p>
+		<p>연락처 : ${kVo.kTel}</p>
+		<p>주소 : ${kVo.kAddress}</p>
 	</div>
 </section>
 

@@ -54,38 +54,38 @@
 				<legend>회원 정보</legend>
 				<p>
 					<label><span class="necessary">*</span>타입</label>
-					<select name="mType">
+					<select name="mVo.mType">
 						<option value="1" selected="selected">원장</option>
 					</select>
 				</p>
 				<p>
 					<label><span class="necessary">*</span>아이디</label>
-					<input type="text" name="mId" data-msg="아이디를 입력하세요.">
+					<input type="text" name="mVo.mId" data-msg="아이디를 입력하세요.">
 					<button type="button" id="btnOverlap">중복확인</button>
 				</p>
 				<p>
 					<label><span class="necessary">*</span>비밀번호</label>
-					<input type="password" name="mPwd" data-msg="비밀번호를 입력하세요.">
+					<input type="password" name="mVo.mPwd" data-msg="비밀번호를 입력하세요.">
 				</p>
 				<p>
 					<label><span class="necessary">*</span>비밀번호 확인</label>
-					<input type="password" name="mPwdCheck" data-msg="비밀번호 확인을 입력하세요.">
+					<input type="password" name="mVo.mPwdCheck" data-msg="비밀번호 확인을 입력하세요.">
 				</p>
 				<p>
 					<label><span class="necessary">*</span>성명</label>
-					<input type="text" name="mName" data-msg="이름을 입력하세요.">
+					<input type="text" name="mVo.mName" data-msg="이름을 입력하세요.">
 				</p>
 				<p>
 					<label><span class="necessary">*</span>생년월일</label>
-					<input type="date" name="mRegdate" data-msg="생년월일을 선택하세요."><!-- selectbox로 만들기 -->
+					<input type="date" name="mVo.mRegdate" data-msg="생년월일을 선택하세요."><!-- selectbox로 만들기 -->
 				</p>
 				<p>
 					<label><span class="necessary">&numsp;</span>연락처</label>
-					<input type="tel" name="mTel"><!-- select + text로 변경 -->
+					<input type="tel" name="mVo.mTel"><!-- select + text로 변경 -->
 				</p>
 				<p>
 					<label><span class="necessary">*</span>별명</label>
-					<input type="text" name="mNickname" data-msg="별명을 입력하세요.">
+					<input type="text" name="mVo.mNickname" data-msg="별명을 입력하세요.">
 					<span id="coment"> [예시] 무지개 원장, 은하수유치원 원장 등</span><!-- 컨트롤러에서 유치원+원장으로 자동 생성하고 폼에서 없애기 -->
 				</p>
 				<p class="guid">
@@ -97,15 +97,15 @@
 				<legend>유치원 정보</legend>
 				<p>
 					<label><span class="necessary">*</span>유치원 이름</label>
-					<input type="text" name="kName" data-msg="이름을 입력하세요.">
+					<input type="text" name="kVo.kName" data-msg="이름을 입력하세요.">
 				</p>
 				<p>
 					<label><span class="necessary">*</span>유치원 연락처</label>
-					<input type="text" name="kTel"><!-- select + text로 변경 -->
+					<input type="text" name="kVo.kTel"><!-- select + text로 변경 -->
 				</p>
 				<p>
 					<label><span class="necessary">&numsp;</span>주소</label>
-					<input type="text" name="kAddress">
+					<input type="text" name="kVo.kAddress">
 				</p>
 				<p class="guid">
 					<span class="necessary">*</span>은 필수 입력 사항입니다.
@@ -115,8 +115,6 @@
 			<p>
 				<input type="submit" value="등록 완료">
 			</p>
-			
-			<!-- <input type="hidden" name="tType" value="0"> 교사 역할 -->
 		</form>
 	</div>
 </section>

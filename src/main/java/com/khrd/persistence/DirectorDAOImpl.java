@@ -1,5 +1,7 @@
 package com.khrd.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,8 +22,8 @@ public class DirectorDAOImpl implements DirectorDAO{
 	}
 
 	@Override
-	public DirectorVO selectByNo(int mNo) {
-		return sqlSession.selectOne(namespace + "selectByNo", mNo);
+	public List<DirectorVO> selectListByNo(int mNo) {
+		return sqlSession.selectList(namespace + "selectListByNo", mNo);
 	}
 
 	

@@ -9,21 +9,21 @@ public class ChildrenVO {
 	private String chName; //원아이름
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date chRegdate; //생년월일
-	private int kNo; //유치원번호
-	private int cNo; //반번호
+	private KindergartenVO kVo; //유치원정보
+	private ClassVO cVo; //반정보
 	
 	public ChildrenVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChildrenVO(int chNo, String chName, Date chRegdate, int kNo, int cNo) {
+	public ChildrenVO(int chNo, String chName, Date chRegdate, KindergartenVO kVo, ClassVO cVo) {
 		super();
 		this.chNo = chNo;
 		this.chName = chName;
 		this.chRegdate = chRegdate;
-		this.kNo = kNo;
-		this.cNo = cNo;
+		this.kVo = kVo;
+		this.cVo = cVo;
 	}
 
 	public int getChNo() {
@@ -50,25 +50,25 @@ public class ChildrenVO {
 		this.chRegdate = chRegdate;
 	}
 
-	public int getkNo() {
-		return kNo;
+	public KindergartenVO getkVo() {
+		return kVo;
 	}
 
-	public void setkNo(int kNo) {
-		this.kNo = kNo;
+	public void setkVo(KindergartenVO kVo) {
+		this.kVo = kVo;
 	}
 
-	public int getcNo() {
-		return cNo;
+	public ClassVO getcVo() {
+		return cVo;
 	}
 
-	public void setcNo(int cNo) {
-		this.cNo = cNo;
+	public void setcVo(ClassVO cVo) {
+		this.cVo = cVo;
 	}
 
 	@Override
 	public String toString() {
-		return "ChildrenVO [chNo=" + chNo + ", chName=" + chName + ", chRegdate=" + chRegdate + ", kNo=" + kNo
-				+ ", cNo=" + cNo + "]";
-	}	
+		return "ChildrenVO [chNo=" + chNo + ", chName=" + chName + ", chRegdate=" + chRegdate + ", kVo=" + kVo
+				+ ", cVo=" + cVo + "]";
+	}
 }

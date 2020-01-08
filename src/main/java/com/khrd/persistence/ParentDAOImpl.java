@@ -41,5 +41,10 @@ public class ParentDAOImpl implements ParentDAO{
 		return sqlSession.selectList(namespace + "selectListByMNoAndKNO", map);
 	}
 
+	@Override
+	public List<ParentVO> selectFamilyListByMNo(int mNo) {
+		return sqlSession.selectList(namespace + "selectFamilyListByMNo", mNo);
+	}
+
 
 }

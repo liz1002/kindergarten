@@ -10,9 +10,14 @@
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 	
-	<insert id="insert" parameterType="TeacherVO">
+	<sql id="selectJoin">
+		select * from teacher t join member m on t.m_no=m.m_no 
+			join class c on t.c_no=c.c_no join kindergarten k on t.k_no=k.k_no
+	</sql>
+	
+	<insert id="insert" parameterType="TeacherVO">		
 		insert into teacher(t_type, m_no, k_no, c_no) 
-		values(#{tType}, #{mVo.mNo}, #{kVo.kNo}, LAST_INSERT_ID())
+		values(#{tType}, #{mVo.mNo}, #{kVo.kNo}, #{cVo.cNo})
 	</insert>
 	
 	<select id="selectList" resultMap="teacherResultMap">
@@ -20,12 +25,19 @@
 	</select>
 	
 	<select id="selectByMNo" resultMap="teacherResultMap">
-		select * from teacher where m_no=#{mNo}
+		<include refid="selectJoin" /> where m.m_no=#{mNo};
+	</select>
+
+	<select id="selectByMNoAndKNo" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo};
 	</select>
 	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
-		select * from teacher t join member m on t.m_no=m.m_no 
-			join class c on t.c_no=c.c_no where t.k_no=#{kNo}; 
+		<include refid="selectJoin" /> where t.k_no=#{kNo}; 
+	</select>
+	
+	<select id="selectListByCNo" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where t.c_no=#{cNo}
 	</select>
 	
 	<update id="update">

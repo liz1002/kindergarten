@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.ChildrenMapper">
+	
+	<resultMap type="ChildrenVO" id="childrenResultMap">
+		<id column="ch_no" property="chNo"/>
+		<result column="ch_name" property="chName"/>
+		<result column="ch_regdate" property="chRegdate"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
+		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
+	</resultMap>
+
+	<sql id="selectJoin">
+		select * from children ch join class c on ch.c_no=c.c_no 
+			join kindergarten k on ch.k_no=k.k_no
+	</sql>
+
+	<insert id="insert" parameterType="ChildrenVO">
+		insert into children(ch_name, ch_regdate, k_no, c_no) 
+			values (#{chName}, #{chRegdate}, #{kVo.kNo}, #{cVo.cNo})
+	</insert>
+
+	<select id="selectListByKNo" resultMap="childrenResultMap">
+		<include refid="selectJoin" /> where ch.k_no=#{kNo}
+	</select>
+	
+	<select id="selectListByCNo" resultMap="childrenResultMap">
+		<include refid="selectJoin" /> where ch.c_no=#{cNo}
+	</select>
+</mapper>

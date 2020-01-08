@@ -39,6 +39,19 @@ public class TeacherDAOImpl implements TeacherDAO{
 	}
 
 	@Override
+	public List<TeacherVO> selectListByCNo(int cNo) {
+		return sqlSession.selectList(namespace + "selectListByCNo", cNo);
+	}
+
+	@Override
+	public List<TeacherVO> selectByMNoAndKNo(int mNo, int kNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("mNo", mNo);
+		map.put("kNo", kNo);
+		return sqlSession.selectList(namespace + "selectByMNoAndKNo", map);
+	}
+
+	@Override
 	public void update(TeacherVO vo, int tNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("vo", vo);

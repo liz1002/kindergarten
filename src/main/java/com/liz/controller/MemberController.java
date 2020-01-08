@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khrd.domain.KindergartenVO;
+import com.khrd.domain.DirectorVO;
 import com.khrd.domain.MemberVO;
+import com.khrd.service.DirectorService;
 import com.khrd.service.MemberService;
 
 @Controller
@@ -20,8 +21,15 @@ import com.khrd.service.MemberService;
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	
+	/* * * * * service * * * * */
+	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private DirectorService directorService;
+	
+	/* * * * * method * * * * */
 	
 	/* 로그인 유형 선택 */
 	@RequestMapping(value = "joinIntro", method = RequestMethod.GET)
@@ -75,11 +83,10 @@ public class MemberController {
 	
 	/* 원장 가입 */
 	@RequestMapping(value = "joinD", method = RequestMethod.POST) 
-	public String joinDirectorPost(MemberVO mVo, KindergartenVO kVo, Model model) {
+	public String joinDirectorPost(DirectorVO dVo, Model model) {
 		logger.info("🏳‍🌈 Join Director POST");
 		
-		logger.info("[mVo] " + mVo);
-		logger.info("[kVo] " + kVo);
+		logger.info("[dVo] " + dVo);
 
 		//유치원 코드 생성
 		Random rnd = new Random();		
@@ -102,13 +109,47 @@ public class MemberController {
 		String code = temp.toString();
 		logger.info("[Kcode] " + code);
 		
-		kVo.setkCode(code);
-		memberService.registDirector(mVo, kVo); //회원추가
+		dVo.getkVo().setkCode(code);
+		directorService.registDirector(dVo); //회원추가
 		
 		model.addAttribute("kCode", code);
 		
 		return "redirect:/member/joinOutro";
 	}
+//	public String joinDirectorPost(MemberVO mVo, KindergartenVO kVo, Model model) {
+//		logger.info("🏳‍🌈 Join Director POST");
+//		
+//		logger.info("[mVo] " + mVo);
+//		logger.info("[kVo] " + kVo);
+//
+//		//유치원 코드 생성
+//		Random rnd = new Random();		
+//		StringBuffer temp = new StringBuffer();
+//		
+//		for(int i = 0; i < 7; i++) { //(=7자리 문자열 생성)
+//		    int rndIdx = rnd.nextInt(2); //숫자 or 영어 선택할 랜덤 값(0, 1)
+//		    switch (rndIdx) {
+//			    case 0:
+//			    	// 0-9
+//			    	temp.append((rnd.nextInt(10)));
+//			        break;
+//			    case 1:
+//			        // A-Z
+//			    	temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+//			        break;
+//		    }
+//		}
+//		
+//		String code = temp.toString();
+//		logger.info("[Kcode] " + code);
+//		
+//		kVo.setkCode(code);
+//		memberService.registDirector(mVo, kVo); //회원추가
+//		
+//		model.addAttribute("kCode", code);
+//		
+//		return "redirect:/member/joinOutro";
+//	}
 	
 	/* 로그인 후 화면 */
 	@RequestMapping(value = "joinOutro", method = RequestMethod.GET)

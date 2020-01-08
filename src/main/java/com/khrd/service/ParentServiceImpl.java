@@ -33,6 +33,11 @@ public class ParentServiceImpl implements ParentService{
 	public List<ParentVO> selectListByMNoAndKNO(int mNo, int kNo) {
 		return dao.selectListByMNoAndKNO(mNo, kNo);
 	}
+
+	@Override
+	public List<ParentVO> selectFamilyListByMNo(int mNo) {
+		return dao.selectFamilyListByMNo(mNo);
+	}
 	
 	
 }
