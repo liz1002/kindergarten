@@ -27,6 +27,7 @@ select * from teacher order by t_no desc;
 
 desc parent;
 select * from parent order by p_no desc;
+select * from parent join `member` using(m_no);
 
 desc children;
 select * from children order by ch_no desc;
@@ -71,8 +72,8 @@ select * from album_children;
 
 insert into member(m_type, m_id, m_pwd, m_name, m_regdate, m_tel, m_nickname) values
 (1, 'director1', '1111', '김원장', now(), null, '한국예술 원장'),
-(1, 'director1', '1111', '이원장', now(), null, '무지개 원장'),
-(1, 'director1', '1111', '박원장', now(), null, '보노유치원 원장'),
+(1, 'director2', '2222', '이원장', now(), null, '무지개 원장'),
+(1, 'director3', '3333', '박원장', now(), null, '보노유치원 원장'),
 (2, 'teacher1', '1111', '김미나', now(), null, '보라반 담임'),
 (2, 'teacher2', '2222', '권민지', now(), '010-1234-5678', '보라반 부담임'),
 (2, 'teacher3', '3333', '유은혜', now(), '010-1234-5678', '은하수반 부담임'),
@@ -112,3 +113,41 @@ insert into teacher(t_type, m_no, k_no, c_no) values
 (2, 6, 3, 10),
 (1, 7, 3, 9),
 (1, 8, 3, 6);
+
+insert into parent(m_no, k_no, c_no) values
+(9, 2, 5),
+(10, 2, 5),
+(10, 3, 1),
+(10, 3, 10),
+(11, 3, 9),
+(12, 3, 6),
+(13, 3, 6);
+
+
+
+-- join ----------------------------------------------------
+
+select * from teacher t join member m on t.m_no=m.m_no 
+						join class c on t.c_no=c.c_no 
+						where t.k_no = 3; /* 유치원 별 교사 리스트 */
+
+select * from parent p join member m on p.m_no=m.m_no
+						join class c on p.c_no=c.c_no 
+						where p.k_no = 3; /* 유치원 별 부모 리스트 */
+
+select * from parent join member using(m_no) where c_no = 6; /* 반 별 부모 리스트 */
+
+/* 반 별 원아 리스트 */
+
+/* 가족 리스트 */
+
+select * from parent p join `member` m on p.m_no=m.m_no 
+						join class c on p.c_no=c.c_no
+where p.m_no=10 and p.k_no=2; /* 특정 부모 정보 */
+
+select * from teacher t join class c on t.c_no=c.c_no 
+						join kindergarten k on c.k_no=k.k_no
+						where t.m_no = 4;/* 교사별 유치원&반 리스트 */
+					
+					
+					select * from parent p join member m on p.m_no=m.m_no where p.m_no=10;
