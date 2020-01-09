@@ -29,6 +29,21 @@ public class ChildrenServiceImpl implements ChildrenService{
 		return dao.selectListByCNo(cNo);
 	}
 
+	@Override
+	public ChildrenVO selectByChNo(int chNo) {
+		return dao.selectByChNo(chNo);
+	}
+
+	@Override
+	public List<ChildrenVO> selectParentListByChNo(int chNo) {
+		return dao.selectParentListByChNo(chNo);
+	}
+
+	@Override
+	public void removeByChNo(int chNo) {
+		dao.deleteByChNo(chNo);
+	}
+
 	
 	
 	

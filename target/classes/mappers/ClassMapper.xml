@@ -10,12 +10,12 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="ClassVO" useGeneratedKeys="true" keyColumn="c_no" keyProperty="cNo">
-		insert into class(c_code, c_name, k_no) 
-		values(#{cCode}, #{cName}, #{kNo})
+		insert into class(c_code, c_name, c_regdate, k_no) 
+		values(#{cCode}, #{cName}, now(), #{kNo})
 	</insert>
 	
-	<select id="selectList" resultMap="classResultMap">
-		select * from class
+	<select id="selectListByKNo" resultMap="classResultMap">
+		select * from class where k_no=#{kNo}
 	</select>
 	
 	<select id="selectByNo" resultMap="classResultMap">
@@ -25,4 +25,8 @@
 	<select id="selectByCode" resultMap="classResultMap">
 		select * from class where c_code=#{cCode}
 	</select>
+	
+	<delete id="deleteByCNo">
+		delete from class where c_no=#{cNo}
+	</delete>
 </mapper>

@@ -22,11 +22,6 @@ public class ClassDAOImpl implements ClassDAO{
 	}
 
 	@Override
-	public List<ClassVO> selectList() {
-		return sqlSession.selectList(namespace + "selectList");
-	}
-
-	@Override
 	public ClassVO selectByNo(int cNo) {
 		return sqlSession.selectOne(namespace + "selectByNo", cNo);
 	}
@@ -34,5 +29,15 @@ public class ClassDAOImpl implements ClassDAO{
 	@Override
 	public ClassVO selectByCode(String cCode) {
 		return sqlSession.selectOne(namespace + "selectByCode", cCode);
+	}
+
+	@Override
+	public List<ClassVO> selectListByKNo(int kNo) {
+		return sqlSession.selectList(namespace + "selectListByKNo", kNo);
+	}
+
+	@Override
+	public void deleteByCNo(int cNo) {
+		sqlSession.delete(namespace + "deleteByCNo", cNo);
 	}
 }

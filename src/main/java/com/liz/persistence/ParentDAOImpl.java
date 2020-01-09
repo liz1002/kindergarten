@@ -34,6 +34,11 @@ public class ParentDAOImpl implements ParentDAO{
 	}
 
 	@Override
+	public List<ParentVO> selectListByCNo(int cNo) {
+		return sqlSession.selectList(namespace + "selectListByCNo", cNo);
+	}
+	
+	@Override
 	public List<ParentVO> selectListByMNoAndKNO(int mNo, int kNo) {
 		Map<String, Integer> map = new HashMap<>();
 		map.put("mNo", mNo);
@@ -44,6 +49,16 @@ public class ParentDAOImpl implements ParentDAO{
 	@Override
 	public List<ParentVO> selectFamilyListByMNo(int mNo) {
 		return sqlSession.selectList(namespace + "selectFamilyListByMNo", mNo);
+	}
+
+	@Override
+	public void deleteByMNo(int mNo) {
+		sqlSession.delete(namespace + "deleteByMNo", mNo);
+	}
+
+	@Override
+	public void deleteByChNo(int chNo) {
+		sqlSession.delete(namespace + "deleteByChNo", chNo);
 	}
 
 

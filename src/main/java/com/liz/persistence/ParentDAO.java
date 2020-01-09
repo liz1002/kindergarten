@@ -8,6 +8,9 @@ public interface ParentDAO {
 	public void insert(ParentVO vo);
 	public List<ParentVO> selectListByMNo(int mNo);
 	public List<ParentVO> selectListByKNo(int kNo);
+	public List<ParentVO> selectListByCNo(int cNo);
 	public List<ParentVO> selectListByMNoAndKNO(int mNo, int kNo);
 	public List<ParentVO> selectFamilyListByMNo(int mNo);
+	public void deleteByMNo(int mNo);
+	public void deleteByChNo(int chNo);
 }

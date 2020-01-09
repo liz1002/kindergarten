@@ -1,56 +1,18 @@
 package com.liz.domain;
 
 public class ParentVO {
-	private int pNo; //부모번호
-	private int mNo; //회원번호
-	private MemberVO mVo; //회원정보
-	private KindergartenVO kVo; //유치원정보
-	private ClassVO cVo; //반정보
+	private MemberVO mVo; //학부모 회원 정보
+	private ChildrenVO chVo; //원아 정보
 	
 	public ParentVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ParentVO(int pNo, int mNo, KindergartenVO kVo, ClassVO cVo, MemberVO mVo) {
+	public ParentVO(MemberVO mVo, ChildrenVO chVo) {
 		super();
-		this.pNo = pNo;
-		this.mNo = mNo;
-		this.kVo = kVo;
-		this.cVo = cVo;
 		this.mVo = mVo;
-	}
-
-	public int getpNo() {
-		return pNo;
-	}
-
-	public void setpNo(int pNo) {
-		this.pNo = pNo;
-	}
-
-	public int getmNo() {
-		return mNo;
-	}
-
-	public void setmNo(int mNo) {
-		this.mNo = mNo;
-	}
-
-	public KindergartenVO getkVo() {
-		return kVo;
-	}
-
-	public void setkVo(KindergartenVO kVo) {
-		this.kVo = kVo;
-	}
-
-	public ClassVO getcVo() {
-		return cVo;
-	}
-
-	public void setcVo(ClassVO cVo) {
-		this.cVo = cVo;
+		this.chVo = chVo;
 	}
 
 	public MemberVO getmVo() {
@@ -61,8 +23,16 @@ public class ParentVO {
 		this.mVo = mVo;
 	}
 
+	public ChildrenVO getChVo() {
+		return chVo;
+	}
+
+	public void setChVo(ChildrenVO chVo) {
+		this.chVo = chVo;
+	}
+
 	@Override
 	public String toString() {
-		return "ParentVO [pNo=" + pNo + ", mNo=" + mNo + ", kVo=" + kVo + ", cVo=" + cVo + ", mVo=" + mVo + "]";
+		return "ParentVO [mVo=" + mVo + ", chVo=" + chVo + "]";
 	}
 }

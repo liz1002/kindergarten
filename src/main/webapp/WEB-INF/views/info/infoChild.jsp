@@ -10,26 +10,21 @@
 	}
 	#container > p{
 		line-height: 100px;
-		font-weight: bold;
-		font-size: 18px;
 	}
 	#container a:hover {
 		text-decoration: underline;
-	}
-	#container hr{
-		margin: 20px auto;
 	}
 </style>
 
 <section>
 	<div id="container">
-		<h1>${kVo.kName}</h1>
-		<p>연락처</p>
-		<span>${kVo.kTel}</span>
-		<p>주소</p>
-		<span>${kVo.kAddress}</span>
-		<p>코드</p>
-		<span>${kVo.kCode}</span>
+		<h1>${chVo.chName}</h1>
+		<p>생년월일</p>
+		<span><fmt:formatDate value="${chVo.chRegdate}" pattern="yyyy년 MM월 dd일"/> </span>
+		<p>
+			<a href="${pageContext.request.contextPath}/info/infoKinder?kNo=${chVo.kVo.kNo}">${chVo.kVo.kName}</a> | 
+			<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${chVo.cVo.cNo}">${chVo.cVo.cName}</a>	
+		</p>
 	</div>
 </section>
 

@@ -1,6 +1,7 @@
 package com.liz.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -11,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
 import com.liz.domain.DirectorVO;
 import com.liz.domain.KindergartenVO;
@@ -81,6 +84,17 @@ public class ManageController {
 		}
 	}
 	
+	/* 교사 - 유치원 & 반 리스트 */
+	@RequestMapping(value = "manageTeahcer", method = RequestMethod.GET)
+	public void manageTeacher(HttpSession session, Model model) {
+		logger.info("🏳‍🌈 Manage Teahcer GET");
+		
+		Object mId = session.getAttribute("Auth");
+		MemberVO mVo = memberService.selectById((String) mId);
+		
+		model.addAttribute("tList", teacherService.selectByMNo(mVo.getmNo())); //해당 교사의 유치원&반 리스트
+	}
+	
 	/* 원장 - 유치원 추가, 교사 - 유치원 등록 & 반 추가, 학부모 - 유치원&반 등록 */
 	@RequestMapping(value = "regist", method = RequestMethod.GET)
 	public String registGet(HttpSession session, Model model) {
@@ -95,7 +109,7 @@ public class ManageController {
 			case 1:				
 				return "manage/manageKinder";
 			case 2: //교사	
-				return "manage/manageTeacher"; 
+				return "manage/manageClass"; 
 			case 3: //학부모
 				return "manage/manageParent";
 			default:
@@ -114,7 +128,8 @@ public class ManageController {
 		model.addAttribute("mNo", vo.getmNo());
 		
 		if(vo.getmType() == 1) {
-			model.addAttribute("kinder", kindergartenService.selectByNo(kNo)); //해당 유치원 정보
+			model.addAttribute("kVo", kindergartenService.selectByNo(kNo)); //해당 유치원 정보
+			model.addAttribute("cList", classService.selectListByKNo(kNo)); //해당 유치원 반 리스트
 			model.addAttribute("tList", teacherService.selectListByKNo(kNo)); //해당 유치원번호의 교사 리스트
 			model.addAttribute("pList", parentService.selectListByKNo(kNo)); //해당 유치원번호의 학부모 리스트
 			model.addAttribute("chList", childrenService.selectListByKNo(kNo)); //해당 유치원번호의 원아 리스트
@@ -137,7 +152,7 @@ public class ManageController {
 		
 		if(vo.getmType() == 2) {
 			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
-			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반의 원아 리스트						
+			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반의 원아 리스트
 		
 			return "manage/manageChildren";
 		}
@@ -220,20 +235,29 @@ public class ManageController {
 		
 		tVo.getcVo().setkNo(tVo.getkVo().getkNo());
 		
-		classService.regist(tVo); //반 추가 , 교사 추가
+		if(tVo.getcVo().getcNo() == 0) { //담임
+			classService.regist(tVo); //반 추가 , 교사 추가
+		}else { //부담임
+			teacherService.regist(tVo); //교사만 추가
+		}
 		
 		return "redirect:/manage/manageMain";
 	}
 	
 	/* 교사 - 유아 등록 */
+	@ResponseBody
 	@RequestMapping(value = "registCh", method = RequestMethod.POST)
-	public String registChPost(int cNo, TeacherVO tVo) {
-		logger.info("🏳‍🌈 regist Teacher POST");
-		logger.info("[cNo] " + cNo);
-		logger.info("[tVo] " + tVo);
-	
-		return "";
+	public List<ChildrenVO> registChPost(@RequestBody ChildrenVO chVo) {
+		logger.info("🏳‍🌈 regist Children POST");
+		logger.info("[chVo] " + chVo);
+		
+		int cNo = chVo.getcVo().getcNo();
+		
+		childrenService.regist(chVo);
+		
+		return childrenService.selectListByCNo(cNo);
 	}
+
 	/* 학부모 - 유치원 등록, 반 등록, 학부모 생성 */
 	@RequestMapping(value = "registP", method = RequestMethod.POST)
 	public String registPPost(ParentVO pVo) {

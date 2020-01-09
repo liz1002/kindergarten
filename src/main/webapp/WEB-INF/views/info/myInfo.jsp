@@ -11,9 +11,8 @@
 	#container > p{
 		line-height: 100px;
 	}
-	#container a{
+	#container a:hover {
 		text-decoration: underline;
-		background: #fff;
 	}
 </style>
 
@@ -22,14 +21,21 @@
 		<h1>내 정보</h1>
 		<!-- 접속자가 본인이면 -->
 		<c:if test="${mVo.mId == Auth}">
-			<p>이름 : ${mVo.mName}</p>
-			<p>아이디 : ${mVo.mId}</p>
-			<p>별명 : ${mVo.mNickname}</p>
-			<p>연락처 : ${mVo.mTel}</p>
-			<p>생년월일 : <fmt:formatDate value="${mVo.mRegdate}" pattern="yyyy년 MM월 dd일"/></p>
+			<p>이름</p>
+			<span>${mVo.mName}</span>
+			<p>아이디</p>
+			<span>${mVo.mId}</span>
+			<p>별명</p>
+			<span>${mVo.mNickname}</span>
+			<p>연락처</p>
+			<span>${mVo.mTel}</span>
+			<p>생년월일</p>
+			<span><fmt:formatDate value="${mVo.mRegdate}" pattern="yyyy년 MM월 dd일"/></span>
+			<p>
+				<a href="#">개인정보 수정</a><br>
+				<a href="${pageContext.request.contextPath}/member/secession?mNo=${mVo.mNo}">회원 탈퇴</a>
+			</p>
 		</c:if>
-		
-		<p><a href="#">개인정보 수정</a></p>
 	</div>
 </section>
 

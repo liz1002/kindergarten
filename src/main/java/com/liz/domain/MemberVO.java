@@ -14,14 +14,15 @@ public class MemberVO {
 	private Date mRegdate; //생년월일
 	private String mTel; //휴대폰번호
 	private String mNickname; //닉네임
+	private int mUse; //탈퇴여부
 	
 	public MemberVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public MemberVO(int mNo, int mType, String mId, String mPwd, String mName, Date mRegdate, String mTel,
-			String mNickname) {
+			String mNickname, int mUse) {
 		super();
 		this.mNo = mNo;
 		this.mType = mType;
@@ -31,6 +32,7 @@ public class MemberVO {
 		this.mRegdate = mRegdate;
 		this.mTel = mTel;
 		this.mNickname = mNickname;
+		this.mUse = mUse;
 	}
 
 	public int getmNo() {
@@ -97,9 +99,17 @@ public class MemberVO {
 		this.mNickname = mNickname;
 	}
 
+	public int getmUse() {
+		return mUse;
+	}
+
+	public void setmUse(int mUse) {
+		this.mUse = mUse;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [mNo=" + mNo + ", mType=" + mType + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName
-				+ ", mRegdate=" + mRegdate + ", mTel=" + mTel + ", mNickname=" + mNickname + "]";
+				+ ", mRegdate=" + mRegdate + ", mTel=" + mTel + ", mNickname=" + mNickname + ", mUse=" + mUse + "]";
 	}
 }

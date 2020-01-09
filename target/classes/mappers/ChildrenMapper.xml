@@ -21,10 +21,27 @@
 	</insert>
 
 	<select id="selectListByKNo" resultMap="childrenResultMap">
-		<include refid="selectJoin" /> where ch.k_no=#{kNo}
+		<include refid="selectJoin" /> where ch.k_no=#{kNo} order by c.c_name, ch.ch_name
 	</select>
 	
 	<select id="selectListByCNo" resultMap="childrenResultMap">
-		<include refid="selectJoin" /> where ch.c_no=#{cNo}
+		<include refid="selectJoin" /> where ch.c_no=#{cNo} order by ch.ch_name
 	</select>
+	
+	<select id="selectByChNo" resultMap="childrenResultMap">
+		<include refid="selectJoin" /> where ch.ch_no=#{chNo}
+	</select>
+	
+	<select id="selectParentListByChNo">
+		select * from children ch join parent p on ch.ch_no=p.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						join member m on p.m_no=m.m_no
+						where ch.ch_no=#{chNo} order by m.m_name
+	</select>
+	
+	<delete id="deleteByChNo">
+		delete from children where ch_no=#{chNo}
+	</delete>
+	
 </mapper>

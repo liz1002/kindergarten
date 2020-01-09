@@ -3,11 +3,8 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-	div#form_wrap{
-		width: 70%;
-		margin: 20px auto;
-	}
 	fieldset {
+		width: 70%;
 		margin: 50px auto;
 		padding: 20px 50px;
 		background: #F2F3F5;
@@ -44,6 +41,7 @@
 </style>
 
 <section>
+	<%@include file="../include/manageMenu.jsp" %>
 	<div id="form_wrap">
 		<form action="registT" method="post">	
 			<fieldset>
@@ -84,8 +82,8 @@
 				<input type="submit" value="등록">
 			</p>
 			
-			<input type="hidden" name="kVo.kNo" >
-			<input type="hidden" name="cVo.cNo" >
+			<input type="hidden" name="kVo.kNo">
+			<input type="hidden" name="cVo.cNo">
 			<input type="hidden" name="mVo.mNo" value="${mNo}">
 		</form>
 	</div>
@@ -147,7 +145,7 @@
 						alert("존재하지 않는 반 코드입니다.");
 					}else{
 						alert("확인되었습니다. 반 이름을 확인하세요.");
-						$("input[name='cName']").val(res.vo.cName);
+						$("input[name='cVo.cName']").val(res.vo.cName);
 						$("input[name='cVo.cNo']").val(res.vo.cNo);
 					}
 				},
@@ -163,12 +161,12 @@
 	$("select[name='tType']").change(function() {
 		if($(this).val() == 2){ //부담임
 			$("#subTeacher").css("display", "block");
-			$("input[name='cName']").attr("readonly", "readonly").attr("placeholder", "반 코드로 추가");
+			$("input[name='cVo.cName']").attr("readonly", "readonly").attr("placeholder", "반 코드로 추가");
 			$("input[name='cCode']").attr("data-msg", "반 코드를 입력하세요.");
 			$("input[name='cVo.cNo']").removeAttr("disabled");
 		}else{ //담임
 			$("#subTeacher").css("display", "none");
-			$("input[name='cName']").removeAttr("readonly placeholder");
+			$("input[name='cVo.cName']").removeAttr("readonly placeholder");
 			$("input[name='cCode']").removeAttr("data-msg");
 			$("input[name='cVo.cNo']").attr("disabled", "disabled");
 		}

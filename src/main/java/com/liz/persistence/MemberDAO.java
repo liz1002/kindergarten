@@ -10,4 +10,5 @@ public interface MemberDAO {
 	public MemberVO selectByNo(int mNo);
 	public MemberVO selectById(String mId);
 	public MemberVO selectByIdAndPwd(String mId, String mPwd);
+	public void updateUseByMNo(int mNo);
 }

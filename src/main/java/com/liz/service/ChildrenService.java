@@ -8,4 +8,7 @@ public interface ChildrenService {
 	public void regist(ChildrenVO chVo);
 	public List<ChildrenVO> selectListByKNo(int kNo);
 	public List<ChildrenVO> selectListByCNo(int cNo);
+	public ChildrenVO selectByChNo(int chNo);
+	public List<ChildrenVO> selectParentListByChNo(int chNo);
+	public void removeByChNo(int chNo);
 }

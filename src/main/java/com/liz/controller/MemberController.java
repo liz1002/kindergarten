@@ -2,6 +2,8 @@ package com.liz.controller;
 
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,40 +118,16 @@ public class MemberController {
 		
 		return "redirect:/member/joinOutro";
 	}
-//	public String joinDirectorPost(MemberVO mVo, KindergartenVO kVo, Model model) {
-//		logger.info("🏳‍🌈 Join Director POST");
-//		
-//		logger.info("[mVo] " + mVo);
-//		logger.info("[kVo] " + kVo);
-//
-//		//유치원 코드 생성
-//		Random rnd = new Random();		
-//		StringBuffer temp = new StringBuffer();
-//		
-//		for(int i = 0; i < 7; i++) { //(=7자리 문자열 생성)
-//		    int rndIdx = rnd.nextInt(2); //숫자 or 영어 선택할 랜덤 값(0, 1)
-//		    switch (rndIdx) {
-//			    case 0:
-//			    	// 0-9
-//			    	temp.append((rnd.nextInt(10)));
-//			        break;
-//			    case 1:
-//			        // A-Z
-//			    	temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-//			        break;
-//		    }
-//		}
-//		
-//		String code = temp.toString();
-//		logger.info("[Kcode] " + code);
-//		
-//		kVo.setkCode(code);
-//		memberService.registDirector(mVo, kVo); //회원추가
-//		
-//		model.addAttribute("kCode", code);
-//		
-//		return "redirect:/member/joinOutro";
-//	}
+	
+	/* 탈퇴 처리 */
+	@RequestMapping(value = "secession", method = RequestMethod.GET)
+	public void secession(HttpSession session, int mNo) {
+		logger.info("🏳‍🌈 secession GET");
+		logger.info("[mNo] " + mNo);
+		
+		memberService.modifyUseByMNo(mNo);
+		session.invalidate();
+	}
 	
 	/* 로그인 후 화면 */
 	@RequestMapping(value = "joinOutro", method = RequestMethod.GET)

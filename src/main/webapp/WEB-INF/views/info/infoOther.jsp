@@ -11,9 +11,8 @@
 	#container > p{
 		line-height: 100px;
 	}
-	#container a{
+	#container a:hover {
 		text-decoration: underline;
-		background: #fff;
 	}
 </style>
 

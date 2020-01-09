@@ -40,4 +40,9 @@ public class MemberServiceImpl implements MemberService{
 	public MemberVO selectByIdAndPwd(String mId, String mPwd) {
 		return mDao.selectByIdAndPwd(mId, mPwd);
 	}
+
+	@Override
+	public void modifyUseByMNo(int mNo) {
+		mDao.updateUseByMNo(mNo);
+	}
 }

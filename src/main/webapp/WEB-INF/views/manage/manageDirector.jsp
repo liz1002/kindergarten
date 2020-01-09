@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <style>
-	div#container{
-		width: 100%;
-		min-height: 400px; 
-		text-align: center;
-	}
 	#container div.wrap{
 		margin: 50px auto;
 	}
@@ -55,6 +50,18 @@
 				<p>
 					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${pVo.cVo.cNo}">[${pVo.cVo.cName}]</a> 
 					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.kVo.kNo}">${pVo.mVo.mNickname}</a>
+				</p>
+			</c:forEach>
+		</div>
+		<hr>
+		<div class="wrap">
+			<h1>반(원아) 리스트</h1>
+			<c:if test="${cList.size() == 0}">
+				<p class="coment">등록된 반이 없습니다.</p>
+			</c:if>
+			<c:forEach var="cVo" items="${cList}">
+				<p>
+					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${cVo.cNo}">${cVo.cName}</a>
 				</p>
 			</c:forEach>
 		</div>

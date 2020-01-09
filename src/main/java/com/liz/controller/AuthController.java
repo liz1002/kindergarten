@@ -34,6 +34,9 @@ public class AuthController {
 		if(dbVo == null) { //id & pw 불일치
 			logger.info("🏳‍🌈 Login POST NOT!!");	
 			return;
+		}else if(dbVo.getmUse() == 1) { //탈퇴한 회원
+			logger.info("🏳‍🌈 Login POST NOT!!");
+			return;
 		}
 		
 		//일치

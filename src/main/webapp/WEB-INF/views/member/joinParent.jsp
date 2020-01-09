@@ -3,11 +3,8 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-	div#form_wrap{
-		width: 70%;
-		margin: 20px auto;
-	}
 	fieldset {
+		width: 70%;
 		margin: 50px auto;
 		padding: 20px 50px;
 		background: #F2F3F5;

@@ -28,7 +28,12 @@ public class ParentServiceImpl implements ParentService{
 	public List<ParentVO> selectListByKNo(int kNo) {
 		return dao.selectListByKNo(kNo);
 	}
-
+	
+	@Override
+	public List<ParentVO> selectListByCNo(int cNo) {
+		return dao.selectListByCNo(cNo);
+	}
+	
 	@Override
 	public List<ParentVO> selectListByMNoAndKNO(int mNo, int kNo) {
 		return dao.selectListByMNoAndKNO(mNo, kNo);
@@ -38,6 +43,14 @@ public class ParentServiceImpl implements ParentService{
 	public List<ParentVO> selectFamilyListByMNo(int mNo) {
 		return dao.selectFamilyListByMNo(mNo);
 	}
-	
-	
+
+	@Override
+	public void removeByMNo(int mNo) {
+		dao.deleteByMNo(mNo);
+	}
+
+	@Override
+	public void removeByChNo(int chNo) {
+		dao.deleteByChNo(chNo);
+	}
 }

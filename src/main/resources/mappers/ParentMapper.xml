@@ -3,19 +3,17 @@
 <mapper namespace="mappers.ParentMapper">
 	
 	<resultMap type="ParentVO" id="parentResultMap">
-		<id column="p_no" property="pNo"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
-		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
-		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
+		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
 	
 	<sql id="selectJoin">
-		select * from parent p join member m on p.m_no=m.m_no
-			join class c on p.c_no=c.c_no join kindergarten k on p.k_no=k.k_no
+		select * from parent p join member m on p.m_no=m.m_no join children ch on p.ch_no=ch.ch_no
+			join class c on ch.c_no=c.c_no join kindergarten k on ch.k_no=k.k_no
 	</sql>
 	
 	<insert id="insert" parameterType="ParentVO">
-		insert into parent(m_no, k_no, c_no) values(#{mVo.mNo}, #{kVo.kNo}, #{cVo.cNo})
+		insert into family(m_no, ch_no) values(#{mNo}, #{chNo})
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="parentResultMap">
@@ -23,18 +21,26 @@
 	</select>
 	
 	<select id="selectListByMNoAndKNO" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where p.m_no=#{mNo} and p.k_no=#{kNo}
+		<include refid="selectJoin" /> where p.m_no=#{mNo} and k.k_no=#{kNo}
 	</select>
 
 	<select id="selectListByKNo" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where p.k_no=#{kNo};
+		<include refid="selectJoin" /> where k.k_no=#{kNo};
 	</select>
 
-	<select id="selectFamilyListByMNo" resultMap="mappers.FamilyMapper.familyResultMap">
-		select * from family f join parent p on f.p_no=p.p_no
-						join children ch on f.ch_no=ch.ch_no
-						join class c on ch.c_no=c.c_no
-						join kindergarten k on ch.k_no=k.k_no
-						where p.m_no=#{mNo}
+	<select id="selectListByCNo" resultMap="parentResultMap">
+		<include refid="selectJoin" /> where c.c_no=#{cNo};
 	</select>
+
+	<select id="selectChildListByMNo" resultMap="parentResultMap">
+		<include refid="selectJoin" /> where p.m_no=#{mNo}
+	</select>
+	
+	<delete id="deleteByChNo">
+		delete from parent where ch_no=#{chNo}
+	</delete>
+	
+	<delete id="deleteByMNo">
+		delete from parent where M_no=#{mNo}
+	</delete>
 </mapper>

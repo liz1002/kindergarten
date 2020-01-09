@@ -22,11 +22,6 @@ public class ClassDAOTest {
 	}
 	
 	@Test
-	public void testSelectList() {
-		dao.selectList();
-	}
-	
-	@Test
 	public void testSelectByNo() {
 		dao.selectByNo(1);
 	}

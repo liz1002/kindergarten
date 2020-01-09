@@ -4,7 +4,6 @@
 
 <style>
 	div#container{
-		width: 100%;
 		overflow: hidden;
 		display: flex;
 		justify-content: center;

@@ -20,8 +20,8 @@
 	section{
 		width: 1200px;
 		margin: 0 auto;
-		padding: 50px 0;
 		background: #FFDBE3;
+		overflow: hidden;
 	}
 	ul{
 		list-style: none;
@@ -29,6 +29,31 @@
 	a{
 		text-decoration: none;
 		color: #000;
+	}
+	div#form_wrap{
+		width: 800px;
+		padding: 50px;
+		float: left;
+	}
+	div#container{
+		width: 800px;
+		min-height: 400px; 
+		padding: 50px;
+		text-align: center;
+		float: left;
+	}
+	#container h1{
+		margin: 0 auto;
+		padding: 5px;
+		line-height: 70px;
+		color: #8FDBFF;
+		text-shadow: 1px 1px 2px gray;
+		letter-spacing: 5px;
+	}
+	#container > p{
+		line-height: 100px;
+		font-weight: bold;
+		font-size: 18px;
 	}
 </style>
 
@@ -80,6 +105,7 @@
 			<c:if test="${Auth != null}">				
 				<c:if test="${Type == 1}">
 					<!-- 원장 -->
+					<a href="${pageContext.request.contextPath}/main/mainDirector">유치원</a>
 					<a href="${pageContext.request.contextPath}/manage/manageMain">유치원 관리</a>
 				</c:if>
 				<c:if test="${Type == 2}">
@@ -89,7 +115,7 @@
 					<a href="${pageContext.request.contextPath}">앨범</a>
 					<a href="${pageContext.request.contextPath}">일정표</a>
 					<a href="${pageContext.request.contextPath}">투약의뢰서</a>
-					<a href="${pageContext.request.contextPath}/manage/manageMain">반 관리</a>
+					<a href="${pageContext.request.contextPath}/manage/manageTeacher">관리</a>
 				</c:if>
 				<c:if test="${Type == 3}">
 					<!-- 학부모 -->

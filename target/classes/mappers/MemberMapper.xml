@@ -11,6 +11,7 @@
 		<result column="m_regdate" property="mRegdate"/>
 		<result column="m_tel" property="mTel"/>
 		<result column="m_nickname" property="mNickname"/>
+		<result column="m_use" property="mUse"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="MemberVO" useGeneratedKeys="true" keyColumn="m_no" keyProperty="mNo">
@@ -34,4 +35,7 @@
 		select * from member where m_id=#{mId} and m_pwd=#{mPwd}
 	</select>
 	
+	<update id="updateUseByMNo" parameterType="int">
+		update member set m_use=1 where m_no=#{mNo}
+	</update>
 </mapper>

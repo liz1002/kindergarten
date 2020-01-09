@@ -46,5 +46,10 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace + "selectByIdAndPwd", map);		
 	}
 
+	@Override
+	public void updateUseByMNo(int mNo) {
+		sqlSession.update(namespace + "updateUseByMNo", mNo);
+	}
+
 }
 
