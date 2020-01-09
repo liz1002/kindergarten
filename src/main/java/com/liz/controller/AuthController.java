@@ -10,8 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.khrd.domain.MemberVO;
-import com.khrd.service.MemberService;
+import com.liz.domain.MemberVO;
+import com.liz.service.MemberService;
 
 @RequestMapping("/auth/*")
 @Controller

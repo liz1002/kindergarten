@@ -36,6 +36,6 @@
 	</bean>
 	<tx:annotation-driven/>
 	
-	<context:component-scan base-package="com.khrd.persistence"></context:component-scan>
-	<context:component-scan base-package="com.khrd.service"></context:component-scan>
+	<context:component-scan base-package="com.liz.persistence"></context:component-scan>
+	<context:component-scan base-package="com.liz.service"></context:component-scan>
 </beans>

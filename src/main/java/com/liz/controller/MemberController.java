@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khrd.domain.DirectorVO;
-import com.khrd.domain.MemberVO;
-import com.khrd.service.DirectorService;
-import com.khrd.service.MemberService;
+import com.liz.domain.DirectorVO;
+import com.liz.domain.MemberVO;
+import com.liz.service.DirectorService;
+import com.liz.service.MemberService;
 
 @Controller
 @RequestMapping("/member/*")

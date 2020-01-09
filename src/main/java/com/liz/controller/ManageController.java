@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khrd.domain.ClassVO;
-import com.khrd.domain.DirectorVO;
-import com.khrd.domain.KindergartenVO;
-import com.khrd.domain.MemberVO;
-import com.khrd.domain.ParentVO;
-import com.khrd.domain.TeacherVO;
-import com.khrd.service.ChildrenService;
-import com.khrd.service.ClassService;
-import com.khrd.service.DirectorService;
-import com.khrd.service.KindergartenService;
-import com.khrd.service.MemberService;
-import com.khrd.service.ParentService;
-import com.khrd.service.TeacherService;
+import com.liz.domain.ClassVO;
+import com.liz.domain.DirectorVO;
+import com.liz.domain.KindergartenVO;
+import com.liz.domain.MemberVO;
+import com.liz.domain.ParentVO;
+import com.liz.domain.TeacherVO;
+import com.liz.service.ChildrenService;
+import com.liz.service.ClassService;
+import com.liz.service.DirectorService;
+import com.liz.service.KindergartenService;
+import com.liz.service.MemberService;
+import com.liz.service.ParentService;
+import com.liz.service.TeacherService;
 
 @Controller
 @RequestMapping("/manage/*")

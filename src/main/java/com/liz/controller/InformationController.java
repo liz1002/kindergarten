@@ -8,12 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.khrd.domain.MemberVO;
-import com.khrd.service.ClassService;
-import com.khrd.service.KindergartenService;
-import com.khrd.service.MemberService;
-import com.khrd.service.ParentService;
-import com.khrd.service.TeacherService;
+import com.liz.domain.MemberVO;
+import com.liz.service.ClassService;
+import com.liz.service.KindergartenService;
+import com.liz.service.MemberService;
+import com.liz.service.ParentService;
+import com.liz.service.TeacherService;
 
 @RequestMapping("/info/*")
 @Controller

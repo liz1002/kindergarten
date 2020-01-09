@@ -33,8 +33,8 @@
 	</beans:bean>	
 	
 	<!-- login -->
-	<beans:bean id="loginIntercepter" class="com.khrd.intercepter.LoginIntercepter"/>
-	<beans:bean id="authIntercepter" class="com.khrd.intercepter.AuthIntercepter"/>
+	<beans:bean id="loginIntercepter" class="com.liz.intercepter.LoginIntercepter"/>
+	<beans:bean id="authIntercepter" class="com.liz.intercepter.AuthIntercepter"/>
 	
 	<interceptors>
 		<interceptor>
