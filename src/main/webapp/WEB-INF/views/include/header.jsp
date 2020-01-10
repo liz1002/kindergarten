@@ -30,31 +30,82 @@
 		text-decoration: none;
 		color: #000;
 	}
+	
+	/* 폼 화면 */
 	div#form_wrap{
-		width: 800px;
+		width: 700px;
 		padding: 50px;
+		margin: 0 auto;
+	}
+	#form_wrap fieldset {
+		width: 60%;
+		margin: 50px auto;
+		padding: 20px 50px;
+		background: #F2F3F5;
+	}
+	#form_wrap legend{
+		padding: 0px 10px;
+		font-weight: bold;
+	}
+	#form_wrap label {
+		display: inline-block;
+		width: 40%;
 		float: left;
 	}
+	#form_wrap p{
+		overflow: hidden;
+		line-height: 50px;
+	}
+	#form_wrap span.necessary{
+		margin-right: 5px; 
+		color: #f00;
+		vertical-align: middle;
+	}
+	#form_wrap input{
+		padding: 3px;
+	}
+	#form_wrap span#coment{
+		font-size: 12px;
+		color: gray;
+		text-align: left;
+	}
+	#form_wrap p.guid{
+		line-height: 12px;
+	    margin-top: 20px;
+		font-size: 12px;
+		color: gray;
+		text-align: right;
+	}
+	#form_wrap p#submit{
+		text-align: center;
+	}
+	#submit input{
+		background: #E8B582;
+		color: #FFF;
+		cursor: pointer;
+	}
+	
+	/* 일반 화면 */
+	
 	div#container{
 		width: 800px;
 		min-height: 400px; 
 		padding: 50px;
+		margin: 0 auto;
 		text-align: center;
-		float: left;
 	}
 	#container h1{
-		margin: 0 auto;
-		padding: 5px;
+		margin: 0 auto 20px;
 		line-height: 70px;
-		color: #8FDBFF;
 		text-shadow: 1px 1px 2px gray;
 		letter-spacing: 5px;
+		color: #8FDBFF; 
 	}
-	#container > p{
+	/* #container > p{
 		line-height: 100px;
 		font-weight: bold;
 		font-size: 18px;
-	}
+	} */
 </style>
 
 <!-- script -->
@@ -106,7 +157,7 @@
 				<c:if test="${Type == 1}">
 					<!-- 원장 -->
 					<a href="${pageContext.request.contextPath}/main/mainDirector">유치원</a>
-					<a href="${pageContext.request.contextPath}/manage/manageMain">유치원 관리</a>
+					<a href="${pageContext.request.contextPath}/manage/manageDirector">관리</a>
 				</c:if>
 				<c:if test="${Type == 2}">
 					<!-- 교사 -->
@@ -124,7 +175,7 @@
 					<a href="${pageContext.request.contextPath}">앨범</a>
 					<a href="${pageContext.request.contextPath}">일정표</a>
 					<a href="${pageContext.request.contextPath}">투약의뢰서</a>
-					<a href="${pageContext.request.contextPath}/manage/manageMain">자녀 관리</a>
+					<a href="${pageContext.request.contextPath}/manage/manageParent">관리</a>
 				</c:if>
 				<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}"><span>${Nick}</span>님</a>
 				<a href="${pageContext.request.contextPath}/auth/logout">로그아웃</a>

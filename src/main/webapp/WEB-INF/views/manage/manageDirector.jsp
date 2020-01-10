@@ -1,70 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
+
+<!-- manageDirector -->
+
 <style>
-	#container div.wrap{
-		margin: 50px auto;
-	}
-	.wrap h1{
-		margin-bottom: 20px; 
-	}
-	.wrap p{
+	#container p#addKinder{
+		width: 400px;
+		margin: 0 auto 50px;
+		background: #FF9CB3;
 		line-height: 50px;
+		font-weight: bold;
+		font-size: 18px;
 	}
-	p.coment{
-		height: 200px;
-		line-height: 200px;
-	}
-	#container a{
+	#addKinder a{
+		display: inline-block;
+		width: 100%;
+		height: 100%
 	}
 	#container a:hover {
 		text-decoration: underline;
 	}
-	
+	#container div#item_wrap{
+		width: 400px;
+		height: 70px;
+		margin: 20px auto;
+		background: #8FDBFF; 
+	}
+	#item_wrap h3{
+		line-height: 70px;
+	}
 </style>
 
-<section>
+<section>	
 	<div id="container">
-		<div class="wrap">
-			<h1>교사 리스트</h1>
-			<c:if test="${tList.size() == 0}">
-				<p class="coment">등록된 교사가 없습니다.</p>
-			</c:if>
-			<c:forEach var="tVo" items="${tList}">
-				<p>
-					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${tVo.cVo.cNo}">[${tVo.cVo.cName}]</a>
-					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${tVo.mVo.mNo}&kNo=${tVo.kVo.kNo}"> ${tVo.mVo.mNickname}
-						<c:if test="${tVo.tType == 1}">(담임)</c:if>
-						<c:if test="${tVo.tType == 2}">(부담임)</c:if>
-					</a>
-				</p>
+		<p id="addKinder"><a href="${pageContext.request.contextPath}/add/addKinder">유치원 추가 하기</a></p>
+			<c:if test="${Type == 1}">	
+				<c:forEach var="dVo" items="${dList}">
+				<div id="item_wrap">
+					<h3>
+						<a href="${pageContext.request.contextPath}/manage/manageKinder?kNo=${dVo.kVo.kNo}">${dVo.kVo.kName}</a>
+					</h3>
+				</div> 
 			</c:forEach>
-		</div>
-		<hr>
-		<div class="wrap">
-			<h1>부모 리스트</h1>
-			<c:if test="${pList.size() == 0}">
-				<p class="coment">등록된 부모가 없습니다.</p>
-			</c:if>
-			<c:forEach var="pVo" items="${pList}">
-				<p>
-					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${pVo.cVo.cNo}">[${pVo.cVo.cName}]</a> 
-					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.kVo.kNo}">${pVo.mVo.mNickname}</a>
-				</p>
-			</c:forEach>
-		</div>
-		<hr>
-		<div class="wrap">
-			<h1>반(원아) 리스트</h1>
-			<c:if test="${cList.size() == 0}">
-				<p class="coment">등록된 반이 없습니다.</p>
-			</c:if>
-			<c:forEach var="cVo" items="${cList}">
-				<p>
-					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${cVo.cNo}">${cVo.cName}</a>
-				</p>
-			</c:forEach>
-		</div>
+		</c:if>
 	</div>
 </section>
 

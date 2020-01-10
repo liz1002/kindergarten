@@ -10,7 +10,7 @@ public interface ParentService {
 	public List<ParentVO> selectListByKNo(int kNo);
 	public List<ParentVO> selectListByCNo(int cNo);
 	public List<ParentVO> selectListByMNoAndKNO(int mNo, int kNo);
-	public List<ParentVO> selectFamilyListByMNo(int mNo);
+	public List<ParentVO> selectChildListByMNo(int mNo);
 	public void removeByMNo(int mNo);
 	public void removeByChNo(int chNo);
 }

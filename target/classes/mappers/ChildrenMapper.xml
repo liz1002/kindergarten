@@ -32,7 +32,7 @@
 		<include refid="selectJoin" /> where ch.ch_no=#{chNo}
 	</select>
 	
-	<select id="selectParentListByChNo">
+	<select id="selectParentListByChNo" resultMap="childrenResultMap">
 		select * from children ch join parent p on ch.ch_no=p.ch_no
 						join class c on ch.c_no=c.c_no
 						join kindergarten k on ch.k_no=k.k_no

@@ -2,48 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 
-<style>
-	fieldset {
-		width: 70%;
-		margin: 50px auto;
-		padding: 20px 50px;
-		background: #F2F3F5;
-	}
-	legend{
-		padding: 0px 10px;
-		font-weight: bold;
-	}
-	form p{
-		overflow: hidden;
-		line-height: 50px;
-	}
-	label {
-		display: inline-block;
-		width: 20%;
-		float: left;
-	}
-	span.necessary{
-		margin-right: 5px; 
-		color: #f00;
-		vertical-align: middle;
-	}
-	input{
-		padding: 3px;
-	}
-	span#coment{
-		font-size: 12px;
-		color: gray;
-		margin-left: 15px;
-	}
-	p.guid{
-		line-height: 12px;
-	    margin-top: 20px;
-		font-size: 12px;
-		color: gray;
-		text-align: right;
-	}
-</style>
-
 <section>
 	<div id="form_wrap">
 		<form action="join" method="post">			
@@ -82,14 +40,14 @@
 				</p>
 				<p>
 					<label><span class="necessary">*</span>별명</label>
-					<input type="text" name="mNickname" data-msg="별명을 입력하세요.">
-					<span id="coment"> [예시] 무지개반 지호맘, 은하수반 민규 아빠 등</span>
+					<input type="text" name="mNickname" data-msg="별명을 입력하세요."><br>
+					<span id="coment">[예시] 무지개반 지호맘, 은하수반 민규 아빠 등</span>
 				</p>
 				<p class="guid">
 					<span class="necessary">*</span>은 필수 입력 사항입니다.
 				</p>
 			</fieldset>
-			<p>
+			<p id="submit">
 				<input type="submit" value="가입 완료">
 			</p>
 			

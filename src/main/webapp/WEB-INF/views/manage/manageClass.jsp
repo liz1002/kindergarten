@@ -2,184 +2,62 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 
+<!-- manage Kinder -->
+
 <style>
-	fieldset {
-		width: 70%;
+	#container h1#title{
+		color: #E8B582;
+		font-size: 30px;
+	}
+	#container div.wrap{
 		margin: 50px auto;
-		padding: 20px 50px;
-		background: #F2F3F5;
 	}
-	legend{
-		padding: 0px 10px;
-		font-weight: bold;
-	}
-	form p{
-		overflow: hidden;
+	#container .wrap p{
 		line-height: 50px;
 	}
-	label {
-		display: inline-block;
-		width: 20%;
-		float: left;
+	#container a{
 	}
-	span.necessary{
-		margin-right: 5px; 
-		color: #f00;
-		vertical-align: middle;
+	#container a:hover {
+		text-decoration: underline;
 	}
-	input{
-		padding: 3px;
-	}
-	span#coment{
-		font-size: 13px;
-		color: gray;
-		margin-left: 15px;
-	}
-	p#subTeacher{
-		display: none;
-	}
+	
 </style>
 
 <section>
-	<%@include file="../include/manageMenu.jsp" %>
-	<div id="form_wrap">
-		<form action="registT" method="post">	
-			<fieldset>
-				<legend>유치원 정보</legend>
+	<div id="container">
+		<h1 id="title">${cVo.cName}</h1>
+		<div class="wrap">
+			<h1>부모 리스트</h1>
+			<c:if test="${pList.size() == 0}">
+				<p class="coment">등록된 부모가 없습니다.</p>
+			</c:if>
+			<c:forEach var="pVo" items="${pList}">
 				<p>
-					<label><span class="necessary">*</span>유치원 코드</label>
-					<input type="text" name="kCode" data-msg="유치원 코드를 입력하세요.">
-					<button type="button" id="btnKCode">코드확인</button>
-				</p>	
-				<p>
-					<label><span class="necessary">*</span>유치원 이름</label>
-					<input type="text" name="kName" readonly="readonly" data-msg="유치원을 선택하세요." placeholder="유치원 코드로 추가">
+					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${pVo.chVo.cVo.cNo}">[${pVo.chVo.cVo.cName}]</a> 
+					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.chVo.kVo.kNo}">${pVo.mVo.mNickname}</a>
 				</p>
-			</fieldset>
-			
-			<fieldset>
-				<legend>반 정보</legend>
-				<p>
-					<label><span class="necessary">*</span>역할</label>
-					<select name="tType" data-msg="역할을 선택하세요.">
-						<option value="" selected="selected">선택</option>
-						<option value="1">담임</option>
-						<option value="2">부담임</option>
-					</select>			
-				</p>	
-				<p id="subTeacher">
-					<label><span class="necessary">*</span>반 코드</label>
-					<input type="text" name="cCode">
-					<button type="button" id="btnCCode">코드확인</button>
-				</p>	
-				<p>
-					<label><span class="necessary">*</span>반 이름</label>
-					<input type="text" name="cVo.cName" data-msg="반 이름을 입력하세요.">
-				</p>		
-			</fieldset>
-			
+			</c:forEach>
 			<p>
-				<input type="submit" value="등록">
+				<a href="${pageContext.request.contextPath}/manage/manageFamily?cNo=${cVo.cNo}">학부모 관리</a>
 			</p>
-			
-			<input type="hidden" name="kVo.kNo">
-			<input type="hidden" name="cVo.cNo">
-			<input type="hidden" name="mVo.mNo" value="${mNo}">
-		</form>
+		</div>
+		<hr>
+		<div class="wrap">
+			<h1>원아 리스트</h1>
+			<c:if test="${chList.size() == 0}">
+				<p class="coment">등록된 원아가 없습니다.</p>
+			</c:if>
+			<c:forEach var="chVo" items="${chList}">
+				<p>
+					<a href="${pageContext.request.contextPath}/info/infoChild?chNo=${chVo.chNo}">${chVo.chName}</a>
+				</p>
+			</c:forEach>
+			<p>
+				<a href="${pageContext.request.contextPath}/add/addChildren?cNo=${cVo.cNo}">원아 관리</a>
+			</p>	
+			</p> 	
+		</div>
 	</div>
 </section>
-
-<!----- S C R I P T ----->
-<script>
-	/* 유치원 코드 확인 */
-	$("#btnKCode").click(function() {
-		$("input[name='kName']").val("");
-		
-		var target = $("input[name='kCode']");
-		 
-		if(check(target) == false){
-			return false;
-		}
-		
-		$.ajax({
-			url: "${pageContext.request.contextPath}/manage/kCodeCheck",
-			type: "get",
-			data: {"kCode" : target.val()},
-			headers: {"Content-Type" : "application/json"},
-			dataType:"json",
-			success: function(res) {
-				console.log(res);
-				if(res.msg == "no"){
-					alert("존재하지 않는 유치원 코드입니다.");
-				}else{
-					alert("확인되었습니다. 유치원 이름을 확인하세요.");
-					$("input[name='kName']").val(res.vo.kName);
-					$("input[name='kVo.kNo']").val(res.vo.kNo);
-				}
-			},
-			error: function(err) {
-				console.log(err);
-			}
-		})
-	})
-	
-	/* 반 코드 확인 */
-	$("#btnCCode").click(function() {
-		$("input[name='cName']").val("");
-		
-		var target = $("input[name='cCode']");
-		 
-		if(check(target) == false || check($("input[name='kCode']")) == false){
-			return false;
-		}else{
-		
-			$.ajax({
-				url: "${pageContext.request.contextPath}/manage/cCodeCheck",
-				type: "get",
-				data: {"cCode" : target.val()},
-				headers: {"Content-Type" : "application/json"},
-				dataType:"json",
-				success: function(res) {
-					console.log(res);
-					if(res.msg == "no"){
-						alert("존재하지 않는 반 코드입니다.");
-					}else{
-						alert("확인되었습니다. 반 이름을 확인하세요.");
-						$("input[name='cVo.cName']").val(res.vo.cName);
-						$("input[name='cVo.cNo']").val(res.vo.cNo);
-					}
-				},
-				error: function(err) {
-					console.log(err);
-				}
-			})
-			
-		}
-	})
-	
-	/* 교사 역할 선택 시 */
-	$("select[name='tType']").change(function() {
-		if($(this).val() == 2){ //부담임
-			$("#subTeacher").css("display", "block");
-			$("input[name='cVo.cName']").attr("readonly", "readonly").attr("placeholder", "반 코드로 추가");
-			$("input[name='cCode']").attr("data-msg", "반 코드를 입력하세요.");
-			$("input[name='cVo.cNo']").removeAttr("disabled");
-		}else{ //담임
-			$("#subTeacher").css("display", "none");
-			$("input[name='cVo.cName']").removeAttr("readonly placeholder");
-			$("input[name='cCode']").removeAttr("data-msg");
-			$("input[name='cVo.cNo']").attr("disabled", "disabled");
-		}
-	});
-	
-	/* 가입 완료 시 공백 확인 */
-	$("form").submit(function() {
-		var res = check("input[data-msg], select[data-msg]");
-		
-		/* if(res == false){ //공백 있을 시
-			return false;
-		} */
-	})
-</script>
 
 <%@include file="../include/footer.jsp" %>

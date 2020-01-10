@@ -40,8 +40,8 @@ public class ParentServiceImpl implements ParentService{
 	}
 
 	@Override
-	public List<ParentVO> selectFamilyListByMNo(int mNo) {
-		return dao.selectFamilyListByMNo(mNo);
+	public List<ParentVO> selectChildListByMNo(int mNo) {
+		return dao.selectChildListByMNo(mNo);
 	}
 
 	@Override

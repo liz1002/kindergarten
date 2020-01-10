@@ -3,16 +3,15 @@
     
 <style>
 	#menu_wrap{
-		width: 200px;
-		height: 100%;
-		float: left;
-		border-right: 1px solid gray;
+		width: 100%;
 	}
 	#menu_wrap ul{
 		width: 100%;
 		text-align: center;
+		overflow: hidden;
 	}
 	#menu_wrap ul li{
+		width: 25%;
 		padding: 10px;
 		border-bottom: 1px solid gray;
 	}

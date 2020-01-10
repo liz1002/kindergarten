@@ -3,11 +3,6 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-	div#container{
-		width: 100%;
-		min-height: 400px; 
-		text-align: center;
-	}
 	#container > p{
 		line-height: 100px;
 		font-size: 20px;

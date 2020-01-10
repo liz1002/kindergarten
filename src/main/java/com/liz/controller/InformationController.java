@@ -109,6 +109,7 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 		logger.info("[cNo] " + cNo);
 		
 		model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
+		logger.info("[cVo] " + classService.selectByNo(cNo));
 		model.addAttribute("tList", teacherService.selectListByCNo(cNo)); //해당 반의 교사 리스트
 		model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //해당 반의 원아 리스트
 	}
