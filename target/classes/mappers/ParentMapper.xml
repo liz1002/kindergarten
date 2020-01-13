@@ -3,17 +3,19 @@
 <mapper namespace="mappers.ParentMapper">
 	
 	<resultMap type="ParentVO" id="parentResultMap">
+		<id column="p_no" property="pNo"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
-		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 	</resultMap>
 	
 	<sql id="selectJoin">
-		select * from parent p join member m on p.m_no=m.m_no join children ch on p.ch_no=ch.ch_no
+		select * from parent p join member m on p.m_no=m.m_no 
+			join family f on p.p_no=f.p_no join children ch on f.ch_no=ch.ch_no
 			join class c on ch.c_no=c.c_no join kindergarten k on ch.k_no=k.k_no
 	</sql>
 	
-	<insert id="insert" parameterType="ParentVO">
-		insert into family(m_no, ch_no) values(#{mNo}, #{chNo})
+	<insert id="insert">
+		insert into parent(m_no, k_no) values(#{mNo}, #{kNo})
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="parentResultMap">
@@ -36,11 +38,11 @@
 		<include refid="selectJoin" /> where p.m_no=#{mNo}
 	</select>
 	
-	<delete id="deleteByChNo">
-		delete from parent where ch_no=#{chNo}
+	<delete id="deleteByPNo">
+		delete from parent where p_no=#{pNo}
 	</delete>
 	
 	<delete id="deleteByMNo">
-		delete from parent where M_no=#{mNo}
+		delete from parent where m_no=#{mNo}
 	</delete>
 </mapper>

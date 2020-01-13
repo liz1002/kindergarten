@@ -38,7 +38,7 @@
 						</p>
 					</div>
 				</c:forEach>
-				<a href="regist">유치원 & 반 추가 하기</a>
+				<a href="${pageContext.request.contextPath}/add/addParent">유치원 추가 하기</a>
 			</c:if>
 		</c:if>
 	</div>
@@ -46,7 +46,6 @@
 
 <!----- S C R I P T ----->
 <script>
-	alert('ddd')
 </script>
 
 <%@include file="../include/footer.jsp" %>

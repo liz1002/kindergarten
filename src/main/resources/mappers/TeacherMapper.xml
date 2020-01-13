@@ -6,7 +6,7 @@
 		<id column="t_no" property="tNo"/>
 		<result column="t_type" property="tType"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
-		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 	

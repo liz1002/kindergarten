@@ -5,7 +5,7 @@
 	<resultMap type="DirectorVO" id="directorResultMap">
 		<id column="d_no" property="dNo"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
-		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="DirectorVO">

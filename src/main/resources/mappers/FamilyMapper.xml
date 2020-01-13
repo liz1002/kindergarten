@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.FamilyMapper">
+	
+	<resultMap type="FamilyVO" id="familyResultMap">
+		<association property="pVo" resultMap="mappers.ParentMapper.parentResultMap"/>
+		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
+	</resultMap>
+	
+	<insert id="insert">
+		insert into family(p_no, ch_no) values(#{pNo}. #{chNo})
+	</insert>
+	
+	<select id="selectParentNullListByChNo" resultMap="familyResultMap">
+		select * from parent p left join 
+			(select p_no from family where ch_no=#{chNo}) f on p.p_no = f.p_no
+			join member m on p.m_no = m.m_no
+			where m.m_type = 3 and f.p_no is null;
+	</select>
+	
+	
+	<delete id="deleteByChNo">
+		delete from family where ch_no=#{chNo}
+	</delete>
+</mapper>

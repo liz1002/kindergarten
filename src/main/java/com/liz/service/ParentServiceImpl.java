@@ -15,8 +15,8 @@ public class ParentServiceImpl implements ParentService{
 	private ParentDAO dao;
 
 	@Override
-	public void regist(ParentVO vo) {
-		dao.insert(vo);
+	public void regist(int mNo, int kNo) {
+		dao.insert(mNo, kNo);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class ParentServiceImpl implements ParentService{
 	}
 
 	@Override
-	public void removeByChNo(int chNo) {
-		dao.deleteByChNo(chNo);
+	public void removeByPNo(int pNo) {
+		dao.deleteByPNo(pNo);
 	}
 }

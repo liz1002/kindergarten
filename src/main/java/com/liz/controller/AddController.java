@@ -58,10 +58,12 @@ public class AddController {
 	
 	/* * * * * method * * * * */
 	
+	/*-------------------------------[원장]--------------------------------*/
+	
 	/* 원장 - 유치원 추가 */
 	@RequestMapping(value = "addKinder", method = RequestMethod.GET)
 	public void addKinderGet(HttpSession session, Model model) {
-		logger.info("🏳‍🌈  Add Kinder GET");
+		logger.info("▶  Add Kinder GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
@@ -74,7 +76,7 @@ public class AddController {
 	
 	@RequestMapping(value = "addKinder", method = RequestMethod.POST) 
 	public String addKinderPost(DirectorVO dVo, Model model) {
-		logger.info("🏳‍🌈 Add Kinder POST");
+		logger.info("▶ Add Kinder POST");
 		
 		logger.info("[dVo] " + dVo);
 
@@ -108,10 +110,12 @@ public class AddController {
 	}
 	
 	
+	/*-------------------------------[교사]--------------------------------*/
+	
 	/* 교사 - 반 추가 */
 	@RequestMapping(value = "addClass", method = RequestMethod.GET)
 	public void addClassGet(HttpSession session, Model model) {
-		logger.info("🏳‍🌈  Add Class GET");
+		logger.info("▶  Add Class GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
@@ -123,7 +127,7 @@ public class AddController {
 	
 	@RequestMapping(value = "addClass", method = RequestMethod.POST)
 	public String addClassPost(TeacherVO tVo) {
-		logger.info("🏳‍🌈 Add Class POST");
+		logger.info("▶ Add Class POST");
 		
 		logger.info("[tVo] " + tVo);
 		
@@ -163,13 +167,12 @@ public class AddController {
 	/* 교사 - 원아 추가 */
 	@RequestMapping(value = "addChildren", method = RequestMethod.GET)
 	public void addChildrenGet(HttpSession session, int cNo, Model model) {
-		logger.info("🏳‍🌈  Add Children GET");
+		logger.info("▶  Add Children GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
 
 		if(mVo.getmType() == 2) {
-			model.addAttribute("mNo", mVo.getmNo());
 			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
 			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
 		}
@@ -178,7 +181,7 @@ public class AddController {
 	@ResponseBody
 	@RequestMapping(value = "addChildren", method = RequestMethod.POST)
 	public List<ChildrenVO> addChildrenPost(@RequestBody ChildrenVO chVo) {
-		logger.info("🏳‍🌈 Add Children POST");
+		logger.info("▶ Add Children POST");
 		logger.info("[chVo] " + chVo);
 		
 		int cNo = chVo.getcVo().getcNo();
@@ -187,4 +190,37 @@ public class AddController {
 		
 		return childrenService.selectListByCNo(cNo);
 	}
+
+	/* 교사 - 학부모_원아 등록 */ //ajax로 원아 번호 제외 부모 검색
+	@RequestMapping(value = "addFamily", method = RequestMethod.GET)
+	public void addFamilyGet(HttpSession session, int cNo, Model model) {
+		logger.info("▶  Add Family GET");
+		
+		Object mId = session.getAttribute("Auth");
+		MemberVO mVo = memberService.selectById((String) mId);
+
+		int kNo = classService.selectByNo(cNo).getkNo();
+		
+		if(mVo.getmType() == 2) {
+			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
+			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
+			model.addAttribute("mList", "parentService."); //유치원 부모 리스트
+		}
+	}	
+	
+	
+	/*-------------------------------[학부모]--------------------------------*/
+	
+	/* 학부모 - 유치원 추가 */
+	@RequestMapping(value = "addParent", method = RequestMethod.GET)
+	public void addParentGet(HttpSession session, Model model) {
+		logger.info("▶  Add Parent GET");
+		
+		Object mId = session.getAttribute("Auth");
+		MemberVO mVo = memberService.selectById((String) mId);
+
+		if(mVo.getmType() == 3) {
+			model.addAttribute("mNo", mVo.getmNo());
+		}
+	}	
 }

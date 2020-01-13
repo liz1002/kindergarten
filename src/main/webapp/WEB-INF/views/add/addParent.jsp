@@ -53,22 +53,12 @@
 					<label><span class="necessary">*</span>유치원 이름</label>
 					<input type="text" name="kName" readonly="readonly" data-msg="유치원을 선택하세요." placeholder="유치원 코드로 추가">
 				</p>				
-				<p>
-					<label><span class="necessary">*</span>반 코드</label>
-					<input type="text" name="cCode" data-msg="반 코드를 입력하세요.">
-					<button type="button" id="btnCCode">코드확인</button>
-				</p>
-				<p>
-					<label><span class="necessary">*</span>반 이름</label>
-					<input type="text" name="cName" data-msg="반 이름을 입력하세요." placeholder="반 코드로 추가">
-				</p>	
 			</fieldset>			
 			<p>
 				<input type="submit" value="등록">
 			</p>
 			
 			<input type="hidden" name="kVo.kNo">
-			<input type="hidden" name="cVo.cNo">
 			<input type="hidden" name="mVo.mNo" value="${mNo}">
 		</form>
 	</div>
@@ -106,40 +96,6 @@
 				console.log(err);
 			}
 		})
-	})
-	
-	/* 반 코드 확인 */
-	$("#btnCCode").click(function() {
-		$("input[name='cName']").val("");
-		
-		var target = $("input[name='cCode']");
-		 
-		if(check(target) == false || check($("input[name='kCode']")) == false){
-			return false;
-		}else{
-		
-			$.ajax({
-				url: "${pageContext.request.contextPath}/manage/cCodeCheck",
-				type: "get",
-				data: {"cCode" : target.val()},
-				headers: {"Content-Type" : "application/json"},
-				dataType:"json",
-				success: function(res) {
-					console.log(res);
-					if(res.msg == "no"){
-						alert("존재하지 않는 반 코드입니다.");
-					}else{
-						alert("확인되었습니다. 반 이름을 확인하세요.");
-						$("input[name='cName']").val(res.vo.cName);
-						$("input[name='cVo.cNo']").val(res.vo.cNo);
-					}
-				},
-				error: function(err) {
-					console.log(err);
-				}
-			})
-			
-		}
 	})
 	
 	/* 가입 완료 시 공백 확인 */

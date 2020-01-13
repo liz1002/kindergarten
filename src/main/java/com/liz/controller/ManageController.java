@@ -20,10 +20,10 @@ import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
 import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
-import com.liz.domain.ParentVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
+import com.liz.service.FamilyService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -57,6 +57,8 @@ public class ManageController {
 	@Autowired
 	private ChildrenService childrenService;
 
+	@Autowired
+	private FamilyService familyService;
 	
 	/* * * * * method * * * * */
 	
@@ -66,7 +68,7 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(value = "kCodeCheck", method = RequestMethod.GET)
 	public Map<String, Object> kCodeCheck(String kCode) {
-		logger.info("🏳‍🌈 K Code Check GET");
+		logger.info("▶ K Code Check GET");
 		logger.info("[kCode] " + kCode);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -88,7 +90,7 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(value = "cCodeCheck", method = RequestMethod.GET)
 	public Map<String, Object>cCodeCheck(String cCode) {
-		logger.info("🏳‍🌈 C Code Check GET");
+		logger.info("▶ C Code Check GET");
 		logger.info("[cCode] " + cCode);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -108,12 +110,13 @@ public class ManageController {
 	
 	/* 학부모 - 유치원 등록, 반 등록, 학부모 생성 */
 	@RequestMapping(value = "registP", method = RequestMethod.POST)
-	public String registPPost(ParentVO pVo) {
-		logger.info("🏳‍🌈 regist Teacher POST");
-		logger.info("[pVo] " + pVo);
+	public String registPPost(int mNo, int kNo) {
+		logger.info("▶ regist Teacher POST");
+		logger.info("[mNo] " + mNo);
+		logger.info("[kNo] " + kNo);
 		
 		// 학부모 추가
-		parentService.regist(pVo);
+		parentService.regist(mNo, kNo);
 		
 		return "redirect:/manage/manageMain";
 	}
@@ -127,7 +130,7 @@ public class ManageController {
 	/* 원장 관리 화면 */
 	@RequestMapping(value = "manageDirector", method = RequestMethod.GET)
 	public void manageDirector(HttpSession session, Model model) {
-		logger.info("🏳‍🌈 Manage Director GET");
+		logger.info("▶ Manage Director GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
@@ -140,7 +143,7 @@ public class ManageController {
 	/* 원장 - 유치원 - 반, 교사, 학부모 관리 */
 	@RequestMapping(value = "manageKinder", method = RequestMethod.GET)
 	public void manageKinder(HttpSession session, int kNo, Model model) {
-		logger.info("🏳‍🌈 Manage Kinder GET");
+		logger.info("▶ Manage Kinder GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO vo = memberService.selectById((String) mId);
@@ -156,12 +159,13 @@ public class ManageController {
 		}
 	}
 	
+	
 	/*-------------------------------[교사]--------------------------------*/
 	
 	/* 교사 관리 화면 */
 	@RequestMapping(value = "manageTeacher", method = RequestMethod.GET)
 	public void manageTeacher(HttpSession session, Model model) {
-		logger.info("🏳‍🌈 Manage Teacher GET");
+		logger.info("▶ Manage Teacher GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
@@ -174,7 +178,7 @@ public class ManageController {
 	/* 교사 - 반 - 학부모, 원아 관리 */
 	@RequestMapping(value = "manageClass", method = RequestMethod.GET)
 	public void manageClass(HttpSession session, int cNo, Model model) {
-		logger.info("🏳‍🌈 Manage Class GET");
+		logger.info("▶ Manage Class GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO vo = memberService.selectById((String) mId);
@@ -192,7 +196,7 @@ public class ManageController {
 	@ResponseBody
 	@RequestMapping(value = "removeChildren", method = RequestMethod.POST)
 	public List<ChildrenVO> removeChildrenPost(@RequestBody int[] chNoList) {
-		logger.info("🏳‍🌈 Remove Children POST");
+		logger.info("▶ Remove Children POST");
 		
 		int cNo = childrenService.selectByChNo(chNoList[0]).getcVo().getcNo();
 		
@@ -204,7 +208,7 @@ public class ManageController {
 			logger.info("[chList] " + chList);
 			
 			if(chList.size() != 0){
-				parentService.removeByChNo(chNo);
+				familyService.removeByChNo(chNo);
 			}			
 			childrenService.removeByChNo(chNo);
 		}
@@ -212,12 +216,13 @@ public class ManageController {
 		return childrenService.selectListByCNo(cNo); //원아 리스트
 	}
 	
+	
 	/*-------------------------------[학부모]--------------------------------*/
 	
 	/* 학부모 관리 화면 */
 	@RequestMapping(value = "manageParent", method = RequestMethod.GET)
 	public void manageParent(HttpSession session, Model model) {
-		logger.info("🏳‍🌈 Manage Parent GET");
+		logger.info("▶ Manage Parent GET");
 		
 		String mId = (String)session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById(mId);

@@ -19,8 +19,11 @@ public class ParentDAOImpl implements ParentDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public void insert(ParentVO vo) {
-		sqlSession.insert(namespace + "insert", vo);
+	public void insert(int mNo, int kNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mNo", mNo);
+		map.put("kNo", kNo);
+		sqlSession.insert(namespace + "insert", map);
 	}
 
 	@Override
@@ -52,14 +55,12 @@ public class ParentDAOImpl implements ParentDAO{
 	}
 
 	@Override
+	public void deleteByPNo(int pNo) {
+		sqlSession.delete(namespace + "deleteByPNo", pNo);
+	}
+	
+	@Override
 	public void deleteByMNo(int mNo) {
 		sqlSession.delete(namespace + "deleteByMNo", mNo);
 	}
-
-	@Override
-	public void deleteByChNo(int chNo) {
-		sqlSession.delete(namespace + "deleteByChNo", chNo);
-	}
-
-
 }

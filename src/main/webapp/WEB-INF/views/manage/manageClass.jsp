@@ -33,12 +33,13 @@
 			</c:if>
 			<c:forEach var="pVo" items="${pList}">
 				<p>
+					<!-- 해당 반의 모든 부모 검색하는 MAPPER 생성하기!!! -->
 					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${pVo.chVo.cVo.cNo}">[${pVo.chVo.cVo.cName}]</a> 
-					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.chVo.kVo.kNo}">${pVo.mVo.mNickname}</a>
+					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.kVo.kNo}">${pVo.mVo.mNickname}</a>
 				</p>
 			</c:forEach>
 			<p>
-				<a href="${pageContext.request.contextPath}/manage/manageFamily?cNo=${cVo.cNo}">학부모 관리</a>
+				<a href="${pageContext.request.contextPath}/add/addFamily?cNo=${cVo.cNo}">학부모 관리</a>
 			</p>
 		</div>
 		<hr>
@@ -54,8 +55,7 @@
 			</c:forEach>
 			<p>
 				<a href="${pageContext.request.contextPath}/add/addChildren?cNo=${cVo.cNo}">원아 관리</a>
-			</p>	
-			</p> 	
+			</p>		
 		</div>
 	</div>
 </section>

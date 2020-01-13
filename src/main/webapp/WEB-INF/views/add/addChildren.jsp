@@ -101,6 +101,14 @@
 <script>
 	/* 유아 추가 시 현재 화면에서 등록 처리 후 리스트 갱신 */
 	$("#addChild").click(function() {
+	
+		//공백 확인
+		var res = check("input[data-msg]");
+		
+		if(res == false){ //공백 있을 시
+			return false;
+		}
+		
 		var data = {
 					"chName" : $("input[name='chName']").val(),
 					"chRegdate" : $("input[name='chRegdate']").val(), 

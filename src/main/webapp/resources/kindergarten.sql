@@ -4,7 +4,7 @@ use kindergarten;
 
 
 
--- È¸¿ø ¹× À¯Ä¡¿ø(ÃÖ¼Ò ±¸¼º Å×ÀÌºí) -----
+-- íšŒì› ë° ìœ ì¹˜ì›(ìµœì†Œ êµ¬ì„± í…Œì´ë¸”) -----
 
 desc member;
 select * from member order by m_no desc;
@@ -17,7 +17,7 @@ select * from class order by c_no desc;
 
 
 
--- È¸¿ø »ó¼¼ ºĞ·ù -----
+-- íšŒì› ìƒì„¸ ë¶„ë¥˜ -----
 
 desc director;
 select * from director order by d_no desc;
@@ -37,7 +37,7 @@ select * from family;
 
 
 
--- Ä«Å×°í¸® -----
+-- ì¹´í…Œê³ ë¦¬ -----
 
 desc board;
 select * from board;
@@ -59,9 +59,9 @@ select * from schedule;
 
 
 
--- Attach Å×ÀÌºí -----
+-- Attach í…Œì´ë¸” -----
 
--- ¿ø¾ÆX¾Ù¹ü
+-- ì›ì•„Xì•¨ë²”
 desc album_children;
 select * from album_children;
 
@@ -71,151 +71,179 @@ select * from album_children;
 -- data ---------------------------------------
 
 insert into member(m_type, m_id, m_pwd, m_name, m_regdate, m_tel, m_nickname) values
-(1, 'director1', '1111', '±è¿øÀå', now(), null, 'ÇÑ±¹¿¹¼ú ¿øÀå'),
-(1, 'director2', '2222', 'ÀÌ¿øÀå', now(), null, '¹«Áö°³ ¿øÀå'),
-(1, 'director3', '3333', '¹Ú¿øÀå', now(), null, 'º¸³ëÀ¯Ä¡¿ø ¿øÀå'),
-(2, 'teacher1', '1111', '±è¹Ì³ª', now(), null, 'º¸¶ó¹İ ´ãÀÓ'),
-(2, 'teacher2', '2222', '±Ç¹ÎÁö', now(), '010-1234-5678', 'º¸¶ó¹İ ºÎ´ãÀÓ'),
-(2, 'teacher3', '3333', 'À¯ÀºÇı', now(), '010-1234-5678', 'ÀºÇÏ¼ö¹İ ºÎ´ãÀÓ'),
-(2, 'teacher4', '4444', 'Àü¹Ì°æ', now(), '010-1234-5678', '¿À½ºÄ«¹İ ´ãÀÓ'),
-(2, 'teacher5', '5555', '¹Ú¹ÌÁö', now(), '010-1234-5678', '¸ñ¼º¹İ ´ãÀÓ'),
-(3, 'parent1', '1111', '±èºÎ¸ğ', now(), null, 'º¸¶ó¹İ ¸®¿ì¸¾'),
-(3, 'parent2', '2222', '¹ÚºÎ¸ğ', now(), '010-1234-5678', '³ë¶û¹İ ¼±¿ì ÇÒ¸Ó´Ï'),
-(3, 'parent3', '3333', 'ÀÌºÎ¸ğ', now(), '010-1234-5678', '¿À½ºÄ«¹İ ÀÌ¼­Çö ¾ö¸¶'),
-(3, 'parent4', '4444', 'ÃÖºÎ¸ğ', now(), '010-1234-5678', '¸ñ¼º¹İ À¯¶ó ¾Æºü'),
-(3, 'parent5', '5555', 'Á¤ºÎ¸ğ', now(), '010-1234-5678', '¸ñ¼º¹İ À¯¶ó¸¾');
+(1, 'director1', '1111', 'ê¹€ì›ì¥', now(), null, 'í•œêµ­ì˜ˆìˆ  ì›ì¥'),
+(1, 'director2', '2222', 'ì´ì›ì¥', now(), null, 'ë¬´ì§€ê°œ ì›ì¥'),
+(1, 'director3', '3333', 'ë°•ì›ì¥', now(), null, 'ë³´ë…¸ìœ ì¹˜ì› ì›ì¥'),
+(2, 'teacher1', '1111', 'ê¹€ë¯¸ë‚˜', now(), null, 'ë³´ë¼ë°˜ ë‹´ì„'),
+(2, 'teacher2', '2222', 'ê¶Œë¯¼ì§€', now(), '010-1234-5678', 'ë³´ë¼ë°˜ ë¶€ë‹´ì„'),
+(2, 'teacher3', '3333', 'ìœ ì€í˜œ', now(), '010-1234-5678', 'ì€í•˜ìˆ˜ë°˜ ë¶€ë‹´ì„'),
+(2, 'teacher4', '4444', 'ì „ë¯¸ê²½', now(), '010-1234-5678', 'ì˜¤ìŠ¤ì¹´ë°˜ ë‹´ì„'),
+(2, 'teacher5', '5555', 'ë°•ë¯¸ì§€', now(), '010-1234-5678', 'ëª©ì„±ë°˜ ë‹´ì„'),
+(3, 'parent1', '1111', 'ê¹€ë¶€ëª¨', now(), '010-1234-5678', 'ë³´ë¼ë°˜ ë¦¬ìš°ë§˜'),
+(3, 'parent2', '2222', 'ì´ë¶€ëª¨', now(), '010-1234-5678', 'ë³´ë¼ë°˜ ë¦¬ì•„ ì•„ë¹ '),
+(3, 'parent3', '3333', 'ë°•ë¶€ëª¨', now(), '010-1234-5678', 'ë…¸ë‘ë°˜ ì„ ìš° í• ë¨¸ë‹ˆ'),
+(3, 'parent4', '4444', 'ìµœë¶€ëª¨', now(), '010-1234-5678', 'ëª©ì„±ë°˜ ìœ ë¼ ì•„ë¹ '),
+(3, 'parent5', '5555', 'ì •ë¶€ëª¨', now(), '010-1234-5678', 'ëª©ì„±ë°˜ ìœ ë¼ë§˜');
 
 insert into kindergarten(k_code, k_name, k_tel, k_address) values
-('2SDFE54', 'ÇÑ±¹¿¹¼úÀ¯Ä¡¿ø', '053-222-7777', '´ë±¸ ¼ö¼º±¸ ¹ü¹°·Î 222-7777'),
-('D1WE2GB', '¹«Áö°³À¯Ä¡¿ø', '053-123-4567', '´ë±¸ ¼ö¼º±¸ Áö¹ü·Î 123-1234'),
-('SF5E1S3', 'º¸³ëÀ¯Ä¡¿ø', '053-987-6543', '´ë±¸ ¼ö¼º±¸ µ¿´ë±¸·Î 987-6543');
+('2SDFE54', 'í•œêµ­ì˜ˆìˆ ìœ ì¹˜ì›', '053-222-7777', 'ëŒ€êµ¬ ìˆ˜ì„±êµ¬ ë²”ë¬¼ë¡œ 222-7777'),
+('D1WE2GB', 'ë¬´ì§€ê°œìœ ì¹˜ì›', '053-123-4567', 'ëŒ€êµ¬ ìˆ˜ì„±êµ¬ ì§€ë²”ë¡œ 123-1234'),
+('SF5E1S3', 'ë³´ë…¸ìœ ì¹˜ì›', '053-987-6543', 'ëŒ€êµ¬ ìˆ˜ì„±êµ¬ ë™ëŒ€êµ¬ë¡œ 987-6543'),
+('F2WEG29', 'ë¼ì˜¨ìœ ì¹˜ì›', '053-817-3102', 'ëŒ€êµ¬ ìˆ˜ì„±êµ¬ ì²­í•™ë¡œ 67-12');
 
-insert into class(c_code, c_name, k_no) values
-('E5FD2', '»¡°­¹İ', 2),
-('2E45E', '³ë¶û¹İ', 2),
-('F2HJR', 'ÃÊ·Ï¹İ', 2),
-('JD2S5', 'ÆÄ¶û¹İ', 2),
-('2W8FG', 'º¸¶ó¹İ', 2),
-('XV8RW', '¸ñ¼º¹İ', 3),
-('O8TYK', 'Áö±¸¹İ', 3),
-('NX5S2', 'Åä¼º¹İ', 3),
-('0BXG2', '¿À½ºÄ«¹İ', 3),
-('IW87X', 'ÀºÇÏ¼ö¹İ', 3);
+insert into class(c_code, c_name, c_regdate, k_no) values
+('2W8FG', 'ë³´ë¼ë°˜', now(), 2),
+('XV8RW', 'ëª©ì„±ë°˜', now(), 3),
+('0BXG2', 'ì˜¤ìŠ¤ì¹´ë°˜', now(), 3),
+('IW87X', 'ì€í•˜ìˆ˜ë°˜', now(), 3);
 
 insert into director(m_no, k_no) values
 (1, 1),
+(1, 4),
 (2, 2),
 (3, 3);
 	
 insert into teacher(t_type, m_no, k_no, c_no) values
-(1, 4, 2, 5),
-(2, 5, 2, 5),
-(2, 6, 3, 10),
-(1, 7, 3, 9),
-(1, 8, 3, 6);
+(1, 4, 2, 1),
+(2, 5, 2, 1),
+(2, 6, 3, 4),
+(1, 7, 3, 3),
+(1, 8, 3, 2);
 
-insert into parent(m_no, k_no, c_no) values
-(9, 2, 5),
-(9, 2, 4),
-(10, 2, 5),
-(10, 3, 1),
-(10, 3, 10),
-(11, 3, 9),
-(12, 3, 6),
-(13, 3, 6);
+#ê°™ì€ êµì‚¬ê°€ ì´ì§í•œ ê²½ìš° ì¶”ê°€
 
 insert into children(ch_name, ch_regdate, k_no, c_no) values
-('¹Ú¼±¿ì', now(), 2, 5),
-('ÀÌ¸®¿ì', now(), 2, 5),
-('ÀÌ¸®¾Æ', now(), 2, 4),
-('ÃÖÀ¯¶ó', now(), 3, 6);
+('ì´ë¦¬ì•„', now(), 3, 4),
+('ë°•ì„ ìš°', now(), 2, 1),
+('ì´ë¦¬ìš°', now(), 2, 1),
+('ì´ë¦¬ì•„', now(), 2, 1),
+('ìµœìœ ë¼', now(), 3, 3);
+
+#ê°™ì€ ì• ê°€ ì—¬ëŸ¬ ìœ ì¹˜ì› & í•´ ë°”ê»´ì„œ ë°˜ 2ê°œì¸ ê²½ìš° ì¶”ê°€
+
+insert into parent(m_no, k_no) values
+(9, 3),
+(9, 2),
+(10, 2),
+(11, 2),
+(12, 2),
+(13, 2);
+
 
 insert into family(p_no, ch_no) values 
-(1, 2),
+(1, 1),
 (2, 3),
-(3, 1),
-(7, 4),
-(8, 4);
+(2, 4),
+(3, 3),
+(3, 4),
+(4, 2),
+(5, 5),
+(6, 5);
 
 select * from parent;
 select * from children;
 
 -- join ----------------------------------------------------
 
-/* Æ¯Á¤ ¿øÀåÀÇ ¸ğµç Á¤º¸*/
+/* íŠ¹ì • ì›ì¥ì˜ ëª¨ë“  ì •ë³´*/
 select * from director d join member m on d.m_no=m.m_no 
-						join kindergarten k on d.k_no=k.k_no
+						join kindergarten k on d.k_no=k.k_no 
 						where m.m_no = 2;
 
-/* À¯Ä¡¿ø º° ±³»ç ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ êµì‚¬ ë¦¬ìŠ¤íŠ¸ */
 select * from teacher t join member m on t.m_no=m.m_no 
 						join class c on t.c_no=c.c_no 
 						join kindergarten k on t.k_no=k.k_no
-						where t.k_no = 3; 
+						where t.k_no = 2; 
 
-/* ¹İ º° ±³»ç ¸®½ºÆ® */
+/* ë°˜ ë³„ êµì‚¬ ë¦¬ìŠ¤íŠ¸ */
 select * from teacher t join member m on t.m_no=m.m_no 
 						join class c on t.c_no=c.c_no 
 						join kindergarten k on t.k_no=k.k_no
-						where t.c_no = 5;
+						where t.c_no = 1;
 				
-/* Æ¯Á¤ ±³»çÀÇ ¸ğµç Á¤º¸*/
+/* íŠ¹ì • êµì‚¬ì˜ ëª¨ë“  ì •ë³´*/
 select * from teacher t join member m on t.m_no=m.m_no 
 						join class c on t.c_no=c.c_no
 						join kindergarten k on t.k_no=k.k_no
 						where m.m_no = 4 and t.k_no = 2;
 						
-/* ±³»çº° À¯Ä¡¿ø&¹İ ¸®½ºÆ® */			
+/* êµì‚¬ë³„ ìœ ì¹˜ì›&ë°˜ ë¦¬ìŠ¤íŠ¸ */			
 select * from teacher t join class c on t.c_no=c.c_no 
 						join kindergarten k on c.k_no=k.k_no
 						where t.m_no = 4;
 					
-/* À¯Ä¡¿ø º° ºÎ¸ğ ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ */
 select * from parent p join member m on p.m_no=m.m_no
-						join class c on p.c_no=c.c_no 
-						join kindergarten k on p.k_no=k.k_no
-						where p.k_no = 3; 
+						join family f on p.p_no=f.p_no
+						join children ch on f.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no 
+						join kindergarten k on ch.k_no=k.k_no
+						where k.k_no=2 order by m_name;
 
-/* ¹İ º° ºÎ¸ğ ¸®½ºÆ® */	
+/* ë°˜ ë³„ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ */	
 select * from parent p join member m on p.m_no=m.m_no
-						join class c on p.c_no=c.c_no
-						join kindergarten k on p.k_no=k.k_no
-							where p.c_no = 5; 
+						join family f on p.p_no=f.p_no
+						join children ch on f.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						where c.c_no = 1 order by m_name; 
 
-/* Æ¯Á¤ ºÎ¸ğÀÇ ¸ğµç Á¤º¸ */
-select * from parent p join `member` m on p.m_no=m.m_no 
-						join class c on p.c_no=c.c_no
-						join kindergarten k on p.k_no=k.k_no
-						where p.m_no=9 and p.k_no=2; 
+/* íŠ¹ì • ë¶€ëª¨ì˜ ëª¨ë“  ì •ë³´ */
+select * from parent p join member m on p.m_no=m.m_no 
+						join family f on p.p_no=f.p_no
+						join children ch on f.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						where p.m_no=9 and k.k_no=2; 
 				
-/* À¯Ä¡¿ø º° ¿ø¾Æ ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ ì›ì•„ ë¦¬ìŠ¤íŠ¸ */
 select * from children ch join class c on ch.c_no=c.c_no 
 							join kindergarten k on ch.k_no=k.k_no 
-							where ch.k_no=2;
+							where ch.k_no=2 order by c.c_name, ch.ch_name;
 				
-/* ¹İ º° ¿ø¾Æ ¸®½ºÆ® */
+/* ë°˜ ë³„ ì›ì•„ ë¦¬ìŠ¤íŠ¸ */
 select * from children ch join class c on ch.c_no=c.c_no
 							join kindergarten k on ch.k_no=k.k_no 
-							where ch.c_no=5;
+							where ch.c_no=1
+							order by ch.ch_name;
+					
+/* íŠ¹ì • ìœ ì•„ì˜ ëª¨ë“  ì •ë³´*/
+select * from children ch join class c on ch.c_no=c.c_no 
+							join kindergarten k on ch.k_no=k.k_no 
+							where ch.ch_no=2 and k.k_no=2;
 
-
-/* Æ¯Á¤ ºÎ¸ğÀÇ ÀÚ³à ¸®½ºÆ® */
-select * from family f join parent p on f.p_no=p.p_no
-						join children ch on f.ch_no=ch.ch_no
+/* íŠ¹ì • ë¶€ëª¨ì˜ ìë…€ ë¦¬ìŠ¤íŠ¸ */
+select * from parent p join children ch on p.ch_no=ch.ch_no
 						join class c on ch.c_no=c.c_no
 						join kindergarten k on ch.k_no=k.k_no
 						where p.m_no=9;
 				
-/* Æ¯Á¤ ÀÚ³àÀÇ ºÎ¸ğ ¸®½ºÆ® (ÇöÀç ¹Ì»ç¿ë) */
-select * from family f join children ch on f.ch_no=ch.ch_no
-						join parent p on f.p_no=p.p_no
+/* íŠ¹ì • ìë…€ì˜ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ (í˜„ì¬ ë¯¸ì‚¬ìš©) */
+select * from children ch join parent p on ch.ch_no=p.ch_no
 						join class c on ch.c_no=c.c_no
 						join kindergarten k on ch.k_no=k.k_no
 						join member m on p.m_no=m.m_no
-						where f.ch_no=4;
+						where ch.ch_no=4
+						order by m.m_name;
 				
-/* Æ¯Á¤ °¡Á· Å×ÀÌºí (?????) */
+/* ìœ ì•„ ì„ íƒ ì‹œ ì„ íƒ í•˜ì§€ ì•Šì€ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ */
+select * from member m left join 
+	(select m_no from parent where ch_no = 1) p on m.m_no = p.m_no
+	where m.m_type = 3 and p.m_no is null;
+		
 
-					
+-- ìœ ì¹˜ì› ë³„ 
+select * from parent p left join 
+	(select p_no from family where ch_no = 3) f on p.p_no = f.p_no
+	join member m on p.m_no = m.m_no
+	where m.m_type = 3 and f.p_no is null;
+
+ 
+
+
+
+
+
 
 

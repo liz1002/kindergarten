@@ -6,7 +6,7 @@
 		<id column="ch_no" property="chNo"/>
 		<result column="ch_name" property="chName"/>
 		<result column="ch_regdate" property="chRegdate"/>
-		<association property="kVo" resultMap="mappers.KindergartenMapper.KindergartenResultMap"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 

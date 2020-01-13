@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mappers.KindergartenMapper">
 	
-	<resultMap type="KindergartenVO" id="KindergartenResultMap">
+	<resultMap type="KindergartenVO" id="kindergartenResultMap">
 		<id column="k_no" property="kNo"/>
 		<result column="k_code" property="kCode"/>
 		<result column="k_name" property="kName"/>
@@ -15,15 +15,15 @@
 		values(#{kCode}, #{kName}, #{kTel}, #{kAddress})
 	</insert>
 	
-	<select id="selectList" resultMap="KindergartenResultMap">
+	<select id="selectList" resultMap="kindergartenResultMap">
 		select * from kindergarten
 	</select>
 	
-	<select id="selectByNo" resultMap="KindergartenResultMap">
+	<select id="selectByNo" resultMap="kindergartenResultMap">
 		select * from kindergarten where k_no=#{kNo}
 	</select>
 	
-	<select id="selectByCode" resultMap="KindergartenResultMap">
+	<select id="selectByCode" resultMap="kindergartenResultMap">
 		select * from kindergarten where k_code=#{kCode}
 	</select>
 	

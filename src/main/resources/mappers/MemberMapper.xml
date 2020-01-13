@@ -35,6 +35,12 @@
 		select * from member where m_id=#{mId} and m_pwd=#{mPwd}
 	</select>
 	
+	<select id="selectListByKNo" resultMap="memberResultMap">
+		select * from parent p join member m on p.m_no=m.m_no
+			join children ch on p.ch_no=ch.ch_no join class c on ch.c_no=c.c_no 
+			join kindergarten k on ch.k_no=k.k_no where k.k_no=#{kNo}
+	</select>						
+	
 	<update id="updateUseByMNo" parameterType="int">
 		update member set m_use=1 where m_no=#{mNo}
 	</update>
