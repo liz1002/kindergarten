@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liz.domain.ChildrenVO;
 import com.liz.domain.DirectorVO;
+import com.liz.domain.FamilyVO;
 import com.liz.domain.MemberVO;
 import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
+import com.liz.service.FamilyService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -55,6 +57,10 @@ public class AddController {
 	@Autowired
 	private ChildrenService childrenService;
 
+	@Autowired
+	private FamilyService familyService;
+	
+	
 	
 	/* * * * * method * * * * */
 	
@@ -175,6 +181,7 @@ public class AddController {
 		if(mVo.getmType() == 2) {
 			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
 			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
+			
 		}
 	}	
 
@@ -184,11 +191,9 @@ public class AddController {
 		logger.info("▶ Add Children POST");
 		logger.info("[chVo] " + chVo);
 		
-		int cNo = chVo.getcVo().getcNo();
-		
 		childrenService.regist(chVo);
 		
-		return childrenService.selectListByCNo(cNo);
+		return childrenService.selectListByCNo(chVo.getcVo().getcNo());
 	}
 
 	/* 교사 - 학부모_원아 등록 */ //ajax로 원아 번호 제외 부모 검색
@@ -198,15 +203,47 @@ public class AddController {
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
-
-		int kNo = classService.selectByNo(cNo).getkNo();
 		
 		if(mVo.getmType() == 2) {
 			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
 			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
-			model.addAttribute("mList", "parentService."); //유치원 부모 리스트
 		}
 	}	
+	
+	@ResponseBody
+	@RequestMapping(value = "getNotParent", method = RequestMethod.POST)
+	public List<FamilyVO> getNotParent(@RequestBody ChildrenVO chVo) {
+		logger.info("▶  Get Not Parent GET");
+		logger.info("[chVo] " + chVo);
+		
+		return familyService.selectParentNullListByChNo(chVo.getkVo().getkNo(), chVo.getChNo());
+	}	
+	
+	@ResponseBody
+	@RequestMapping(value = "getParent", method = RequestMethod.POST)
+	public List<FamilyVO> getParent(@RequestBody ChildrenVO chVo) {
+		logger.info("▶  Get Parent GET");
+		logger.info("[chVo] " + chVo);
+		
+		return familyService.selectListByChNo(chVo.getChNo());
+	}	
+	
+	@ResponseBody
+	@RequestMapping(value = "addFamily", method = RequestMethod.POST)
+	public List<FamilyVO> addFamilyPost(HttpSession session, @RequestBody FamilyVO fVo) {
+		logger.info("▶  Add Family POST");
+		logger.info("[fVo] " + fVo);
+		
+		int mType = (int) session.getAttribute("Type");
+		
+		if(mType == 2) {
+			familyService.regist(fVo.getpVo().getpNo(), fVo.getChVo().getChNo()); //가족 추가
+//			return familyService.selectListByChNo(fVo.getChVo().getChNo());
+		}
+		
+		return null;
+	}	
+	
 	
 	
 	/*-------------------------------[학부모]--------------------------------*/

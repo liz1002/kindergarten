@@ -142,6 +142,7 @@ insert into family(p_no, ch_no) values
 
 select * from parent;
 select * from children;
+select * from family;
 
 -- join ----------------------------------------------------
 
@@ -220,11 +221,10 @@ select * from parent p join children ch on p.ch_no=ch.ch_no
 						where p.m_no=9;
 				
 /* 특정 자녀의 부모 리스트 (현재 미사용) */
-select * from children ch join parent p on ch.ch_no=p.ch_no
-						join class c on ch.c_no=c.c_no
-						join kindergarten k on ch.k_no=k.k_no
+select * from family f join children ch on f.ch_no=ch.ch_no
+						join parent p on f.p_no=p.p_no
 						join member m on p.m_no=m.m_no
-						where ch.ch_no=4
+						where ch.ch_no=3
 						order by m.m_name;
 				
 /* 유아 선택 시 선택 하지 않은 부모 리스트 */
@@ -237,10 +237,16 @@ select * from member m left join
 select * from parent p left join 
 	(select p_no from family where ch_no = 3) f on p.p_no = f.p_no
 	join member m on p.m_no = m.m_no
-	where m.m_type = 3 and f.p_no is null;
+	where m.m_type = 3 and k_no = 2 and f.p_no is null;
 
- 
+-- 가족 검색
+select m_name, m_nickname, group_concat(ch_no separator '|')  group by ch_no;
 
+select m_name, m_nickname, group_concat(ch.ch_no separator '|') as ch_no 
+	from family f join parent p on f.p_no=p.p_no
+					join children ch on f.ch_no=ch.ch_no
+					join `member` m on p.m_no=m.m_no
+				group by ch.ch_no;
 
 
 

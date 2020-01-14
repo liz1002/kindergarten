@@ -20,8 +20,13 @@ public class FamilyServiceImpl implements FamilyService{
 	}
 
 	@Override
-	public List<FamilyVO> selectParentNullListByChNo(int chNo) {
-		return dao.selectParentNullListByChNo(chNo);
+	public List<FamilyVO> selectParentNullListByChNo(int kNo, int chNo) {
+		return dao.selectParentNullListByChNo(kNo, chNo);
+	}
+	
+	@Override
+	public List<FamilyVO> selectListByChNo(int chNo) {
+		return dao.selectListByChNo(chNo);
 	}
 
 	@Override

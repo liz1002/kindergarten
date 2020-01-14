@@ -27,14 +27,20 @@ public class FamilyDAOImpl implements FamilyDAO{
 	}
 
 	@Override
-	public List<FamilyVO> selectParentNullListByChNo(int chNo) {
-		return sqlSession.selectList(namespace + "selectParentNullListByChNo", chNo);
+	public List<FamilyVO> selectParentNullListByChNo(int kNo, int chNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("kNo", kNo);
+		map.put("chNo", chNo);
+		return sqlSession.selectList(namespace + "selectParentNullListByChNo", map);
+	}
+
+	@Override
+	public List<FamilyVO> selectListByChNo(int chNo) {
+		return sqlSession.selectList(namespace + "selectListByChNo", chNo);
 	}
 
 	@Override
 	public void deleteByChNo(int chNo) {
 		sqlSession.delete(namespace + "deleteByChNo", chNo);
 	}
-
-	
 }

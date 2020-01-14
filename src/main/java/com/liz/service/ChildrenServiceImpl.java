@@ -35,15 +35,15 @@ public class ChildrenServiceImpl implements ChildrenService{
 	}
 
 	@Override
-	public List<ChildrenVO> selectParentListByChNo(int chNo) {
-		return dao.selectParentListByChNo(chNo);
-	}
-
-	@Override
 	public void removeByChNo(int chNo) {
 		dao.deleteByChNo(chNo);
 		
 		//부모 테이블 같이 삭제
+	}
+
+	@Override
+	public List<ChildrenVO> selectParentListByChNo(int chNo) {
+		return dao.selectParentListByChNo(chNo);
 	}
 
 	

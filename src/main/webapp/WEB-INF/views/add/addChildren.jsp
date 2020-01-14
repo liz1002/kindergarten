@@ -53,13 +53,16 @@
 		margin-left: 10px;
 		cursor: pointer;
 	}
+	#area_wrap #childList p a.detail:hover{
+		text-decoration: underline;
+	}
 </style>
 
 <section>
 	<h1 id="title">${cVo.cName}</h1>
 	<div id="form_wrap">
 		<h1>원아 추가</h1>
-		<form action="registCh" method="post">	
+		<form>	
 			<fieldset>
 				<legend>원아 정보</legend>
 				<p>
@@ -90,6 +93,7 @@
 						${chVo.chName}
 						<fmt:formatDate value="${chVo.chRegdate}" pattern="(yyyy/MM/dd)"/>
 					</label>
+					<a href="${pageContext.request.contextPath}/info/infoChild?chNo=${chVo.chNo}" class="detail">상세</a>
 				</p>
 			</c:forEach>
 		</div>
@@ -173,9 +177,6 @@
 			}
 		})
 	})
-	
-	
-	
 </script>
 
 <%@include file="../include/footer.jsp" %>

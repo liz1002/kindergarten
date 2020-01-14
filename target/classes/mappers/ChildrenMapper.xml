@@ -33,11 +33,8 @@
 	</select>
 	
 	<select id="selectParentListByChNo" resultMap="childrenResultMap">
-		select * from children ch join parent p on ch.ch_no=p.ch_no
-						join class c on ch.c_no=c.c_no
-						join kindergarten k on ch.k_no=k.k_no
-						join member m on p.m_no=m.m_no
-						where ch.ch_no=#{chNo} order by m.m_name
+		<include refid="selectJoin" /> join parent p on ch.ch_no=p.ch_no
+			join member m on p.m_no=m.m_no where ch.ch_no=#{chNo} order by m.m_name
 	</select>
 	
 	<delete id="deleteByChNo">

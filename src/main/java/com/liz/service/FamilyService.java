@@ -6,6 +6,7 @@ import com.liz.domain.FamilyVO;
 
 public interface FamilyService {
 	public void regist(int pNo, int chNo);
-	public List<FamilyVO> selectParentNullListByChNo(int chNo);
+	public List<FamilyVO> selectParentNullListByChNo(int kNo, int chNo);
+	public List<FamilyVO> selectListByChNo(int chNo);
 	public void removeByChNo(int chNo);
 }

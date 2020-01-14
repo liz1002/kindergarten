@@ -16,6 +16,7 @@
 		line-height: 50px;
 	}
 	#container a{
+		
 	}
 	#container a:hover {
 		text-decoration: underline;
@@ -26,36 +27,14 @@
 <section>
 	<div id="container">
 		<h1 id="title">${cVo.cName}</h1>
+		<p>코드 : ${cVo.cCode}</p>
 		<div class="wrap">
-			<h1>부모 리스트</h1>
-			<c:if test="${pList.size() == 0}">
-				<p class="coment">등록된 부모가 없습니다.</p>
-			</c:if>
-			<c:forEach var="pVo" items="${pList}">
-				<p>
-					<!-- 해당 반의 모든 부모 검색하는 MAPPER 생성하기!!! -->
-					<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${pVo.chVo.cVo.cNo}">[${pVo.chVo.cVo.cName}]</a> 
-					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.kVo.kNo}">${pVo.mVo.mNickname}</a>
-				</p>
-			</c:forEach>
-			<p>
-				<a href="${pageContext.request.contextPath}/add/addFamily?cNo=${cVo.cNo}">학부모 관리</a>
-			</p>
-		</div>
-		<hr>
-		<div class="wrap">
-			<h1>원아 리스트</h1>
-			<c:if test="${chList.size() == 0}">
-				<p class="coment">등록된 원아가 없습니다.</p>
-			</c:if>
-			<c:forEach var="chVo" items="${chList}">
-				<p>
-					<a href="${pageContext.request.contextPath}/info/infoChild?chNo=${chVo.chNo}">${chVo.chName}</a>
-				</p>
-			</c:forEach>
-			<p>
+			<h1>
+				<a href="${pageContext.request.contextPath}/add/addFamily?cNo=${cVo.cNo}">가족 관리</a>
+			</h1>
+			<h1>
 				<a href="${pageContext.request.contextPath}/add/addChildren?cNo=${cVo.cNo}">원아 관리</a>
-			</p>		
+			</h1>		
 		</div>
 	</div>
 </section>

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
+import com.liz.domain.FamilyVO;
 import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
 import com.liz.service.ChildrenService;
@@ -203,17 +205,37 @@ public class ManageController {
 		for(int chNo : chNoList) {
 			logger.info("[chNo] " + chNo);
 			
-			//유아 번호로 parent 검색 null 아니면 부모 삭제
-			List<ChildrenVO> chList = childrenService.selectParentListByChNo(chNo);
-			logger.info("[chList] " + chList);
+			//유아 번호로 family 검색 null이 아니면 가족 삭제
+			List<FamilyVO> fList = familyService.selectListByChNo(chNo);
+			logger.info("[fList] " + fList);
 			
-			if(chList.size() != 0){
+			if(fList.size() != 0){
 				familyService.removeByChNo(chNo);
 			}			
 			childrenService.removeByChNo(chNo);
 		}
 		
 		return childrenService.selectListByCNo(cNo); //원아 리스트
+	}
+	
+	/* 가족 삭제 */
+	@ResponseBody
+	@RequestMapping(value = "removeFamily/{chNo}", method = RequestMethod.POST)
+	public List<ChildrenVO> removeFamilyPost(@RequestBody int[] pNoList, @PathVariable("chNo") int chNo) {
+		logger.info("▶ Remove Children POST");
+	
+		logger.info("[chNo] " + chNo);
+		
+		logger.info("[pNoList]" + pNoList);
+		
+		for(int pNo : pNoList) {
+			logger.info("[pNo] " + pNo);
+			
+			//학부모 번호 & 원아 번호로 가족 삭제
+//			familyService.removeByChNo(pNo, chNo);
+		}
+		
+		return null;
 	}
 	
 	
