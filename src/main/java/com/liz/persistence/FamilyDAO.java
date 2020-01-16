@@ -9,4 +9,5 @@ public interface FamilyDAO {
 	public List<FamilyVO> selectParentNullListByChNo(int kNo, int chNo);
 	public List<FamilyVO> selectListByChNo(int chNo);
 	public void deleteByChNo(int chNo);
+	public void deleteByPNoAndChNo(int pNo, int chNo);
 }

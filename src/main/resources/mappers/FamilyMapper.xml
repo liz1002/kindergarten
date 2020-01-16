@@ -27,4 +27,8 @@
 	<delete id="deleteByChNo">
 		delete from family where ch_no=#{chNo}
 	</delete>
+	
+	<delete id="deleteByPNoAndChNo">
+		delete from family where p_no=#{pNo} and ch_no=#{chNo}
+	</delete>
 </mapper>

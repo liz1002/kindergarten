@@ -11,7 +11,7 @@
 		letter-spacing: 5px;
 	}
 	section #form_wrap{
-		width: 500px;
+		width: 600px;
 		margin: 0px;
 		padding: 50px;
 		float: left;
@@ -23,7 +23,7 @@
 		margin: 70px auto;
 	}
 	section #area_wrap{
-		width: 500px;
+		width: 400px;
 		height: 100%;
 		padding: 50px;
 		float: left;
@@ -129,8 +129,10 @@
 			success: function(res) {
 				console.log(res);
 				setList(res);
-				$("input[name='chName']").val("");
-				$("input[name='chRegdate']").val("");
+
+				 $("form").each(function() {  
+			            this.reset();  
+		         }); 
 			},
 			error: function(err) {
 				console.log(err);
@@ -149,7 +151,7 @@
 			
 			var $input = $("<input>").attr("type", "checkbox").addClass("chNo").attr("id", i).val(obj.chNo);
 			var $label = $("<label>").attr("for", i).text(obj.chName + format);
-			var $p = $("<p>").append($input, $label);
+			var $p = $("<p>").append($input).append($label);
 			$("#childList").append($p);
 		})
 	}
@@ -162,8 +164,10 @@
 			chNoList[i] = $(obj).val();
 		})
 		
+		var cNo = $("input[name='cVo.cNo']").val();
+		
 		$.ajax({
-			url: "${pageContext.request.contextPath}/manage/removeChildren",
+			url: "${pageContext.request.contextPath}/manage/removeChildren/" + cNo,
 			type: "post",
 			data: JSON.stringify(chNoList),
 			headers: {"Content-Type" : "application/json"},

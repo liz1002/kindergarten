@@ -12,7 +12,7 @@
 		letter-spacing: 5px;
 	}
 	section #form_wrap{
-		width: 500px;
+		width: 600px;
 		margin: 0px;
 		padding: 50px;
 		float: left;
@@ -24,7 +24,7 @@
 		margin: 70px auto;
 	}
 	section #area_wrap{
-		width: 500px;
+		width: 400px;
 		height: 100%;
 		padding: 50px;
 		float: left;
@@ -44,19 +44,31 @@
 		overflow: auto;
 	}
 	#area_wrap p.showParentBtn{
-		
 		text-align: left;
+		margin: 10px 0px;
+		cursor: pointer;
 	}
-	
+	#area_wrap p.showParentBtn:hover{
+		font-weight: bold;
+	}
+	#area_wrap p.selShowParentBtn{ /* 선택된 원아 이름  */
+		font-weight: bold;
+		background: #fff;
+	}
 	#area_wrap div.showParent{
 		width: 300px;
-		margin-left: 20px;
 		text-align: left;
+	}
+	.showParent input, .showParent label{
+		margin-left: 10px;
+		cursor: pointer;
 	}
 </style>
 
 <section>
+	<h1 id="title">${cVo.cName}</h1>
 	<div id="form_wrap">	
+		<h1>가족 추가</h1>
 		<form>		
 			<fieldset>
 				<legend>가족 등록</legend>		
@@ -65,7 +77,7 @@
 					<select id="selChild" data-msg="원아를 선택하세요.">
 						<option value="">원아 선택</option>
 						<c:forEach var="chVo" items="${chList}">
-							<option value="${chVo.chNo}">${chVo.chName}(<fmt:formatDate value="${chVo.chRegdate}" pattern="(yyyy/MM/dd)"/>)</option>
+							<option value="${chVo.chNo}">${chVo.chName}<fmt:formatDate value="${chVo.chRegdate}" pattern="(yyyy/MM/dd)"/></option>
 						</c:forEach>
 					</select>
 				</p>
@@ -77,15 +89,18 @@
 							<option value="${pVo.mVo.mNo}">${pVo.mVo.mNickname}</option>
 						</c:forEach>
 					</select>
-					<input type="hidden" name="kNo" value="${cVo.kNo}">
 				</p>
 			</fieldset>
 			<p id="submit">
 				<input type="button" id="addFamily" value="가족 등록">
 			</p>
+			
+			<input type="hidden" name="chNo">
+			<input type="hidden" name="kNo" value="${cVo.kNo}">
 		</form>
 	</div>
 	<div id="area_wrap">
+		<h1>가족 목록</h1>
 		<div id="parentList">
 			<c:forEach var="chVo" items="${chList}">
 				<p class="showParentBtn" data-chNo="${chVo.chNo}">
@@ -94,7 +109,6 @@
 				</p>
 				<div class="showParent"></div>
 			</c:forEach>
-			<input type="hidden" name="chNo">
 		</div>
 		<button id="btnRemove">삭제</button>
 	</div>
@@ -103,8 +117,13 @@
 				
 <!----- S C R I P T ----->				
 <script>
-	/* form 유아 선택 */
+	/* form 원아 선택 */
 	$("#selChild").change(function() {
+		if($(this).val() == ""){
+			$(".pList").remove();
+			return false;
+		}
+		
 		var data = {"chNo" : $(this).val(), 
 					"kVo" : {"kNo" : $("input[name='kNo']").val()}};
 		
@@ -129,34 +148,47 @@
 		})
 	})
 	
-	/* list 유아 선택 */
+	/* list 원아 선택 */
 	$(".showParentBtn").click(function() {
-		
 		var target = $(this);
-		$("input[name='chNo']").val(target.attr("data-chNo"));
 		
-		$.ajax({
-			url: "${pageContext.request.contextPath}/add/getParent",
-			type: "post",
-			data: JSON.stringify({"chNo" : target.attr("data-chNo")}),
-			headers: {"Content-Type" : "application/json"},
-			dataType:"json",
-			success: function(res) {
-				console.log(res);
-				
-				$(".showParent").empty();
-				
-				$(res).each(function(i, obj) {
-					var $input = $("<input>").attr("type", "checkbox").attr("id", i).addClass("pNo").val(obj.pVo.pNo);
-					var $label = $("<label>").attr("for", i).text(obj.pVo.mVo.mName + "(" + obj.pVo.mVo.mNickname + ")");
-					var $p = $("<p>").append($input, $label);
-					target.next().append($p);
-				})
-			},
-			error: function(err) {
-				console.log(err);
-			}
-		})				
+		$(".showParentBtn").removeClass("selShowParentBtn"); //모든 원아에게서 클래스 삭제
+		target.addClass("selShowParentBtn"); //선택한 원아에게만 클래스 추가
+		
+		//이미 선택된 원아면(selShowParentBtn 클래스가 있으면) 부모리스트 펼치기 / 없으면 닫기
+		if(($(this).attr("class")).indexOf("selShowParentBtn") > 0){
+			$("input[name='chNo']").val(target.attr("data-chNo")); //선택한 원아 번호 저장
+			$(".showParent").empty(); //모든 부모 리스트 닫기
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/add/getParent",
+				type: "post",
+				data: JSON.stringify({"chNo" : target.attr("data-chNo")}),
+				headers: {"Content-Type" : "application/json"},
+				dataType:"json",
+				success: function(res) {
+					console.log(res);
+					
+					if($(res).size() == 0){
+						var $p = $("<p>").text("등록된 학부모가 없습니다.");
+						target.next().append($p);
+					}
+					
+					$(res).each(function(i, obj) {
+						var $input = $("<input>").attr("type", "checkbox").attr("id", i).addClass("pNo").val(obj.pVo.pNo);
+						var $label = $("<label>").attr("for", i).text(obj.pVo.mVo.mName + "(" + obj.pVo.mVo.mNickname + ")");
+						var $p = $("<p>").append($input).append($label);
+						target.next().append($p);
+					})
+				},
+				error: function(err) {
+					console.log(err);
+				}
+			})		
+		} else{
+			target.next().empty(); //선택한 원아의 부모 리스트 닫기
+			$("input[name='chNo']").val(""); //선택한 원아 번호 삭제
+		}
 	})
 	
 	/* 가족 등록 */
@@ -176,13 +208,13 @@
 			type: "post",
 			data: JSON.stringify(data),
 			headers: {"Content-Type" : "application/json"},
-			dataType:"json",
 			success: function(res) {
 				console.log(res);
 				
-				//form reset
-				$("#selParent").val("");
-				$("#selChild").val("");
+				//form reset 
+				$("select").val("").prop("selected", true);
+				$(".pList").remove();
+				
 			},
 			error: function(err) {
 				console.log(err);
@@ -201,14 +233,15 @@
 		var chNo = $("input[name='chNo']").val();
 		
 		$.ajax({
-			url: "${pageContext.request.contextPath}/manage/removeFamily/"+chNo,
+			url: "${pageContext.request.contextPath}/manage/removeFamily/" + chNo,
 			type: "post",
-			traditional : true,
 			data: JSON.stringify(pNoList),
 			headers: {"Content-Type" : "application/json"},
-			dataType:"json",
 			success: function(res) {
 				console.log(res);
+				
+				//현재 선택된 원아 재클릭
+				$(".selShowParentBtn").click(); 
 			},
 			error: function(err) {
 				console.log(err);

@@ -41,7 +41,7 @@
 		width: 60%;
 		margin: 50px auto;
 		padding: 20px 50px;
-		background: #F2F3F5;
+		background: #fff;
 	}
 	#form_wrap legend{
 		padding: 0px 10px;
@@ -61,7 +61,7 @@
 		color: #f00;
 		vertical-align: middle;
 	}
-	#form_wrap input{
+	#form_wrap input, #form_wrap select{
 		padding: 3px;
 	}
 	#form_wrap span#coment{
@@ -139,7 +139,7 @@
 		background: #8FDBFF;
 	}
 	#wrap a span{
-		text-decoration: underline;
+		font-weight: bold;
 	}
 	#wrap img{
 		width: 70px;

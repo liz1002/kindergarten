@@ -196,11 +196,11 @@ public class ManageController {
 	
 	/* 원아 삭제 */
 	@ResponseBody
-	@RequestMapping(value = "removeChildren", method = RequestMethod.POST)
-	public List<ChildrenVO> removeChildrenPost(@RequestBody int[] chNoList) {
+	@RequestMapping(value = "removeChildren/{cNo}", method = RequestMethod.POST)
+	public List<ChildrenVO> removeChildrenPost(@RequestBody int[] chNoList, @PathVariable("cNo") int cNo) {
 		logger.info("▶ Remove Children POST");
 		
-		int cNo = childrenService.selectByChNo(chNoList[0]).getcVo().getcNo();
+		logger.info("[cNo] " + cNo);
 		
 		for(int chNo : chNoList) {
 			logger.info("[chNo] " + chNo);
@@ -210,7 +210,7 @@ public class ManageController {
 			logger.info("[fList] " + fList);
 			
 			if(fList.size() != 0){
-				familyService.removeByChNo(chNo);
+				familyService.removeByChNo(chNo); //원아의 모든 가족 삭제
 			}			
 			childrenService.removeByChNo(chNo);
 		}
@@ -221,21 +221,15 @@ public class ManageController {
 	/* 가족 삭제 */
 	@ResponseBody
 	@RequestMapping(value = "removeFamily/{chNo}", method = RequestMethod.POST)
-	public List<ChildrenVO> removeFamilyPost(@RequestBody int[] pNoList, @PathVariable("chNo") int chNo) {
+	public void removeFamilyPost(@RequestBody int[] pNoList, @PathVariable("chNo") int chNo) {
 		logger.info("▶ Remove Children POST");
-	
 		logger.info("[chNo] " + chNo);
-		
-		logger.info("[pNoList]" + pNoList);
 		
 		for(int pNo : pNoList) {
 			logger.info("[pNo] " + pNo);
-			
-			//학부모 번호 & 원아 번호로 가족 삭제
-//			familyService.removeByChNo(pNo, chNo);
+	
+			familyService.removeByPNoAndChNo(pNo, chNo); //학부모 번호 & 원아 번호로 가족 삭제
 		}
-		
-		return null;
 	}
 	
 	

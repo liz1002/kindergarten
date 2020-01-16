@@ -43,4 +43,12 @@ public class FamilyDAOImpl implements FamilyDAO{
 	public void deleteByChNo(int chNo) {
 		sqlSession.delete(namespace + "deleteByChNo", chNo);
 	}
+	
+	@Override
+	public void deleteByPNoAndChNo(int pNo, int chNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pNo", pNo);
+		map.put("chNo", chNo);
+		sqlSession.delete(namespace + "deleteByPNoAndChNo", map);
+	}
 }

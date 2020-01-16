@@ -9,4 +9,5 @@ public interface FamilyService {
 	public List<FamilyVO> selectParentNullListByChNo(int kNo, int chNo);
 	public List<FamilyVO> selectListByChNo(int chNo);
 	public void removeByChNo(int chNo);
+	public void removeByPNoAndChNo(int pNo, int chNo);
 }

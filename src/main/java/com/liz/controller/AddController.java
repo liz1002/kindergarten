@@ -196,7 +196,7 @@ public class AddController {
 		return childrenService.selectListByCNo(chVo.getcVo().getcNo());
 	}
 
-	/* 교사 - 학부모_원아 등록 */ //ajax로 원아 번호 제외 부모 검색
+	/* 교사 - 가족 추가 */ //ajax로 원아 번호 제외 부모 검색
 	@RequestMapping(value = "addFamily", method = RequestMethod.GET)
 	public void addFamilyGet(HttpSession session, int cNo, Model model) {
 		logger.info("▶  Add Family GET");
@@ -230,7 +230,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "addFamily", method = RequestMethod.POST)
-	public List<FamilyVO> addFamilyPost(HttpSession session, @RequestBody FamilyVO fVo) {
+	public void addFamilyPost(HttpSession session, @RequestBody FamilyVO fVo) {
 		logger.info("▶  Add Family POST");
 		logger.info("[fVo] " + fVo);
 		
@@ -238,10 +238,7 @@ public class AddController {
 		
 		if(mType == 2) {
 			familyService.regist(fVo.getpVo().getpNo(), fVo.getChVo().getChNo()); //가족 추가
-//			return familyService.selectListByChNo(fVo.getChVo().getChNo());
 		}
-		
-		return null;
 	}	
 	
 	
