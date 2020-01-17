@@ -11,4 +11,5 @@ public interface ClassService {
 	public ClassVO selectByCode(String cCode);
 	public List<ClassVO> selectListByKNo(int kNo);
 	public void removeByCNo(int cNo);
+	public void modify(ClassVO cVo);
 }

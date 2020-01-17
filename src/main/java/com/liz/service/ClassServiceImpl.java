@@ -46,4 +46,9 @@ public class ClassServiceImpl implements ClassService{
 	public void removeByCNo(int cNo) {
 		cDao.deleteByCNo(cNo);
 	}
+
+	@Override
+	public void modify(ClassVO cVo) {
+		cDao.update(cVo);
+	}
 }

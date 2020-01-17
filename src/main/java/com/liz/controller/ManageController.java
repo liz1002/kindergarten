@@ -22,6 +22,7 @@ import com.liz.domain.ClassVO;
 import com.liz.domain.FamilyVO;
 import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
+import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
@@ -179,16 +180,21 @@ public class ManageController {
 	
 	/* 교사 - 반 - 학부모, 원아 관리 */
 	@RequestMapping(value = "manageClass", method = RequestMethod.GET)
-	public void manageClass(HttpSession session, int cNo, Model model) {
+	public void manageClass(HttpSession session, int cNo, int tType, Model model) {
 		logger.info("▶ Manage Class GET");
 		
 		Object mId = session.getAttribute("Auth");
-		MemberVO vo = memberService.selectById((String) mId);
+		MemberVO mVo = memberService.selectById((String) mId);
 
-		model.addAttribute("mNo", vo.getmNo());
+		model.addAttribute("mNo", mVo.getmNo());
+		TeacherVO tVo = new TeacherVO();
+		tVo.setcVo(new ClassVO(cNo, null, null, 0));
+		tVo.setmVo(mVo);
+		tVo.settType(tType);
 		
-		if(vo.getmType() == 2) {
+		if(mVo.getmType() == 2) {
 			model.addAttribute("cVo", classService.selectByNo(cNo)); //해당 반 정보
+			model.addAttribute("tVo", teacherService.selectByMNoAndCNoAndTType(tVo)); //교사 정보
 			model.addAttribute("pList", parentService.selectListByCNo(cNo)); //해당 반번호의 학부모 리스트
 			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //해당 반번호의 원아 리스트
 		}
@@ -244,7 +250,7 @@ public class ManageController {
 		MemberVO mVo = memberService.selectById(mId);
 		
 		if(mVo.getmType() == 3) {
-			model.addAttribute("pList", parentService.selectChildListByMNo(mVo.getmNo()));//해당 부모의 자녀 & 반 리스트
+			model.addAttribute("pList", parentService.selectListByMNo(mVo.getmNo()));//해당 부모의 자녀 & 반 리스트
 		}
 	}
 }

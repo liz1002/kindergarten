@@ -11,5 +11,6 @@ public interface TeacherService {
 	public List<TeacherVO> selectListByKNo(int kNo);
 	public List<TeacherVO> selectListByCNo(int cNo);
 	public List<TeacherVO> selectByMNoAndKNo(int mNo, int kNo);
-	public void modify(TeacherVO vo, int tNo);
+	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo);
+	public void modify(TeacherVO tVo);
 }

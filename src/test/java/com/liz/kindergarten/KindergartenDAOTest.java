@@ -18,7 +18,7 @@ public class KindergartenDAOTest {
 	
 	@Test
 	public void testInsert() {
-		dao.insert(new KindergartenVO(0, "0001enfo3e34", "무지개유치원", "053-123-1234", "대구 수성구 지범로 8678-84"));
+		dao.insert(new KindergartenVO(0, "0001enfo3e34", "무지개유치원", "053-123-1234", "대구 수성구 지범로 8678-84", null));
 	}
 	
 	@Test

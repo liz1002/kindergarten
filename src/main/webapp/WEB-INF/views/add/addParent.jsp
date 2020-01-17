@@ -2,41 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 <style>
-	div#form_wrap{
-		width: 70%;
-		margin: 20px auto;
-	}
-	fieldset {
-		margin: 50px auto;
-		padding: 20px 50px;
-		background: #F2F3F5;
-	}
-	legend{
-		padding: 0px 10px;
-		font-weight: bold;
-	}
-	form p{
-		overflow: hidden;
-		line-height: 50px;
-	}
-	label {
-		display: inline-block;
-		width: 20%;
-		float: left;
-	}
-	span.necessary{
-		margin-right: 5px; 
-		color: #f00;
-		vertical-align: middle;
-	}
-	input{
-		padding: 3px;
-	}
-	span#coment{
-		font-size: 13px;
-		color: gray;
-		margin-left: 15px;
-	}
+	
 </style>
 
 <section>
@@ -54,7 +20,7 @@
 					<input type="text" name="kName" readonly="readonly" data-msg="유치원을 선택하세요." placeholder="유치원 코드로 추가">
 				</p>				
 			</fieldset>			
-			<p>
+			<p id="submit">
 				<input type="submit" value="등록">
 			</p>
 			

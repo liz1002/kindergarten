@@ -32,6 +32,10 @@
 		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo};
 	</select>
 	
+	<select id="selectByMNoAndCNoAndTType" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_no=#{cVo.cNo} and t_type=#{tType};
+	</select>
+	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where t.k_no=#{kNo}; 
 	</select>
@@ -41,6 +45,6 @@
 	</select>
 	
 	<update id="update">
-		update teacher set k_no=#{kNo}, c_no=#{cNo} where t_no=${tNo};
+		update teacher set t_type=#{tType}, c_no=#{cVo.cNo} where t_no=${tNo};
 	</update>
 </mapper>

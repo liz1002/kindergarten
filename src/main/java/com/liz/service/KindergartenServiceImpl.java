@@ -28,4 +28,9 @@ public class KindergartenServiceImpl implements KindergartenService{
 	public KindergartenVO selectByCode(String kCode) {
 		return kDao.selectByCode(kCode);
 	}
+
+	@Override
+	public void modify(KindergartenVO kVo) {
+		kDao.update(kVo);
+	}
 }

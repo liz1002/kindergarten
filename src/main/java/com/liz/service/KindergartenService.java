@@ -8,4 +8,5 @@ public interface KindergartenService {
 	public List<KindergartenVO> selectList();
 	public KindergartenVO selectByNo(int kNo);
 	public KindergartenVO selectByCode(String kCode);
+	public void modify(KindergartenVO kVo);
 }

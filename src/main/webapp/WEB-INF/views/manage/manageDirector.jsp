@@ -21,13 +21,13 @@
 	#container a:hover {
 		text-decoration: underline;
 	}
-	#container div#item_wrap{
+	#container div.item_wrap{
 		width: 400px;
 		height: 70px;
 		margin: 20px auto;
 		background: #8FDBFF; 
 	}
-	#item_wrap h3{
+	.item_wrap h3{
 		line-height: 70px;
 	}
 </style>
@@ -37,9 +37,11 @@
 		<p id="addKinder"><a href="${pageContext.request.contextPath}/add/addKinder">유치원 추가 하기</a></p>
 			<c:if test="${Type == 1}">	
 				<c:forEach var="dVo" items="${dList}">
-				<div id="item_wrap">
+				<div class="item_wrap">
 					<h3>
-						<a href="${pageContext.request.contextPath}/manage/manageKinder?kNo=${dVo.kVo.kNo}">${dVo.kVo.kName}</a>
+						<a href="${pageContext.request.contextPath}/manage/manageKinder?kNo=${dVo.kVo.kNo}">
+							${dVo.kVo.kName}<fmt:formatDate value="${dVo.kVo.kRegdate}" pattern="(yyyy)"/>				
+						</a>
 					</h3>
 				</div> 
 			</c:forEach>

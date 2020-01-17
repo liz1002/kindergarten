@@ -40,6 +40,14 @@ public class FamilyDAOImpl implements FamilyDAO{
 	}
 
 	@Override
+	public List<FamilyVO> selectChListByMNoAndKNo(int mNo, int kNo) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("mNo", mNo);
+		map.put("kNo", kNo);
+		return sqlSession.selectList(namespace + "selectChListByMNoAndKNo", map);
+	}
+
+	@Override
 	public void deleteByChNo(int chNo) {
 		sqlSession.delete(namespace + "deleteByChNo", chNo);
 	}

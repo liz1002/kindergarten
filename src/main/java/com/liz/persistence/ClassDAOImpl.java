@@ -17,8 +17,8 @@ public class ClassDAOImpl implements ClassDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public void insert(ClassVO vo) {
-		sqlSession.insert(namespace + "insert", vo);
+	public void insert(ClassVO cVo) {
+		sqlSession.insert(namespace + "insert", cVo);
 	}
 
 	@Override
@@ -39,5 +39,10 @@ public class ClassDAOImpl implements ClassDAO{
 	@Override
 	public void deleteByCNo(int cNo) {
 		sqlSession.delete(namespace + "deleteByCNo", cNo);
+	}
+
+	@Override
+	public void update(ClassVO cVo) {
+		sqlSession.update(namespace + "update", cVo);
 	}
 }

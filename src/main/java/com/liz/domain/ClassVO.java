@@ -1,15 +1,9 @@
 package com.liz.domain;
 
-import java.sql.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class ClassVO {
 	private int cNo; //반번호
 	private String cCode; //반코드
 	private String cName; //반이름
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date cRegdate; //등록날짜
 	private int kNo; //유치원번호  *유치원 전체 정보
 	
 	public ClassVO() {
@@ -17,12 +11,11 @@ public class ClassVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ClassVO(int cNo, String cCode, String cName, Date cRegdate, int kNo) {
+	public ClassVO(int cNo, String cCode, String cName, int kNo) {
 		super();
 		this.cNo = cNo;
 		this.cCode = cCode;
 		this.cName = cName;
-		this.cRegdate = cRegdate;
 		this.kNo = kNo;
 	}
 
@@ -49,14 +42,6 @@ public class ClassVO {
 	public void setcName(String cName) {
 		this.cName = cName;
 	}
-	
-	public Date getcRegdate() {
-		return cRegdate;
-	}
-
-	public void setcRegdate(Date cRegdate) {
-		this.cRegdate = cRegdate;
-	}
 
 	public int getkNo() {
 		return kNo;
@@ -68,7 +53,6 @@ public class ClassVO {
 
 	@Override
 	public String toString() {
-		return "ClassVO [cNo=" + cNo + ", cCode=" + cCode + ", cName=" + cName + ", cRegdate=" + cRegdate + ", kNo="
-				+ kNo + "]";
+		return "ClassVO [cNo=" + cNo + ", cCode=" + cCode + ", cName=" + cName + ", kNo=" + kNo + "]";
 	}
 }

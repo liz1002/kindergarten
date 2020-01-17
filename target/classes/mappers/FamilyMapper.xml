@@ -24,6 +24,12 @@
 			where ch.ch_no=#{chNo} order by m.m_name
 	</select>
 	
+	<select id="selectChListByMNoAndKNo" resultMap="familyResultMap">
+		select * from parent p join family f on p.p_no=f.p_no
+			join children ch on f.ch_no=ch.ch_no join class c on ch.c_no=c.c_no
+			join kindergarten k on ch.k_no=k.k_no where p.m_no=#{mNo} and p.k_no=#{kNo} order by ch.ch_regdate;
+	</select>
+	
 	<delete id="deleteByChNo">
 		delete from family where ch_no=#{chNo}
 	</delete>

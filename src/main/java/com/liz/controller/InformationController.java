@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.liz.domain.MemberVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
+import com.liz.service.FamilyService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -40,6 +41,9 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 	
 	@Autowired
 	private ChildrenService childrenService; 
+
+	@Autowired
+	private FamilyService familyService; 
 	
 	/* * * * * method * * * * */
 	
@@ -58,8 +62,7 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 				model.addAttribute("tList", teacherService.selectByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
 				break;
 			case 3:
-				model.addAttribute("pList", parentService.selectListByMNoAndKNO(mNo, kNo)); //선택한 부모 정보 <-이건 필요 X
-					//선택한 부모의 자녀 정보
+				model.addAttribute("fList", familyService.selectChListByMNoAndKNo(mNo, kNo)); //선택한 부모의 자녀 정보
 				break;
 		}
 		

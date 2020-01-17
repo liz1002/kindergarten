@@ -8,6 +8,7 @@
 		<result column="k_name" property="kName"/>
 		<result column="k_tel" property="kTel"/>
 		<result column="k_address" property="kAddress"/>
+		<result column="k_regdate" property="kRegdate"/> 
 	</resultMap>
 	
 	<insert id="insert" parameterType="KindergartenVO" useGeneratedKeys="true" keyColumn="k_no" keyProperty="kNo">
@@ -27,4 +28,7 @@
 		select * from kindergarten where k_code=#{kCode}
 	</select>
 	
+	<update id="update" parameterType="KindergartenVO">
+		update kindergarten set k_name=#{kName}, k_tel=#{kTel}, k_address=#{kAddress} where k_no=#{kNo}
+	</update>
 </mapper>

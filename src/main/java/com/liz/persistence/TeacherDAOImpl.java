@@ -19,8 +19,8 @@ public class TeacherDAOImpl implements TeacherDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public void insert(TeacherVO vo) {
-		sqlSession.insert(namespace + "insert", vo);
+	public void insert(TeacherVO tVo) {
+		sqlSession.insert(namespace + "insert", tVo);
 	}
 
 	@Override
@@ -52,11 +52,13 @@ public class TeacherDAOImpl implements TeacherDAO{
 	}
 
 	@Override
-	public void update(TeacherVO vo, int tNo) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("vo", vo);
-		map.put("tNo", tNo);
-		sqlSession.update(namespace + "update", vo);
+	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo) {
+		return sqlSession.selectOne(namespace + "selectByMNoAndCNoAndTType", tVo);
+	}
+
+	@Override
+	public void update(TeacherVO tVo) {
+		sqlSession.update(namespace + "update", tVo);
 	}
 	
 }

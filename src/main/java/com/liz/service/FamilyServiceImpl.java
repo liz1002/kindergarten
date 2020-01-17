@@ -28,6 +28,11 @@ public class FamilyServiceImpl implements FamilyService{
 	public List<FamilyVO> selectListByChNo(int chNo) {
 		return dao.selectListByChNo(chNo);
 	}
+
+	@Override
+	public List<FamilyVO> selectChListByMNoAndKNo(int mNo, int kNo) {
+		return dao.selectChListByMNoAndKNo(mNo, kNo);
+	}
 	
 	@Override
 	public void removeByChNo(int chNo) {

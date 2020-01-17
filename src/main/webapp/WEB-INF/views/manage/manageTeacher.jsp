@@ -42,21 +42,12 @@
 				<c:forEach var="tVo" items="${tList}">
 					<div id="item_wrap">
 						<h3>
-							<a href="${pageContext.request.contextPath}/manage/manageClass?cNo=${tVo.cVo.cNo}">
+							<a href="${pageContext.request.contextPath}/manage/manageClass?cNo=${tVo.cVo.cNo}&tType=${tVo.tType}">
 								[${tVo.kVo.kName}] ${tVo.cVo.cName}
 								<c:if test="${tVo.tType == 1}">(담임)</c:if>
 								<c:if test="${tVo.tType == 2}">(부담임)</c:if>
 							</a>
 						</h3>
-						<%-- <h3>
-							[<a href="${pageContext.request.contextPath}/info/infoKinder?kNo=${tVo.kVo.kNo}">${tVo.kVo.kName}</a>]
-							<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${tVo.cVo.cNo}">${tVo.cVo.cName}</a>
-							<c:if test="${tVo.tType == 1}">(담임)</c:if>
-							<c:if test="${tVo.tType == 2}">(부담임)</c:if>
-						</h3>
-						<p>
-							<a href="${pageContext.request.contextPath}/manage/registCh?cNo=${tVo.cVo.cNo}">원아 관리</a>
-						</p> --%>
 					</div>
 				</c:forEach>
 			</c:if>

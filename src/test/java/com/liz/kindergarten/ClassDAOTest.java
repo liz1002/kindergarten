@@ -18,7 +18,7 @@ public class ClassDAOTest {
 	
 	@Test
 	public void testInsert() {
-		dao.insert(new ClassVO(0, "0010001eovp24e", "보라반", null, 1));
+		dao.insert(new ClassVO(0, "0010001eovp24e", "보라반", 1));
 	}
 	
 	@Test
