@@ -5,12 +5,11 @@
 	<resultMap type="ParentVO" id="parentResultMap">
 		<id column="p_no" property="pNo"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
-		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
+		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
 	
 	<sql id="selectJoin">
-		select * from parent p join member m on p.m_no=m.m_no 
-			join family f on p.p_no=f.p_no join children ch on f.ch_no=ch.ch_no
+		select * from parent p join member m on p.m_no=m.m_no join children ch on p.ch_no=ch.ch_no
 			join class c on ch.c_no=c.c_no join kindergarten k on ch.k_no=k.k_no
 	</sql>
 	

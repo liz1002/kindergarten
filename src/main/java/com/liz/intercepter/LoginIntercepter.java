@@ -21,19 +21,19 @@ public class LoginIntercepter extends HandlerInterceptorAdapter{
 		System.out.println("🏳‍🌈 POST Handle");
 		
 		Object loginId = modelAndView.getModel().get("login");
-		Object nickname = modelAndView.getModel().get("nick");
+		Object name = modelAndView.getModel().get("name");
 		Object type = modelAndView.getModel().get("type");
 		
 		if(loginId != null) {
 			//session영역의 Auth키에 userId 저장
 			System.out.println("로그인 완료");
 			request.getSession().setAttribute("Auth", loginId);
-			request.getSession().setAttribute("Nick", nickname);
+			request.getSession().setAttribute("Name", name);
 			request.getSession().setAttribute("Type", type);
 			
 			String dest = (String) request.getSession().getAttribute("dest"); //기존 주소
 			if(dest != null) {
-				response.sendRedirect(dest); 
+				response.sendRedirect(dest);
 			}else {
 				response.sendRedirect(request.getContextPath()); //home 이동
 			}

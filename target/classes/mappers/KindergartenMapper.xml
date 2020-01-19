@@ -4,16 +4,19 @@
 	
 	<resultMap type="KindergartenVO" id="kindergartenResultMap">
 		<id column="k_no" property="kNo"/>
-		<result column="k_code" property="kCode"/>
 		<result column="k_name" property="kName"/>
+		<result column="k_areacode" property="kAreacode"/>
+		<result column="k_dialing" property="kDialing"/>
 		<result column="k_tel" property="kTel"/>
-		<result column="k_address" property="kAddress"/>
-		<result column="k_regdate" property="kRegdate"/> 
+		<result column="k_zipcode" property="kZipcode"/>
+		<result column="k_firstaddr" property="kFirstaddr"/>
+		<result column="k_lastaddr" property="kLastaddr"/>
+		<result column="k_Date" property="kDate"/> 
 	</resultMap>
 	
 	<insert id="insert" parameterType="KindergartenVO" useGeneratedKeys="true" keyColumn="k_no" keyProperty="kNo">
-		insert into kindergarten(k_code, k_name, k_tel, k_address) 
-		values(#{kCode}, #{kName}, #{kTel}, #{kAddress})
+		insert into kindergarten(k_name, k_areacode, k_dialing, k_tel, k_zipcode, k_firstaddr, k_lastaddr) 
+		values(#{kName}, #{kAreacode}, #{kDialing}, #{kTel}, #{kZipcode}, #{kFirstaddr}, #{kLastaddr})
 	</insert>
 	
 	<select id="selectList" resultMap="kindergartenResultMap">
@@ -24,11 +27,9 @@
 		select * from kindergarten where k_no=#{kNo}
 	</select>
 	
-	<select id="selectByCode" resultMap="kindergartenResultMap">
-		select * from kindergarten where k_code=#{kCode}
-	</select>
-	
 	<update id="update" parameterType="KindergartenVO">
-		update kindergarten set k_name=#{kName}, k_tel=#{kTel}, k_address=#{kAddress} where k_no=#{kNo}
+		update kindergarten set 
+			k_name=#{kName}, k_areacode=#{kAreacode}, k_dialing=#{kDialing}, k_tel=#{kTel}, 
+			k_zipcode=#{kZipcode}, k_firstaddr=#{kFirstaddr}, k_lastaddr=#{kLastaddr} where k_no=#{kNo}
 	</update>
 </mapper>

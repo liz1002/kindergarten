@@ -36,6 +36,10 @@
 		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_no=#{cVo.cNo} and t_type=#{tType};
 	</select>
 	
+	<select id="selectByMNoAndCCodeAndTType" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_code=#{cVo.cCode} and t_type=#{tType};
+	</select>
+	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where t.k_no=#{kNo}; 
 	</select>

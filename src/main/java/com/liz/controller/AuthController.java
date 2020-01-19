@@ -27,22 +27,24 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value = "loginPost", method = RequestMethod.POST)
-	public void loginGet(MemberVO vo, Model model) {
+	public String loginPost(MemberVO vo, Model model) {
 		logger.info("🏳‍🌈 Login POST");
 		
 		MemberVO dbVo = service.selectByIdAndPwd(vo.getmId(), vo.getmPwd());
 		if(dbVo == null) { //id & pw 불일치
-			logger.info("🏳‍🌈 Login POST NOT!!");	
-			return;
+			logger.info("🏳‍🌈 Login POST NOT!!");
+			model.addAttribute("fail", "fail");
 		}else if(dbVo.getmUse() == 1) { //탈퇴한 회원
 			logger.info("🏳‍🌈 Login POST NOT!!");
-			return;
+			model.addAttribute("fail", "fail");
+		}else {
+			//일치
+			model.addAttribute("login", dbVo.getmId());
+			model.addAttribute("name", dbVo.getmName());	
+			model.addAttribute("type", dbVo.getmType());
 		}
 		
-		//일치
-		model.addAttribute("login", dbVo.getmId());
-		model.addAttribute("nick", dbVo.getmNickname());	
-		model.addAttribute("type", dbVo.getmType());
+		return "auth/login";
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)

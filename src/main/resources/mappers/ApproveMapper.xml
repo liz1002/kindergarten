@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mappers.FamilyMapper">
+<mapper namespace="mappers.ApproveyMapper">
 	
-	<resultMap type="FamilyVO" id="familyResultMap">
-		<association property="pVo" resultMap="mappers.ParentMapper.parentResultMap"/>
+	<resultMap type="ApproveVO" id="approveResultMap">
+		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
 	
 	<insert id="insert">
-		insert into family(p_no, ch_no) values(#{pNo}, #{chNo})
+		insert into approve(m_no, ch_no) values(#{mVo.mNo}, #{chVo.chNo})
 	</insert>
 	
-	<select id="selectParentNullListByChNo" resultMap="familyResultMap">
+	<select id="selectListByCNo" resultMap="approveResultMap">
+		select * from approve a join member m on a.m_no=m.m_no
+			join children ch on a.ch_no=ch.ch_no where ch.c_no=#{cNo}
+	</select>
+	
+	<!-- <select id="selectParentNullListByChNo" resultMap="familyResultMap">
 		select * from parent p left join 
 			(select p_no from family where ch_no=#{chNo}) f on p.p_no = f.p_no
 			join member m on p.m_no = m.m_no
@@ -32,9 +37,9 @@
 	
 	<delete id="deleteByChNo">
 		delete from family where ch_no=#{chNo}
-	</delete>
+	</delete> -->
 	
-	<delete id="deleteByPNoAndChNo">
-		delete from family where p_no=#{pNo} and ch_no=#{chNo}
+	<delete id="deleteByMNoAndChNo">
+		delete from approve where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
 	</delete>
 </mapper>

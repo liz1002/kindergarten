@@ -17,16 +17,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.liz.domain.ApproveVO;
 import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
-import com.liz.domain.FamilyVO;
 import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
 import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
-import com.liz.service.FamilyService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -60,8 +59,6 @@ public class ManageController {
 	@Autowired
 	private ChildrenService childrenService;
 
-	@Autowired
-	private FamilyService familyService;
 	
 	/* * * * * method * * * * */
 	
@@ -137,9 +134,10 @@ public class ManageController {
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
-				
+		
+		model.addAttribute("mNo", mVo.getmNo()); //회원 번호		
 		if(mVo.getmType() == 1) {
-			model.addAttribute("dList", directorService.selectListByNo(mVo.getmNo())); //해당 원장의 유치원 리스트
+			model.addAttribute("dList", directorService.selectListByMNo(mVo.getmNo())); //해당 원장의 유치원 리스트
 		}
 	}
 	
@@ -212,7 +210,7 @@ public class ManageController {
 			logger.info("[chNo] " + chNo);
 			
 			//유아 번호로 family 검색 null이 아니면 가족 삭제
-			List<FamilyVO> fList = familyService.selectListByChNo(chNo);
+			List<ApproveVO> fList = familyService.selectListByChNo(chNo);
 			logger.info("[fList] " + fList);
 			
 			if(fList.size() != 0){

@@ -4,18 +4,27 @@
 	
 	<resultMap type="DirectorVO" id="directorResultMap">
 		<id column="d_no" property="dNo"/>
+		<id column="d_nickname" property="dNickname"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="DirectorVO">
-		insert into director(m_no, k_no) 
-		values(#{mVo.mNo}, #{kVo.kNo})
+		insert into director(d_nickname, m_no, k_no) 
+		values(#{dNickname}, #{mVo.mNo}, #{kVo.kNo})
 	</insert>
 	
-	<select id="selectListByNo" resultMap="directorResultMap">
+	<select id="selectListByMNo" resultMap="directorResultMap">
 		select * from director d join member m on d.m_no=m.m_no 
 			join kindergarten k on d.k_no=k.k_no where m.m_no=#{mNo}
 	</select>
+	
+	<select id="selectByDNo" resultMap="directorResultMap">
+		select * from director d join member m on d.m_no=m.m_no 
+			join kindergarten k on d.k_no=k.k_no where d.d_no=#{dNo}
+	</select>
 
+	<select id="updateNickname" resultMap="directorResultMap">
+		update director set d_nickname=#{dNickname} where d_no=#{dNo}
+	</select>
 </mapper>

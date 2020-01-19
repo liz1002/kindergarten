@@ -76,7 +76,7 @@
 			</fieldset>
 			
 			<p id="submit">
-				<input type="button" id="addChild" value="원아 추가">
+				<input type="button" id="addChild" value="추가">
 			</p>
 			
 			<input type="hidden" name="kVo.kNo" value="${cVo.kNo}">

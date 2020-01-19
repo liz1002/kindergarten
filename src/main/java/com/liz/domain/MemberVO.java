@@ -12,17 +12,18 @@ public class MemberVO {
 	private String mName; //회원이름
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date mRegdate; //생년월일
-	private String mTel; //휴대폰번호
-	private String mNickname; //닉네임
+	private String mFirsttel; //회원앞번호
+	private String mMiddletel; //회원중간번호
+	private String mLasttel; //회원뒷번호
 	private int mUse; //탈퇴여부
 	
 	public MemberVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public MemberVO(int mNo, int mType, String mId, String mPwd, String mName, Date mRegdate, String mTel,
-			String mNickname, int mUse) {
+
+	public MemberVO(int mNo, int mType, String mId, String mPwd, String mName, Date mRegdate, String mFirsttel,
+			String mMiddletel, String mLasttel, int mUse) {
 		super();
 		this.mNo = mNo;
 		this.mType = mType;
@@ -30,8 +31,9 @@ public class MemberVO {
 		this.mPwd = mPwd;
 		this.mName = mName;
 		this.mRegdate = mRegdate;
-		this.mTel = mTel;
-		this.mNickname = mNickname;
+		this.mFirsttel = mFirsttel;
+		this.mMiddletel = mMiddletel;
+		this.mLasttel = mLasttel;
 		this.mUse = mUse;
 	}
 
@@ -83,20 +85,28 @@ public class MemberVO {
 		this.mRegdate = mRegdate;
 	}
 
-	public String getmTel() {
-		return mTel;
+	public String getmFirsttel() {
+		return mFirsttel;
 	}
 
-	public void setmTel(String mTel) {
-		this.mTel = mTel;
+	public void setmFirsttel(String mFirsttel) {
+		this.mFirsttel = mFirsttel;
 	}
 
-	public String getmNickname() {
-		return mNickname;
+	public String getmMiddletel() {
+		return mMiddletel;
 	}
 
-	public void setmNickname(String mNickname) {
-		this.mNickname = mNickname;
+	public void setmMiddletel(String mMiddletel) {
+		this.mMiddletel = mMiddletel;
+	}
+
+	public String getmLasttel() {
+		return mLasttel;
+	}
+
+	public void setmLasttel(String mLasttel) {
+		this.mLasttel = mLasttel;
 	}
 
 	public int getmUse() {
@@ -110,6 +120,7 @@ public class MemberVO {
 	@Override
 	public String toString() {
 		return "MemberVO [mNo=" + mNo + ", mType=" + mType + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName
-				+ ", mRegdate=" + mRegdate + ", mTel=" + mTel + ", mNickname=" + mNickname + ", mUse=" + mUse + "]";
+				+ ", mRegdate=" + mRegdate + ", mFirsttel=" + mFirsttel + ", mMiddletel=" + mMiddletel + ", mLasttel="
+				+ mLasttel + ", mUse=" + mUse + "]";
 	}
 }

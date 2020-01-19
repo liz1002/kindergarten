@@ -6,5 +6,7 @@ import com.liz.domain.DirectorVO;
 
 public interface DirectorDAO {
 	public void insert(DirectorVO vo);
-	public List<DirectorVO> selectListByNo(int mNo);
+	public List<DirectorVO> selectListByMNo(int mNo);
+	public DirectorVO selectByDNo(int dNo);
+	public void updateNickname(DirectorVO vo);
 }

@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.liz.domain.ClassVO;
+import com.liz.domain.DirectorVO;
 import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
 import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
-import com.liz.service.FamilyService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -50,9 +50,6 @@ public class ModifyController {
 	
 	@Autowired
 	private ChildrenService childrenService;
-
-	@Autowired
-	private FamilyService familyService;
 	
 	
 	
@@ -62,13 +59,12 @@ public class ModifyController {
 	
 	/* 원장 - 유치원 수정 */
 	@RequestMapping(value = "modifyKinder", method = RequestMethod.GET)
-	public void addKinderGet(HttpSession session, int kNo, Model model) {
+	public void modifyKinderGet(HttpSession session, int kNo, Model model) {
 		logger.info("▶  Modify Kinder GET");
 		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
+		int mType = (int) session.getAttribute("Type");
 
-		if(mVo.getmType() == 1) {
+		if(mType == 1) {
 			model.addAttribute("kVo", kindergartenService.selectByNo(kNo));
 		}else {
 			model.addAttribute("msg", "권한이 없습니다.");
@@ -76,14 +72,37 @@ public class ModifyController {
 	}	
 	
 	@RequestMapping(value = "modifyKinder", method = RequestMethod.POST)
-	public String addKinderPost(KindergartenVO kVo, Model model) {
+	public String modifyKinderPost(KindergartenVO kVo, Model model) {
 		logger.info("▶  Modify Kinder POST");
 
 		kindergartenService.modify(kVo);
 		
-		model.addAttribute("kNo", kVo.getkNo());
+//		model.addAttribute("kNo", kVo.getkNo());
 		
-		return "redirect:/manage/manageKinder";
+		return "redirect:/manage/manageDirector";
+	}	
+	
+	/* 원장 - 별명 수정 */
+	@RequestMapping(value = "modifyNick", method = RequestMethod.GET)
+	public void modifyNickGet(HttpSession session, int dNo, Model model) {
+		logger.info("▶  Modify Nick GET");
+		
+		int mType = (int) session.getAttribute("Type");
+
+		if(mType == 1) {
+			model.addAttribute("dVo", directorService.selectByDNo(dNo)); //원장 정보(회원, 유치원)
+		}else {
+			model.addAttribute("msg", "권한이 없습니다.");
+		}
+	}	
+	
+	@RequestMapping(value = "modifyNick", method = RequestMethod.POST)
+	public String modifyNickPost(DirectorVO dVo) {
+		logger.info("▶  Modify Nick POST");
+		
+		directorService.modifyNickname(dVo); //별명 수정
+		
+		return "redirect:/manage/manageDirector";
 	}	
 	
 	

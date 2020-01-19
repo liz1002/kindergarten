@@ -25,10 +25,8 @@
 			<span>${mVo.mName}</span>
 			<p>아이디</p>
 			<span>${mVo.mId}</span>
-			<p>별명</p>
-			<span>${mVo.mNickname}</span>
 			<p>연락처</p>
-			<span>${mVo.mTel}</span>
+			<span>${mVo.mFirsttel}-${mVo.mMiddletel}-${mVo.mLasttel}</span>
 			<p>생년월일</p>
 			<span><fmt:formatDate value="${mVo.mRegdate}" pattern="yyyy년 MM월 dd일"/></span>
 			<p>

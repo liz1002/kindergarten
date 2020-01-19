@@ -45,14 +45,12 @@
 
 <section>
 	<div id="container">
-		<h1 id="title">${kVo.kName}<fmt:formatDate value="${kVo.kRegdate}" pattern="(yyyy)"/></h1>
+		<h1 id="title">${kVo.kName}<fmt:formatDate value="${kVo.kDate}" pattern="(yyyy)"/></h1>
 		<a href="${pageContext.request.contextPath}/modify/modifyKinder?kNo=${kVo.kNo}" id="btnModify">유치원 정보 수정</a>
-		<p class="division">유치원 코드</p>
-		<span>${kVo.kCode}</span>
 		<p class="division">연락처</p>
-		<span>${kVo.kTel}</span>
+		<span>${kVo.kAreacode}-${kVo.kDialing}-${kVo.kTel}</span>
 		<p class="division">주소</p>
-		<span>${kVo.kAddress}</span>
+		<span>${kVo.kFirstaddr} ${kVo.kLastaddr} (${kVo.kZipcode})</span>
 		<div class="wrap">
 			<p class="division">교사 리스트</p>
 			<div class="listBox">

@@ -55,10 +55,14 @@ public class TeacherDAOImpl implements TeacherDAO{
 	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo) {
 		return sqlSession.selectOne(namespace + "selectByMNoAndCNoAndTType", tVo);
 	}
-
+	
+	@Override
+	public TeacherVO selectByMNoAndCCodeAndTType(TeacherVO tVo) {
+		return sqlSession.selectOne(namespace + "selectByMNoAndCCodeAndTType", tVo);
+	}
+	
 	@Override
 	public void update(TeacherVO tVo) {
 		sqlSession.update(namespace + "update", tVo);
 	}
-	
 }

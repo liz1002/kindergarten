@@ -9,16 +9,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.liz.domain.DirectorVO;
 import com.liz.persistence.DirectorDAO;
 import com.liz.persistence.KindergartenDAO;
-import com.liz.persistence.MemberDAO;
 
 @Service
 public class DirectorServiceImpl implements DirectorService{
 	
 	@Autowired
-	private DirectorDAO dDao;
-	
-	@Autowired
-	private MemberDAO mDao;	
+	private DirectorDAO dDao;	
 	
 	@Autowired
 	private KindergartenDAO kDao;	
@@ -26,15 +22,22 @@ public class DirectorServiceImpl implements DirectorService{
 	@Override
 	@Transactional
 	public void registDirector(DirectorVO dVo) {
-		if(dVo.getmVo().getmName() != null) {
-			mDao.insert(dVo.getmVo()); //회원추가
-		}
 		kDao.insert(dVo.getkVo()); //유치원추가
 		dDao.insert(dVo); //원장추가
 	}
 	
 	@Override
-	public List<DirectorVO> selectListByNo(int mNo) {
-		return dDao.selectListByNo(mNo);
+	public List<DirectorVO> selectListByMNo(int mNo) {
+		return dDao.selectListByMNo(mNo);
+	}
+
+	@Override
+	public DirectorVO selectByDNo(int dNo) {
+		return dDao.selectByDNo(dNo);
+	}
+
+	@Override
+	public void modifyNickname(DirectorVO vo) {
+		dDao.updateNickname(vo);
 	}	
 }

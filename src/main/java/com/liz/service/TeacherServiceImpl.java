@@ -48,6 +48,11 @@ public class TeacherServiceImpl implements TeacherService{
 	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo) {
 		return dao.selectByMNoAndCNoAndTType(tVo);
 	}
+
+	@Override
+	public TeacherVO selectByMNoAndCCodeAndTType(TeacherVO tVo) {
+		return dao.selectByMNoAndCCodeAndTType(tVo);
+	}
 	
 	@Override
 	public void modify(TeacherVO tVo) {

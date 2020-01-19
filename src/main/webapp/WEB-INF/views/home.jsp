@@ -3,27 +3,27 @@
 <%@include file="include/header.jsp" %>
 
 <style>
-	div#container{
-		width: 100%;
-		min-height: 400px; 
-	}
-	#container h1{
-		text-align: center;
-		line-height: 200px;
+	#container p#title{
+		margin-top: 50px;
+		font-size: 30px;
+		letter-spacing: 10px;
 	}
 	#container p{
 		text-align: center;
+		line-height: 100px;
+		font-size: 20px;
+		font-weight: bold;
 	}
 	#container p a{
-		
+		text-decoration: underline;
 	}
 </style>
 
 <section>
 	<div id="container">
-		<h1>KINDERGARTEN HOME</h1>
+		<p id="title">KIDS DIARY</p>
 		<c:if test="${Auth == null}">
-			<h1>로그인 후 이용해주세요.</h1>
+			<p>로그인 후 이용해주세요.<p>
 			<p><a href="${pageContext.request.contextPath}/auth/login">로그인</a>
 		</c:if>
 	</div>

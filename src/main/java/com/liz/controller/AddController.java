@@ -15,15 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.liz.domain.ApproveVO;
 import com.liz.domain.ChildrenVO;
 import com.liz.domain.DirectorVO;
-import com.liz.domain.FamilyVO;
 import com.liz.domain.MemberVO;
 import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
-import com.liz.service.FamilyService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -56,9 +55,6 @@ public class AddController {
 	
 	@Autowired
 	private ChildrenService childrenService;
-
-	@Autowired
-	private FamilyService familyService;
 	
 	
 	
@@ -68,50 +64,24 @@ public class AddController {
 	
 	/* 원장 - 유치원 추가 */
 	@RequestMapping(value = "addKinder", method = RequestMethod.GET)
-	public void addKinderGet(HttpSession session, Model model) {
+	public void addKinderGet(HttpSession session, int mNo, Model model) {
 		logger.info("▶  Add Kinder GET");
+		logger.info("[mNo] " + mNo);
 		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
+		int mType = (int) session.getAttribute("Type");
 
-		if(mVo.getmType() == 1) {
-			model.addAttribute("mNo", mVo.getmNo());
+		if(mType == 1) {
+			model.addAttribute("mNo", mNo);
 		}
-		
 	}	
 	
 	@RequestMapping(value = "addKinder", method = RequestMethod.POST) 
 	public String addKinderPost(DirectorVO dVo, Model model) {
 		logger.info("▶ Add Kinder POST");
-		
 		logger.info("[dVo] " + dVo);
 
-		//유치원 코드 생성
-		Random rnd = new Random();		
-		StringBuffer temp = new StringBuffer();
-		
-		for(int i = 0; i < 7; i++) { //(=7자리 문자열 생성)
-		    int rndIdx = rnd.nextInt(2); //숫자 or 영어 선택할 랜덤 값(0, 1)
-		    switch (rndIdx) {
-			    case 0:
-			    	// 0-9
-			    	temp.append((rnd.nextInt(10)));
-			        break;
-			    case 1:
-			        // A-Z
-			    	temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-			        break;
-		    }
-		}
-		
-		String code = temp.toString();
-		logger.info("[Kcode] " + code);
-		
-		dVo.getkVo().setkCode(code);
 		directorService.registDirector(dVo); //유치원 & 원장 추가
-		
-		model.addAttribute("kCode", code);
-		
+			
 		return "redirect:/manage/manageDirector";
 	}
 	
@@ -157,9 +127,9 @@ public class AddController {
 		
 		String code = temp.toString();
 		logger.info("[Kcode] " + code);
-		tVo.getcVo().setcCode(code);
+		tVo.getcVo().setcCode(code); //새로 생성한 cCode SET
 		
-		tVo.getcVo().setkNo(tVo.getkVo().getkNo());
+		tVo.getcVo().setkNo(tVo.getkVo().getkNo()); //kNo SET
 		
 		if(tVo.getcVo().getcNo() == 0) { //담임
 			classService.regist(tVo); //반 추가 , 교사 추가
@@ -212,7 +182,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getNotParent", method = RequestMethod.POST)
-	public List<FamilyVO> getNotParent(@RequestBody ChildrenVO chVo) {
+	public List<ApproveVO> getNotParent(@RequestBody ChildrenVO chVo) {
 		logger.info("▶  Get Not Parent GET");
 		logger.info("[chVo] " + chVo);
 		
@@ -221,7 +191,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getParent", method = RequestMethod.POST)
-	public List<FamilyVO> getParent(@RequestBody ChildrenVO chVo) {
+	public List<ApproveVO> getParent(@RequestBody ChildrenVO chVo) {
 		logger.info("▶  Get Parent GET");
 		logger.info("[chVo] " + chVo);
 		
@@ -230,7 +200,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "addFamily", method = RequestMethod.POST)
-	public void addFamilyPost(HttpSession session, @RequestBody FamilyVO fVo) {
+	public void addFamilyPost(HttpSession session, @RequestBody ApproveVO fVo) {
 		logger.info("▶  Add Family POST");
 		logger.info("[fVo] " + fVo);
 		

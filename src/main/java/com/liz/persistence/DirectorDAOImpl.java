@@ -22,8 +22,17 @@ public class DirectorDAOImpl implements DirectorDAO{
 	}
 
 	@Override
-	public List<DirectorVO> selectListByNo(int mNo) {
-		return sqlSession.selectList(namespace + "selectListByNo", mNo);
+	public List<DirectorVO> selectListByMNo(int mNo) {
+		return sqlSession.selectList(namespace + "selectListByMNo", mNo);
+	}
+	@Override
+	public DirectorVO selectByDNo(int dNo) {
+		return sqlSession.selectOne(namespace + "selectByDNo", dNo);
+	}
+
+	@Override
+	public void updateNickname(DirectorVO vo) {
+		sqlSession.update(namespace + "updateNickname", vo);
 	}
 
 	

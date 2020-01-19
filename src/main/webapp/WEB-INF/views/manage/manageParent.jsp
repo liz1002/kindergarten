@@ -47,7 +47,7 @@
 					<div class="item_wrap">
 						<h3>
 							<a href="${pageContext.request.contextPath}/info/infoKinder?kNo=${pVo.kVo.kNo}">
-								${pVo.kVo.kName}<fmt:formatDate value="${pVo.kVo.kRegdate}" pattern="(yyyy)"/>
+								${pVo.kVo.kName}<fmt:formatDate value="${pVo.kVo.kDate}" pattern="(yyyy)"/>
 							</a>
 						</h3>
 						<a href="#" class="btnRemove">탈퇴</a>

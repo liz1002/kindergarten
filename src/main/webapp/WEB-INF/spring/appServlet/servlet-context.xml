@@ -39,6 +39,12 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/auth/loginPost"/>
+			<mapping path="/modify/*"/>
+			<mapping path="/add/*"/>
+			<mapping path="/member/*"/>
+			<mapping path="/manage/*"/>
+			<mapping path="/info/*"/>
+			<mapping path="/main/*"/>
 			<beans:ref bean="loginIntercepter"/>
 		</interceptor>
 		<interceptor>
