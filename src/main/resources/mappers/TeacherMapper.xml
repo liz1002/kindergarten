@@ -5,6 +5,7 @@
 	<resultMap type="TeacherVO" id="teacherResultMap">
 		<id column="t_no" property="tNo"/>
 		<result column="t_type" property="tType"/>
+		<result column="t_nickname" property="tNickname"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
@@ -16,8 +17,8 @@
 	</sql>
 	
 	<insert id="insert" parameterType="TeacherVO">		
-		insert into teacher(t_type, m_no, k_no, c_no) 
-		values(#{tType}, #{mVo.mNo}, #{kVo.kNo}, #{cVo.cNo})
+		insert into teacher(t_type, t_nickname, m_no, k_no, c_no) 
+		values(#{tType}, #{tNickname}, #{mVo.mNo}, #{kVo.kNo}, #{cVo.cNo})
 	</insert>
 	
 	<select id="selectList" resultMap="teacherResultMap">
@@ -25,23 +26,23 @@
 	</select>
 	
 	<select id="selectByMNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mNo};
+		<include refid="selectJoin" /> where m.m_no=#{mNo}
 	</select>
 
 	<select id="selectByMNoAndKNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo};
+		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo}
 	</select>
 	
 	<select id="selectByMNoAndCNoAndTType" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_no=#{cVo.cNo} and t_type=#{tType};
+		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_no=#{cVo.cNo} and t_type=#{tType}
 	</select>
 	
 	<select id="selectByMNoAndCCodeAndTType" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_code=#{cVo.cCode} and t_type=#{tType};
+		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_code=#{cVo.cCode} and t_type=#{tType}
 	</select>
 	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where t.k_no=#{kNo}; 
+		<include refid="selectJoin" /> where t.k_no=#{kNo} order by m.m_name
 	</select>
 	
 	<select id="selectListByCNo" resultMap="teacherResultMap">
@@ -49,6 +50,6 @@
 	</select>
 	
 	<update id="update">
-		update teacher set t_type=#{tType}, c_no=#{cVo.cNo} where t_no=${tNo};
+		update teacher set t_type=#{tType}, c_no=#{cVo.cNo} where t_no=${tNo}
 	</update>
 </mapper>

@@ -8,6 +8,11 @@
 	#container{
 		overflow: hidden;
 	}
+	#container p#title{
+		float: left;
+		font-size: 25px;
+		font-weight: bold;
+	}
 	#container p#addKinder{
 		width: 150px;
 		margin-bottom: 50px;
@@ -29,12 +34,12 @@
 		width: 100%;
 		clear: both;
 		border-collapse: collapse;
-		border-top: 3px solid #8FDBFF;
-		border-bottom: 3px solid #8FDBFF;
+		border-top: 3px solid #ddd;
+		border-bottom: 3px solid #ddd;
 	}
 	#container table th, #container table td{
 		padding: 20px 10px;
-		border-bottom: 1px solid #8FDBFF;
+		border-bottom: 1px solid #ddd;
 		font-size: 15px;
 	}
 	#container td a{
@@ -48,19 +53,22 @@
 	}
 	#container td.addr{
 		text-align: left;
+		padding-left: 30px;
 	}
 	#container td.addr span{
-		color: #666;
+		color: #999;
 	}
 </style>
 
 <section>	
 	<div id="container">
+		<p id="title">유치원 목록</p>
 		<p id="addKinder"><a href="${pageContext.request.contextPath}/add/addKinder?mNo=${mNo}">유치원 추가</a></p>
 			<c:if test="${Type == 1}">	
 				<table>
 					<tr>
 						<th>유치원</th>
+						<th>등록연도</th>
 						<th>주소</th>
 						<th>연락처</th>
 						<th>별명</th>
@@ -68,15 +76,18 @@
 					</tr>
 				<c:if test="${dList.size() == 0}">
 					<tr>
-						<td colspan="5">등록된 유치원이 없습니다. 유치원 등록 후 이용해주세요.</td>
+						<td colspan="6">등록된 유치원이 없습니다. 유치원 등록 후 이용해주세요.</td>
 					</tr>
 				</c:if>
 				<c:forEach var="dVo" items="${dList}">
 					<tr>
 						<td class="name">
-							<a href="${pageContext.request.contextPath}/manage/manageKinder?kNo=${dVo.kVo.kNo}">
-								${dVo.kVo.kName}<br><fmt:formatDate value="${dVo.kVo.kDate}" pattern="(yyyy)"/>			
+							<a href="#"> <!-- 게시판 이동 -->
+								${dVo.kVo.kName}	
 							</a>
+						</td>
+						<td>
+							<fmt:formatDate value="${dVo.kVo.kDate}" pattern="yyyy"/>
 						</td>
 						<td class="addr">
 							<span>${dVo.kVo.kZipcode}</span><br>
@@ -90,7 +101,7 @@
 						</td>
 						<td>
 							<span class="btnModify"><a href="${pageContext.request.contextPath}/modify/modifyKinder?kNo=${dVo.kVo.kNo}">수정</a></span>
-							<span class="btnManage"><a href="${pageContext.request.contextPath}/modify/modifyKinder?kNo=${dVo.kVo.kNo}">관리</a></span>
+							<span class="btnManage"><a href="${pageContext.request.contextPath}/manage/manageKinder?kNo=${dVo.kVo.kNo}">관리</a></span>
 							<span class="btnRemove"><a href="${pageContext.request.contextPath}/modify/modifyKinder?kNo=${dVo.kVo.kNo}">삭제</a></span>
 						</td>
 					</tr>

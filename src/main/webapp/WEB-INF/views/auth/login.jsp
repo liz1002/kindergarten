@@ -36,6 +36,7 @@
 	    margin: 10px;
 	    padding-left: 20px;
 	    font-size: 15px;
+		outline-color: #C596D9;
 	}
 	input::placeholder{
 	    color: #C596D9;
@@ -125,5 +126,17 @@
 			</a>
 		</p>
 	</div>
+
+	<!----- S C R I P T ----->
+	<script>
+		/* 가입 완료 시 공백 확인 */
+		$("form").submit(function() {
+			var res = check("input[data-msg]");
+			
+			if(res == false){ //공백 있을 시
+				return false;
+			}
+		})
+	</script>
 </body> 
 </html>

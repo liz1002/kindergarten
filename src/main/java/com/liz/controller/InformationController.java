@@ -47,26 +47,26 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 	/* * * * * method * * * * */
 	
 	/* 타인 회원 정보 */
-//	@RequestMapping(value = "infoOther", method = RequestMethod.GET)
-//	public void infoOther(int mNo, int kNo, Model model) {
-//		logger.info("🏳‍🌈 Info Other GET");
-//		logger.info("[mNo] " + mNo);
-//		logger.info("[kNo] " + kNo);
-//		
-//		MemberVO mVo = memberService.selectByNo(mNo);
-//		model.addAttribute("mVo", mVo); //선택한 회원 정보 
-//		
-//		switch (mVo.getmType()) {
-//			case 2:
-//				model.addAttribute("tList", teacherService.selectByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
-//				break;
-//			case 3:
-//				model.addAttribute("fList", familyService.selectChListByMNoAndKNo(mNo, kNo)); //선택한 부모의 자녀 정보
-//				break;
-//		}
-//		
-//		//선택한 원아 정보 => controller & jsp 따로 만들기
-//	}
+	@RequestMapping(value = "infoOther", method = RequestMethod.GET)
+	public void infoOther(int mNo, int kNo, Model model) {
+		logger.info("🏳‍🌈 Info Other GET");
+		logger.info("[mNo] " + mNo);
+		logger.info("[kNo] " + kNo);
+		
+		MemberVO mVo = memberService.selectByNo(mNo);
+		model.addAttribute("mVo", mVo); //선택한 회원 정보 
+		
+		switch (mVo.getmType()) {
+			case 2:
+				model.addAttribute("tList", teacherService.selectByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
+				break;
+			case 3:
+				model.addAttribute("pList", parentService.selectChildListByMNo(mNo)); //선택한 부모의 자녀 정보
+				break;
+		}
+		
+		//선택한 원아 정보 => controller & jsp 따로 만들기
+	}
 	
 	/* 본인 회원 정보 */
 	@RequestMapping(value = "myInfo", method = RequestMethod.GET)

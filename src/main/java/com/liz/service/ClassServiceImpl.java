@@ -7,24 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.liz.domain.ClassVO;
-import com.liz.domain.TeacherVO;
 import com.liz.persistence.ClassDAO;
-import com.liz.persistence.TeacherDAO;
 
 @Service
 public class ClassServiceImpl implements ClassService{
 
 	@Autowired
 	private ClassDAO cDao;
-	
-	@Autowired
-	private TeacherDAO tDao;
 
 	@Override
 	@Transactional
-	public void regist(TeacherVO tVo) {
-		cDao.insert(tVo.getcVo());
-		tDao.insert(tVo);
+	public void regist(ClassVO cVo) {
+		cDao.insert(cVo);
 	}
 
 	@Override

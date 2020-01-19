@@ -3,7 +3,8 @@
 <mapper namespace="mappers.ParentMapper">
 	
 	<resultMap type="ParentVO" id="parentResultMap">
-		<id column="p_no" property="pNo"/>
+		<id column="p_no" property="pNo"/>		
+		<id column="p_nickname" property="pNickname"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
@@ -14,7 +15,7 @@
 	</sql>
 	
 	<insert id="insert">
-		insert into parent(m_no, k_no) values(#{mNo}, #{kNo})
+		insert into parent(p_nickname, m_no, k_no) values(#{pNickname}, #{mNo}, #{kNo})
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="parentResultMap">
@@ -26,11 +27,11 @@
 	</select>
 
 	<select id="selectListByKNo" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where k.k_no=#{kNo};
+		<include refid="selectJoin" /> where k.k_no=#{kNo} order by m.m_name
 	</select>
 
 	<select id="selectListByCNo" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where c.c_no=#{cNo};
+		<include refid="selectJoin" /> where c.c_no=#{cNo}
 	</select>
 
 	<select id="selectChildListByMNo" resultMap="parentResultMap">

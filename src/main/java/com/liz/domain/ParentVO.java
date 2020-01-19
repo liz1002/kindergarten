@@ -2,6 +2,7 @@ package com.liz.domain;
 
 public class ParentVO {
 	private int pNo; //학부모 번호
+	private String pNickname; //학부모 별명
 	private MemberVO mVo; //학부모 회원 정보
 	private ChildrenVO chVo; //원아 정보
 	
@@ -10,9 +11,10 @@ public class ParentVO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ParentVO(int pNo, MemberVO mVo, ChildrenVO chVo) {
+	public ParentVO(int pNo, String pNickname, MemberVO mVo, ChildrenVO chVo) {
 		super();
 		this.pNo = pNo;
+		this.pNickname = pNickname;
 		this.mVo = mVo;
 		this.chVo = chVo;
 	}
@@ -23,6 +25,14 @@ public class ParentVO {
 
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
+	}
+
+	public String getpNickname() {
+		return pNickname;
+	}
+
+	public void setpNickname(String pNickname) {
+		this.pNickname = pNickname;
 	}
 
 	public MemberVO getmVo() {
@@ -43,6 +53,6 @@ public class ParentVO {
 
 	@Override
 	public String toString() {
-		return "ParentVO [pNo=" + pNo + ", mVo=" + mVo + ", chVo=" + chVo + "]";
+		return "ParentVO [pNo=" + pNo + ", pNickname=" + pNickname + ", mVo=" + mVo + ", chVo=" + chVo + "]";
 	}
 }

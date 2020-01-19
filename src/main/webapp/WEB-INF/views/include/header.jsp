@@ -28,6 +28,14 @@
 		text-decoration: none;
 		color: #000;
 	}
+	::-webkit-scrollbar{
+		width: 12px;
+		background-color: none;
+	}
+	::-webkit-scrollbar-thumb{
+		border-radius: 5px;
+		background-color: #FBCB00;
+	}
 	
 	/* 폼 화면 */
 	div#form_wrap{
@@ -35,12 +43,22 @@
 		min-height: 500px;
 		padding: 50px;
 		margin: 0 auto;
+		text-align: center;
 	}
-	#form_wrap fieldset {
+	#form_wrap h1{
+		margin: 0 auto 20px;
+		line-height: 70px;
+		text-shadow: 2px 2px 2px gray;
+		letter-spacing: 5px;
+		color: #FBCB00; 
+		font-size: 30px;
+	}
+	#form_wrap fieldset{
 		width: 60%;
 		margin: 50px auto;
 		padding: 20px 50px;
 		background: #fff;
+		text-align: left;
 	}
 	#form_wrap legend{
 		padding: 0px 10px;
@@ -62,6 +80,8 @@
 	}
 	#form_wrap input, #form_wrap select{
 		padding: 3px;
+		outline-color: #FBCB00;
+		font-size: 15px;
 	}
 	#form_wrap span#coment{
 		font-size: 12px;
@@ -84,9 +104,9 @@
 		background: #fff;
 		color: #E3A60B;
 		font-weight: bold;
-		font-size: 15px;
+		font-size: 14px;
 		outline: none;
-		box-shadow: 2px 2px 3px #E3A60B;
+		box-shadow: 2px 2px 2px #E3A60B;
 		cursor: pointer;
 	}
 	#submit input:hover{
@@ -98,7 +118,7 @@
 	/* 일반 화면 */
 	
 	div#container{
-		width: 800px;
+		width: 1000px;
 		min-height: 500px;
 		padding: 50px;
 		margin: 0 auto;
@@ -107,9 +127,10 @@
 	#container h1{
 		margin: 0 auto 20px;
 		line-height: 70px;
-		text-shadow: 1px 1px 2px gray;
+		text-shadow: 2px 2px 2px gray;
 		letter-spacing: 5px;
-		color: #8FDBFF; 
+		color: #FBCB00; 
+		font-size: 30px;
 	}
 	/* #container > p{
 		line-height: 100px;
@@ -140,7 +161,6 @@
 		float: right;
 	}
 	header a{
-		display: inline-block;
 		padding: 0px 20px;
 		font-size: 20px;
 		line-height: 100px;

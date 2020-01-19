@@ -62,52 +62,6 @@ public class ManageController {
 	
 	/* * * * * method * * * * */
 	
-	
-	
-	/* 유치원 코드 확인 */
-	@ResponseBody
-	@RequestMapping(value = "kCodeCheck", method = RequestMethod.GET)
-	public Map<String, Object> kCodeCheck(String kCode) {
-		logger.info("▶ K Code Check GET");
-		logger.info("[kCode] " + kCode);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		KindergartenVO vo = kindergartenService.selectByCode(kCode.trim());
-		logger.info("[vo] " + vo);
-		
-		if(vo != null) {
-			map.put("msg", "ok");
-			map.put("vo", vo);
-		}else {
-			map.put("msg", "no");
-		}
-		
-		return map;
-	}
-	
-	/* 반 코드 확인 */
-	@ResponseBody
-	@RequestMapping(value = "cCodeCheck", method = RequestMethod.GET)
-	public Map<String, Object>cCodeCheck(String cCode) {
-		logger.info("▶ C Code Check GET");
-		logger.info("[cCode] " + cCode);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		ClassVO cVo = classService.selectByCode(cCode.trim());
-		logger.info("[vo] " + cVo);
-		
-		if(cVo != null) {
-			map.put("msg", "ok");
-			map.put("vo", cVo);
-		}else {
-			map.put("msg", "no");
-		}
-		
-		return map;
-	}
-	
 	/* 학부모 - 유치원 등록, 반 등록, 학부모 생성 */
 	@RequestMapping(value = "registP", method = RequestMethod.POST)
 	public String registPPost(int mNo, int kNo) {
@@ -120,9 +74,6 @@ public class ManageController {
 		
 		return "redirect:/manage/manageMain";
 	}
-
-	
-	
 	
 	
 	/*-------------------------------[원장]--------------------------------*/

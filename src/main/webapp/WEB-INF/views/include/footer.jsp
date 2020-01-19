@@ -47,7 +47,7 @@
 				 | <a href="">개인정보취급방침</a>
 			</p>
 		</div>	
-		<p>Copyright © Liz Gwon. All rights reserved.</p>
+		<p>Copyright © <b>Liz Gwon</b>. All rights reserved.</p>
 	</footer>
 </body>
 </html>

@@ -40,7 +40,7 @@
 			<c:if test="${tVo.tType == 2}">부담임</c:if>
 			<span>
 				 | <a href="${pageContext.request.contextPath}/info/infoOther?mNo=${tVo.mVo.mNo}&kNo=${tVo.kVo.kNo}">
-			 		${tVo.mVo.mName}(${tVo.mVo.mNickname})
+			 		${tVo.mVo.mName}(${tVo.tNickname})
 			 	</a>
 		 	</span> 
 			<br>

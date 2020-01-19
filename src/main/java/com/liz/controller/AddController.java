@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liz.domain.ApproveVO;
 import com.liz.domain.ChildrenVO;
+import com.liz.domain.ClassVO;
 import com.liz.domain.DirectorVO;
 import com.liz.domain.MemberVO;
 import com.liz.domain.TeacherVO;
@@ -86,59 +87,83 @@ public class AddController {
 	}
 	
 	
-	/*-------------------------------[교사]--------------------------------*/
-	
-	/* 교사 - 반 추가 */
+	/* 원장 - 반 추가 */
 	@RequestMapping(value = "addClass", method = RequestMethod.GET)
-	public void addClassGet(HttpSession session, Model model) {
+	public void addClassGet(HttpSession session, int kNo, Model model) {
 		logger.info("▶  Add Class GET");
 		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
+		int mType = (int) session.getAttribute("Type");
 
-		if(mVo.getmType() == 2) {
-			model.addAttribute("mNo", mVo.getmNo());
+		if(mType == 1) {
+			model.addAttribute("kVo", kindergartenService.selectByNo(kNo));
 		}
 	}	
 	
 	@RequestMapping(value = "addClass", method = RequestMethod.POST)
-	public String addClassPost(TeacherVO tVo) {
-		logger.info("▶ Add Class POST");
+	public String addClassPost(HttpSession session, ClassVO cVo, Model model) {
+		logger.info("▶  Add Class POST");
 		
-		logger.info("[tVo] " + tVo);
+		classService.regist(cVo); //반 추가
 		
-		//반 코드 생성
-		Random rnd = new Random();		
-		StringBuffer temp = new StringBuffer();
+		model.addAttribute("kNo",cVo.getkNo());
 		
-		for(int i = 0; i < 5; i++) { //(5자리 문자열 생성)
-		    int rndIdx = rnd.nextInt(2); //숫자 or 영어 선택할 랜덤 값(0, 1)
-		    switch (rndIdx) {
-			    case 0:
-			    	// 0-9
-			    	temp.append((rnd.nextInt(10)));
-			        break;
-			    case 1:
-			        // A-Z
-			    	temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-			        break;
-		    }
-		}
-		
-		String code = temp.toString();
-		logger.info("[Kcode] " + code);
-		tVo.getcVo().setcCode(code); //새로 생성한 cCode SET
-		
-		tVo.getcVo().setkNo(tVo.getkVo().getkNo()); //kNo SET
-		
-		if(tVo.getcVo().getcNo() == 0) { //담임
-			classService.regist(tVo); //반 추가 , 교사 추가
-		}else { //부담임
-			teacherService.regist(tVo); //교사만 추가
-		}
-		
-		return "redirect:/manage/manageTeacher";
+		return "redirect:/manage/manageKinder";
 	}
+	
+	
+	/*-------------------------------[교사]--------------------------------*/
+	
+	/* 교사 - 반 추가 */
+//	@RequestMapping(value = "addClass", method = RequestMethod.GET)
+//	public void addClassGet(HttpSession session, Model model) {
+//		logger.info("▶  Add Class GET");
+//		
+//		Object mId = session.getAttribute("Auth");
+//		MemberVO mVo = memberService.selectById((String) mId);
+//
+//		if(mVo.getmType() == 2) {
+//			model.addAttribute("mNo", mVo.getmNo());
+//		}
+//	}	
+	
+//	@RequestMapping(value = "addClass", method = RequestMethod.POST)
+//	public String addClassPost(TeacherVO tVo) {
+//		logger.info("▶ Add Class POST");
+//		
+//		logger.info("[tVo] " + tVo);
+//		
+//		//반 코드 생성
+//		Random rnd = new Random();		
+//		StringBuffer temp = new StringBuffer();
+//		
+//		for(int i = 0; i < 5; i++) { //(5자리 문자열 생성)
+//		    int rndIdx = rnd.nextInt(2); //숫자 or 영어 선택할 랜덤 값(0, 1)
+//		    switch (rndIdx) {
+//			    case 0:
+//			    	// 0-9
+//			    	temp.append((rnd.nextInt(10)));
+//			        break;
+//			    case 1:
+//			        // A-Z
+//			    	temp.append((char) ((int) (rnd.nextInt(26)) + 65));
+//			        break;
+//		    }
+//		}
+//		
+//		String code = temp.toString();
+//		logger.info("[Kcode] " + code);
+//		tVo.getcVo().setcCode(code); //새로 생성한 cCode SET
+//		
+//		tVo.getcVo().setkNo(tVo.getkVo().getkNo()); //kNo SET
+//		
+//		if(tVo.getcVo().getcNo() == 0) { //담임
+//			classService.regist(tVo); //반 추가 , 교사 추가
+//		}else { //부담임
+//			teacherService.regist(tVo); //교사만 추가
+//		}
+//		
+//		return "redirect:/manage/manageTeacher";
+//	}
 
 	/* 교사 - 원아 추가 */
 	@RequestMapping(value = "addChildren", method = RequestMethod.GET)

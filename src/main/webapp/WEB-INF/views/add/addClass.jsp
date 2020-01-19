@@ -2,50 +2,31 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 
+<style>
+	#form_wrap fieldset{
+		border: none;
+		text-align: center;
+	}
+	#form_wrap fieldset input{
+		width: 200px;
+		height: 30px;
+		padding: 5px 10px;
+	}
+</style>
+
 <section>
 	<div id="form_wrap">
-		<form action="addClass" method="post">	
+		<form action="addClass" method="post">
+			<h1>${kVo.kName}</h1>	
 			<fieldset>
-				<legend>유치원 정보</legend>
-				<p>
-					<label><span class="necessary">*</span>유치원 코드</label>
-					<input type="text" name="kCode" data-msg="유치원 코드를 입력하세요.">
-					<button type="button" id="btnKCode">코드확인</button>
-				</p>	
-				<p>
-					<label><span class="necessary">*</span>유치원 이름</label>
-					<input type="text" name="kName" readonly="readonly" data-msg="유치원을 선택하세요." placeholder="유치원 코드로 추가">
-				</p>
-			</fieldset>
-			
-			<fieldset>
-				<legend>반 정보</legend>
-				<p>
-					<label><span class="necessary">*</span>역할</label>
-					<select name="tType" data-msg="역할을 선택하세요.">
-						<option value="" selected="selected">선택</option>
-						<option value="1">담임</option>
-						<option value="2">부담임</option>
-					</select>			
-				</p>	
-				<p id="subTeacher">
-					<label><span class="necessary">*</span>반 코드</label>
-					<input type="text" name="cCode">
-					<button type="button" id="btnCCode">코드확인</button>
-				</p>	
-				<p>
-					<label><span class="necessary">*</span>반 이름</label>
-					<input type="text" name="cVo.cName" data-msg="반 이름을 입력하세요.">
-				</p>		
+				<p><input type="text" name="cName" data-msg="반 이름을 입력하세요." placeholder="반 이름"></p>	
 			</fieldset>
 			
 			<p id="submit">
-				<input type="submit" value="등록">
+				<input type="submit" value="추가">
 			</p>
 			
-			<input type="hidden" name="kVo.kNo">
-			<input type="hidden" name="cVo.cNo">
-			<input type="hidden" name="mVo.mNo" value="${mNo}">
+			<input type="hidden" name="kNo" value="${kVo.kNo}">
 		</form>
 	</div>
 </section>
@@ -135,11 +116,11 @@
 	
 	/* 가입 완료 시 공백 확인 */
 	$("form").submit(function() {
-		var res = check("input[data-msg], select[data-msg]");
+		var res = check("input[data-msg]");
 		
-		/* if(res == false){ //공백 있을 시
+		if(res == false){ //공백 있을 시
 			return false;
-		} */
+		}
 	})
 </script>
 

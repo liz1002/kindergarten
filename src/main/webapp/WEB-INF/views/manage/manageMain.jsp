@@ -34,7 +34,6 @@
 </style>
 
 <section>
-	<%@include file="../include/manageMenu.jsp" %>	
 	<div id="container">
 		<!-- 원장 -->
 		<c:if test="${Type == 1}">

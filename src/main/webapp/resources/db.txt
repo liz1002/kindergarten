@@ -1,0 +1,269 @@
+-- DODAM --
+
+use kindergarten;
+
+
+
+-- 회원 및 유치원(최소 구성 테이블) -----
+
+desc member;
+select * from member order by m_no desc;
+
+desc kindergarten;
+select * from kindergarten order by k_no desc;
+
+desc class;
+select * from class order by c_no desc;
+
+
+
+-- 회원 상세 분류 -----
+
+desc director;
+select * from director order by d_no desc;
+
+desc teacher;
+select * from teacher order by t_no desc;
+
+desc parent;
+select * from parent order by p_no desc;
+select * from parent join `member` using(m_no);
+
+desc children;
+select * from children order by ch_no desc;
+
+desc family;
+select * from family;
+
+
+
+-- 카테고리 -----
+
+desc board;
+select * from board;
+
+desc dosage;
+select * from dosage;
+	
+desc medication; 
+select * from medication; 
+	
+desc album;
+select * from album; 
+
+desc notice;
+select * from notice; 
+	
+desc schedule;
+select * from schedule;
+
+
+
+-- Attach 테이블 -----
+
+-- 원아X앨범
+desc album_children;
+select * from album_children;
+
+
+
+
+-- data ---------------------------------------
+
+insert into member(m_type, m_id, m_pwd, m_name, m_regdate, m_firsttel, m_middletel, m_lasttel) values
+(1, 'director1', '1111', '김원장', now(), '010', '1234', '5678'), -- 1
+(1, 'director2', '2222', '이원장', now(), '010', '1234', '5678'), -- 2
+(1, 'director3', '3333', '박원장', now(), '010', '1234', '5678'), -- 3
+(2, 'teacher1', '1111', '김미나', now(), '010', '1234', '5678'), -- 4
+(2, 'teacher2', '2222', '권민지', now(), '010', '1234', '5678'), -- 5
+(2, 'teacher3', '3333', '유은혜', now(), '010', '1234', '5678'), -- 6
+(2, 'teacher4', '4444', '전미경', now(), '010', '1234', '5678'), -- 7
+(2, 'teacher5', '5555', '박미지', now(), '010', '1234', '5678'), -- 8
+(3, 'parent1', '1111', '김부모', now(), '010', '1234', '5678'), -- 9
+(3, 'parent2', '2222', '이부모', now(), '010', '1234', '5678'), -- 10
+(3, 'parent3', '3333', '박부모', now(), '010', '1234', '5678'), -- 11
+(3, 'parent4', '4444', '최부모', now(), '010', '1234', '5678'), -- 12
+(3, 'parent5', '5555', '정부모', now(), '010', '1234', '5678'); -- 13
+
+insert into kindergarten(k_name, k_areacode, k_dialing, k_tel, k_zipcode, k_firstaddr, k_lastaddr) values
+('한국예술유치원', '053', '222', '7777', '12345', '대구 수성구 범물로 12', '222-7777'),
+('무지개유치원', '053', '123', '4567', '12345', '대구 수성구 지범로 87', '123-1234'),
+('보노유치원', '053', '987', '6543', '12345', '대구 수성구 동대구로 42', '987-6543'),
+('라온유치원', '053', '817', '3102', '12345', '대구 수성구 청학로 31', '67-12');
+
+insert into class(c_name, k_no) values
+('노랑반', 2),
+('보라반', 2),
+('목성반', 3),
+('오스카반', 3),
+('은하수반', 3);
+
+insert into director(d_nickname, m_no, k_no) values
+('한국예술원장', 1, 1),
+('무지개원장', 1, 4),
+('보노유치원장', 2, 2),
+('라온유치원 원장', 3, 3);
+	
+insert into teacher(t_type, t_nickname, m_no, k_no, c_no) values
+(1, '보라반담임', 4, 2, 2),
+(2, '보라부담임', 5, 2, 2),
+(1, '노랑반담임', 6, 2, 1),
+(2, '오스카부담임', 7, 3, 4),
+(1, '목성반담임', 8, 3, 3);
+
+#같은 교사가 이직한 경우 추가
+
+insert into children(ch_name, ch_regdate, k_no, c_no) values
+('이리아', now(), 3, 4), -- 1 보노
+('박선우', now(), 2, 1), -- 2 무지개
+('이리우', now(), 2, 2), -- 3 무지개
+('이리아', now(), 2, 2), -- 4 무지개
+('최유라', now(), 3, 3); -- 5 보노
+
+#같은 애가 여러 유치원 & 해 바껴서 반 2개인 경우 추가
+
+insert into parent(p_nickname, m_no, ch_no) values
+('리아맘', 9, 1), -- 리우맘, 보노 리아
+('리아맘', 9, 4), -- 리우맘, 무지개 리아
+('리우맘', 9, 3), -- 리우맘, 무지개 리우
+('리아아빠', 10, 4), -- 리아아빠, 무지개 리아
+('리우아빠', 10, 3), -- 리아아빠, 무지개 리우
+('선우 할미', 11, 2), -- 선우 할머니, 무지개 선우
+('유라파더', 12, 5), -- 유라 아빠, 보노 유라
+('유라 할머니', 13, 5); -- 유라 할머니, 보노 유라
+
+
+-- insert into family(p_no, ch_no) values 
+-- (1, 1),
+-- (2, 3),
+-- (2, 4),
+-- (3, 3),
+-- (3, 4),
+-- (4, 2),
+-- (5, 5),
+-- (6, 5);
+
+
+insert into approve(m_no, ch_no) values
+(9, 1), -- 리우맘, 보노 리아
+(9, 4), -- 리우맘, 무지개 리아
+(9, 3), -- 리우맘, 무지개 리우
+(10, 4), -- 리아아빠, 무지개 리아
+(10, 3), -- 리아아빠, 무지개 리우
+(11, 2), -- 선우 할머니, 무지개 선우
+(12, 5), -- 유라 아빠, 보노 유라
+(13, 5); -- 유라 할머니, 보노 유라
+
+select * from approve;
+
+-- join ----------------------------------------------------
+
+/* 유치원 별 반 리스트 */
+select * from class where k_no=2 order by c_name;
+
+/* 특정 원장의 모든 정보*/
+select * from director d join member m on d.m_no=m.m_no 
+						join kindergarten k on d.k_no=k.k_no 
+						where m.m_no = 1;
+
+/* 유치원 별 교사 리스트 */
+select * from teacher t join member m on t.m_no=m.m_no 
+						join class c on t.c_no=c.c_no 
+						join kindergarten k on t.k_no=k.k_no
+						where t.k_no = 2; 
+
+/* 반 별 교사 리스트 */
+select * from teacher t join member m on t.m_no=m.m_no 
+						join class c on t.c_no=c.c_no 
+						join kindergarten k on t.k_no=k.k_no
+						where t.c_no = 1;
+				
+/* 특정 교사의 모든 정보*/
+select * from teacher t join member m on t.m_no=m.m_no 
+						join class c on t.c_no=c.c_no
+						join kindergarten k on t.k_no=k.k_no
+						where m.m_no = 4 and t.k_no = 2;
+						
+/* 교사별 유치원&반 리스트 */			
+select * from teacher t join class c on t.c_no=c.c_no 
+						join kindergarten k on c.k_no=k.k_no
+						where t.m_no = 4;
+					
+/* 유치원 별 부모 리스트 */
+select * from parent p join member m on p.m_no=m.m_no
+						join children ch on p.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no 
+						join kindergarten k on ch.k_no=k.k_no
+						where k.k_no=2 order by m_name;
+
+/* 반 별 부모 리스트 */	
+select * from parent p join member m on p.m_no=m.m_no
+						join children ch on p.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						where c.c_no=1 order by m_name; 
+
+/* 특정 부모의 모든 정보 */
+select * from parent p join member m on p.m_no=m.m_no 
+						join children ch on P.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						where p.m_no=9 and k.k_no=2; 
+				
+/* 유치원 별 원아 리스트 */
+select * from children ch join class c on ch.c_no=c.c_no 
+							join kindergarten k on ch.k_no=k.k_no 
+							where ch.k_no=2 order by c.c_name, ch.ch_name;
+				
+/* 반 별 원아 리스트 */
+select * from children ch join class c on ch.c_no=c.c_no
+							join kindergarten k on ch.k_no=k.k_no 
+							where ch.c_no=1
+							order by ch.ch_name;
+					
+/* 특정 유아의 모든 정보*/
+select * from children ch join class c on ch.c_no=c.c_no 
+							join kindergarten k on ch.k_no=k.k_no 
+							where ch.ch_no=2 and k.k_no=2;
+
+/* 특정 부모의 자녀 리스트 */
+select * from parent p join children ch on p.ch_no=ch.ch_no
+						join class c on ch.c_no=c.c_no
+						join kindergarten k on ch.k_no=k.k_no
+						where p.m_no=9 and ch.k_no=2 order by ch.ch_regdate;
+				
+/* 특정 자녀의 부모 리스트 (현재 미사용) */
+select * from children ch join parent p on ch.ch_no=p.ch_no
+						join member m on p.m_no=m.m_no
+						where ch.ch_no=3
+						order by m.m_name;
+	
+				
+/* 유아 선택 시 선택 하지 않은 부모 리스트 */
+-- select * from member m left join 
+-- 	(select m_no from parent where ch_no = 1) p on m.m_no = p.m_no
+-- 	where m.m_type = 3 and p.m_no is null;
+		
+-- 유치원 별 
+-- select * from parent p left join 
+-- 	(select p_no from family where ch_no = 3) f on p.p_no = f.p_no
+-- 	join member m on p.m_no = m.m_no
+-- 	where m.m_type = 3 and k_no = 2 and f.p_no is null;
+
+-- 가족 검색
+-- select m_name, m_nickname, group_concat(ch_no separator '|')  group by ch_no;
+-- 
+-- select m_name, m_nickname, group_concat(ch.ch_no separator '|') as ch_no 
+-- 	from family f join parent p on f.p_no=p.p_no
+-- 					join children ch on f.ch_no=ch.ch_no
+-- 					join `member` m on p.m_no=m.m_no
+-- 				group by ch.ch_no;
+				
+				
+
+/* 반별 승인 대기 리스트 */
+select * from approve a join member m on a.m_no=m.m_no
+						join children ch on a.ch_no=ch.ch_no
+						where ch.c_no=1;
+
+

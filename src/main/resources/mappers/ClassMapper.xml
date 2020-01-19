@@ -10,12 +10,12 @@
 	</resultMap>
 	
 	<insert id="insert" parameterType="ClassVO" useGeneratedKeys="true" keyColumn="c_no" keyProperty="cNo">
-		insert into class(c_code, c_name, k_no) 
-		values(#{cCode}, #{cName}, #{kNo})
+		insert into class(c_name, k_no) 
+		values(#{cName}, #{kNo})
 	</insert>
 	
 	<select id="selectListByKNo" resultMap="classResultMap">
-		select * from class where k_no=#{kNo}
+		select * from class where k_no=#{kNo} order by c_name
 	</select>
 	
 	<select id="selectByNo" resultMap="classResultMap">
