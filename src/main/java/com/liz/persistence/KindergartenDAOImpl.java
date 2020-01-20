@@ -40,4 +40,9 @@ public class KindergartenDAOImpl implements KindergartenDAO{
 	public void update(KindergartenVO vo) {
 		sqlSession.update(namespace + "update", vo);
 	}
+
+	@Override
+	public void deleteByKNo(int kNo) {
+		sqlSession.delete(namespace + "deleteByKNo", kNo);
+	}
 }

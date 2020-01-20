@@ -5,17 +5,33 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <style>
+	#form_wrap .tel input, #form_wrap .tel select{
+		width: 110px;		
+	}
+	#form_wrap #addr1 input{
+		width: 300px;
+	}	
+	#form_wrap #addr2 input{
+		width: 245px;
+	}
+	#form_wrap span.error{
+		margin-left: 140px;
+		color: #D91E1E;
+		font-size: 14px;
+		display: none;
+	}
 	div#layer{
 		display: none; 
 		position: fixed;
 		overflow: hidden; 
-		z-index: 1; 
+		z-index: 1;
 		-webkit-overflow-scrolling: touch;
 	}
 	img#btnCloseLayer{
 		cursor: pointer; 
-		position: absolute; 
-		left: -3px; 
+		position: absolute;
+		width: 25px;
+		right: -3px; 
 		top: -3px; 
 		z-index: 1;
 	}
@@ -23,14 +39,15 @@
 
 <section>
 	<div id="form_wrap">
-		<form action="modifyKinder" method="post">	
+		<form action="modifyKinder" method="post">
+			<h1>유치원 정보 수정</h1>	
 			<fieldset>
-				<legend>유치원 정보 수정</legend>
+				<legend>유치원 정보</legend>
 				<p>
 					<label><span class="necessary">*</span>유치원 이름</label>
 					<input type="text" name="kName" data-msg="이름을 입력하세요." value="${kVo.kName}" placeholder="예) 가나다유치원">
 				</p>
-				<p>
+				<p class="tel">
 					<label><span class="necessary">*</span>유치원 연락처</label>
 					<select name="kAreacode" id="areacode">
 						<option value="02">02</option>
@@ -53,13 +70,14 @@
 					</select>
 					- <input type="tel" name="kDialing" id="dialing" value="${kVo.kDialing}" maxlength="3" size="3" data-msg="연락처를 입력하세요.">
 					- <input type="tel" name="kTel" id="tel" value="${kVo.kTel}" maxlength="4" size="4" data-msg="연락처를 입력하세요.">
+					<br><span class="error">연락처 형식이 올바르지 않습니다.</span>
 				</p>
-				<p>
+				<p id="addr1">
 					<label><span class="necessary">*</span>주소</label>
 					<input name="kZipcode" class="form-control zipCode" id="userZipCode" value="${kVo.kZipcode}" placeholder="우편번호" readonly="readonly"/>
 					<button type="button" onclick="openDaumPostcode();">검색</button>
 				</p>
-				<p>
+				<p id="addr2">
 					<input type="text" name="kFirstaddr" class="form-control userFirstAddr" id="userFirstAddr" value="${kVo.kFirstaddr}" readonly="readonly" size="25" data-msg="주소를 입력하세요." />
 					<input type="text" name="kLastaddr" class="form-control userSecondAddr" id="userSecondAddr" value="${kVo.kLastaddr}" data-msg="상세주소를 입력하세요." placeholder="상세 주소를 입력해주세요"/>
 				</p>
@@ -89,11 +107,33 @@
 	/* 연락처 자동 선택 */
 	$("option[value='${kVo.kAreacode}']").attr("selected", "selected");	
 
+	/* 형식 확인 */
+	var regRes = true;
+	
+	//연락처
+	$("#dialing, #tel").change(function() {		
+		var dialingReg = /^[0-9]{3}$/;
+		var telReg = /^[0-9]{4}$/;
+		
+		if(!dialingReg.test($("#dialing").val()) || !telReg.test($("#tel").val())){
+			$("#tel").next().next().css("display", "inline");
+			regRes = false;
+		}else{
+			$("#tel").next().next().css("display", "none");
+			regRes = true
+		}
+	})
+	
 	/* 등록 완료 시 공백 확인 */
 	$("form").submit(function() {
 		var res = check("input[data-msg]");
 		
 		if(res == false){ //공백 있을 시
+			return false;
+		}
+		
+		if(regRes == false){ //형식 틀릴 시
+			alert("올바르지 않은 형식입니다.");
 			return false;
 		}
 	})

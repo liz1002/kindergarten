@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.TApproveMapper">
+	
+	<resultMap type="TApproveVO" id="tApproveResultMap">
+		<result column="t_nickname" property="tNickname"/>
+		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
+		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
+	</resultMap>
+	
+	<sql id="selectJoin">
+		select * from t_approve ta join member m on ta.m_no=m.m_no
+			join class c on ta.c_no=c.c_no
+	</sql>
+	
+	<insert id="insert" parameterType="TApproveVO">
+		insert into t_approve(m_no, c_no, t_nickname) values(#{mVo.mNo}, #{cVo.cNo}, #{tNickname})
+	</insert>
+	
+	<select id="selectListByKNo" resultMap="tApproveResultMap">
+		<include refid="selectJoin" /> where c.k_no=#{kNo};
+	</select>
+	
+	<delete id="deleteByMNoAndCNo">
+		delete from t_approve where m_no=#{mVo.mNo} and c_no=#{cVo.cNo}
+	</delete>
+</mapper>

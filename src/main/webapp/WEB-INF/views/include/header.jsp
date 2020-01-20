@@ -8,10 +8,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>유치원 커뮤니티 &amp; 알림장</title>
+<title>키즈 다이어리</title>
 
 <!-- All style -->
 <style>
+	@import url('https://fonts.googleapis.com/css?family=Cute+Font|Gaegu|Jua|Poor+Story&display=swap');
+	@font-face { font-family: 'CookieRunOTF-Bold'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/CookieRunOTF-Bold00.woff') format('woff'); font-weight: normal; font-style: normal; }
+	
+	/* 
+		font-family: 'Jua', sans-serif; 동글동글한 굵은 글씨
+		font-family: 'Gaegu', cursive; 손편지(약간 삐뚤)
+		font-family: 'Cute Font', cursive; 노트필기
+		font-family: 'Poor Story', cursive; 중간 고딕 스타일 
+		font-family: 'CookieRunOTF-Bold', sans-serif; 굵은 고딕체
+	*/
+	
 	*{
 		margin: 0;
 		padding: 0;
@@ -39,7 +50,7 @@
 	
 	/* 폼 화면 */
 	div#form_wrap{
-		width: 700px;
+		width: 1100px;
 		min-height: 500px;
 		padding: 50px;
 		margin: 0 auto;
@@ -48,30 +59,34 @@
 	#form_wrap h1{
 		margin: 0 auto 20px;
 		line-height: 70px;
-		text-shadow: 2px 2px 2px gray;
+		text-shadow: 1px 1px 2px #999;
 		letter-spacing: 5px;
 		color: #FBCB00; 
-		font-size: 30px;
+		font-size: 40px;
+		font-family: 'CookieRunOTF-Bold', sans-serif;
 	}
 	#form_wrap fieldset{
 		width: 60%;
 		margin: 50px auto;
-		padding: 20px 50px;
-		background: #fff;
+		padding: 0 50px;
+		border: none;
 		text-align: left;
 	}
 	#form_wrap legend{
-		padding: 0px 10px;
+		padding: 10px;
 		font-weight: bold;
 	}
 	#form_wrap label {
 		display: inline-block;
-		width: 40%;
+		width: 20%;
 		float: left;
+		text-align: left;
+		line-height: 50px;
 	}
 	#form_wrap p{
 		overflow: hidden;
 		line-height: 50px;
+		margin: 20px 0; 
 	}
 	#form_wrap span.necessary{
 		margin-right: 5px; 
@@ -79,9 +94,29 @@
 		vertical-align: middle;
 	}
 	#form_wrap input, #form_wrap select{
-		padding: 3px;
+		width: 380px;
+	    height: 50px;
+	    padding: 0 0 0 20px;
+	    font-size: 15px;
 		outline-color: #FBCB00;
 		font-size: 15px;
+	}
+	#form_wrap select{
+	    width: 400px;
+	}
+	#form_wrap button{
+		width: 80px;
+		height: 50px;
+		background: #fff;
+		font-size: 15px;
+		outline: none;
+		border: 1px solid #FBCB00;
+		color: #FBCB00;
+		background: #fff;
+	}
+	#form_wrap button:hover{
+		color: #fff;
+		background: #FBCB00;
 	}
 	#form_wrap span#coment{
 		font-size: 12px;
@@ -98,21 +133,24 @@
 	#form_wrap p#submit{
 		text-align: center;
 	}
-	#submit input{
+	#form_wrap #submit input{
 		padding: 5px 10px;
+		margin: 10px;
 		border: 1px solid #FBCB00;
 		background: #fff;
-		color: #E3A60B;
+		color: #FBCB00;
 		font-weight: bold;
-		font-size: 14px;
+		font-size: 18px;
+		font-family: 'Poor Story', cursive;
+		letter-spacing: 10px;
+		box-shadow: 2px 2px 3px #E3A60B;
 		outline: none;
-		box-shadow: 2px 2px 2px #E3A60B;
 		cursor: pointer;
 	}
-	#submit input:hover{
-		background: #FBCB00;
+	#form_wrap #submit input:hover{
 		box-shadow: 2px 2px 3px #777;
 		color: #fff;
+		background: RGBA(251, 203, 0, 0.8);
 	}
 	
 	/* 일반 화면 */
@@ -127,10 +165,11 @@
 	#container h1{
 		margin: 0 auto 20px;
 		line-height: 70px;
-		text-shadow: 2px 2px 2px gray;
+		text-shadow: 1px 1px 2px #999;
 		letter-spacing: 5px;
 		color: #FBCB00; 
-		font-size: 30px;
+		font-size: 40px;
+		font-family: 'CookieRunOTF-Bold', sans-serif;
 	}
 	/* #container > p{
 		line-height: 100px;

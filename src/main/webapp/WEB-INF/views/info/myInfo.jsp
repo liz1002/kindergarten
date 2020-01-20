@@ -3,11 +3,8 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-	#container a:hover {
-		text-decoration: underline;
-	}
 	#container div#info{
-		width: 700px;
+		width: 400px;
 		margin: 50px auto;
 		font-size: 18px;
 		clear: both;
@@ -21,6 +18,24 @@
 		color: #F78300;
 		margin-right: 10px;
 	}
+	#btns{
+		text-align: center;
+		margin-top: 50px;
+	}
+	#btns a{
+		margin: 0 10px;
+		padding: 5px 10px;
+		color: #F24B6A;
+		border: 1px solid #F24B6A;
+		border-radius: 10px;
+		font-size: 14px;
+		font-weight: bold;
+	}
+	#btns a:hover{
+		background: #F26D91;
+		box-shadow: 2px 2px 3px #777;
+		color: #fff;
+	}
 </style>
 
 <section>
@@ -33,9 +48,9 @@
 				<p><span> | 아이디 </span>${mVo.mId}</p>
 				<p><span> | 연락처</span> ${mVo.mFirsttel}-${mVo.mMiddletel}-${mVo.mLasttel}</p>
 				<p><span> | 생년월일</span> <fmt:formatDate value="${mVo.mRegdate}" pattern="yyyy년 MM월 dd일"/></p>
-				<p>
-					<a href="#">개인정보 수정</a><br>
-					<a href="${pageContext.request.contextPath}/member/secession?mNo=${mVo.mNo}">회원 탈퇴</a>
+				<p id="btns">
+					<a href="${pageContext.request.contextPath}/member/modify?mNo=${mVo.mNo}">개인정보 수정</a>
+					<a href="${pageContext.request.contextPath}/member/secession?mNo=${mVo.mNo}" id="btnUnused">회원 탈퇴</a>
 				</p>
 			</div>
 		</c:if>
@@ -44,7 +59,12 @@
 
 <!----- S C R I P T ----->
 <script>
-
+	$("#btnUnused").click(function() {
+		var res = confirm("정말 탈퇴하시겠습니까?\n탈퇴 시 해당 아이디의 사용이 즉시 중지되며,\n가입 및 등록한 모든 유치원 정보는 삭제되지 않습니다.");
+		if(!res){
+			return false;	
+		}
+	})
 </script>
 
 <%@include file="../include/footer.jsp" %>

@@ -25,8 +25,8 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public List<TeacherVO> selectByMNo(int mNo) {
-		return dao.selectByMNo(mNo);
+	public List<TeacherVO> selectListByMNo(int mNo) {
+		return dao.selectListByMNo(mNo);
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public List<TeacherVO> selectByMNoAndKNo(int mNo, int kNo) {
-		return dao.selectByMNoAndKNo(mNo, kNo);
+	public List<TeacherVO> selectListByMNoAndKNo(int mNo, int kNo) {
+		return dao.selectListByMNoAndKNo(mNo, kNo);
 	}
 
 	@Override

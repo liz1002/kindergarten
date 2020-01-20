@@ -29,8 +29,8 @@ public class TeacherDAOImpl implements TeacherDAO{
 	}
 
 	@Override
-	public List<TeacherVO> selectByMNo(int mNo) {
-		return sqlSession.selectList(namespace + "selectByMNo", mNo);
+	public List<TeacherVO> selectListByMNo(int mNo) {
+		return sqlSession.selectList(namespace + "selectListByMNo", mNo);
 	}
 
 	@Override
@@ -44,11 +44,11 @@ public class TeacherDAOImpl implements TeacherDAO{
 	}
 
 	@Override
-	public List<TeacherVO> selectByMNoAndKNo(int mNo, int kNo) {
+	public List<TeacherVO> selectListByMNoAndKNo(int mNo, int kNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("mNo", mNo);
 		map.put("kNo", kNo);
-		return sqlSession.selectList(namespace + "selectByMNoAndKNo", map);
+		return sqlSession.selectList(namespace + "selectListByMNoAndKNo", map);
 	}
 
 	@Override

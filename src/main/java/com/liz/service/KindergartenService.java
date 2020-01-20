@@ -9,4 +9,5 @@ public interface KindergartenService {
 	public KindergartenVO selectByNo(int kNo);
 	public KindergartenVO selectByCode(String kCode);
 	public void modify(KindergartenVO kVo);
+	public void removeByKNo(int kNo);
 }

@@ -45,4 +45,9 @@
 	<update id="updateUseByMNo" parameterType="int">
 		update member set m_use=1 where m_no=#{mNo}
 	</update>
+	
+	<update id="updateInfo" parameterType="MemberVO">
+		update member set m_name=#{mName}, m_regdate=#{mRegdate}, m_firsttel=#{mFirsttel}, 
+			m_middletel=#{mMiddletel}, m_lasttel=#{mLasttel} where m_no=#{mNo}
+	</update>
 </mapper>

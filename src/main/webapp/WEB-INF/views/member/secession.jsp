@@ -11,20 +11,20 @@
 		justify-content: center;
 		align-items: center;
 	}
-	#container a{
-		display: inline-block;
-		width: 100%;
-		height: 100%;
-		font-size: 25px;
+	#container #wrap h3{
+		font-size: 30px;
+		margin-bottom: 30px;
+	}
+	#container #wrap a{
+		font-size: 20px;
 		font-weight: bold;
 	}
 </style>
 
 <section>
 	<div id="container">
-		<div>
-			<h3>성공적으로 탈퇴가 이루어졌습니다.</h3>
-			
+		<div id="wrap">
+			<h3>성공적으로 탈퇴 하였습니다.</h3>
 			<a href="${pageContext.request.contextPath}/member/joinIntro">새로 가입</a>
 		</div>
 	</div>

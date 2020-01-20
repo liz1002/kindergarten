@@ -31,5 +31,9 @@
 		update kindergarten set 
 			k_name=#{kName}, k_areacode=#{kAreacode}, k_dialing=#{kDialing}, k_tel=#{kTel}, 
 			k_zipcode=#{kZipcode}, k_firstaddr=#{kFirstaddr}, k_lastaddr=#{kLastaddr} where k_no=#{kNo}
-	</update>
+	</update>	
+	
+	<delete id="deleteByKNo">
+		delete from kindergarten where k_no=#{kNo}
+	</delete>
 </mapper>

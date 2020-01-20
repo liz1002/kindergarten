@@ -103,7 +103,7 @@
 				<c:forEach var="tVo" items="${tList}">
 					<p>
 						<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${tVo.mVo.mNo}&kNo=${tVo.kVo.kNo}"> 
-							${tVo.mVo.mName}(${tVo.tNickname})
+							${tVo.mVo.mName}
 						</a>
 					</p>
 				</c:forEach>
@@ -134,7 +134,7 @@
 				<c:forEach var="pVo" items="${pList}">
 					<p>
 						<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${kVo.kNo}">
-							${pVo.mVo.mName}(${pVo.pNickname})
+							${pVo.mVo.mName}
 						</a>
 					</p>
 				</c:forEach>
@@ -153,7 +153,7 @@
 					</p>
 				</c:forEach>
 			</div>
-			<p class="btnManage"><a href="${pageContext.request.contextPath}/add/addClass?kNo=${kVo.kNo}">원아 관리</a></p>
+			<%-- <p class="btnManage"><a href="${pageContext.request.contextPath}/add/addChildren?cNo=${cVo.cNo}">원아 관리</a></p> --%>
 		</div>
 	</div>
 </section>

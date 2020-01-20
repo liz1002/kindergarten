@@ -8,27 +8,29 @@
 	#container{
 		overflow: hidden;
 	}
-	#container p#title{
+	#container h1#title{
 		float: left;
-		font-size: 25px;
-		font-weight: bold;
 	}
 	#container p#addKinder{
-		width: 150px;
+		width: 100px;
 		margin-bottom: 50px;
 		float: right;
-		background: #FF9CB3;
 		line-height: 50px;
-		font-weight: bold;
-		font-size: 18px;
 	}
 	#addKinder a{
 		display: inline-block;
 		width: 100%;
-		height: 100%
+		height: 100%;
+		background: #fff;
+		color: #FBCB00;
+		font-size: 15px;
+		font-weight: bold;
+		border: 1px solid #FBCB00;
+		outline: none;
 	}
 	#container a:hover {
-		text-decoration: underline;
+		background: #FBCB00;
+		color: #fff;
 	}
 	#container table{
 		width: 100%;
@@ -62,7 +64,7 @@
 
 <section>	
 	<div id="container">
-		<p id="title">유치원 목록</p>
+		<h1 id="title">유치원 목록</h1>
 		<p id="addKinder"><a href="${pageContext.request.contextPath}/add/addKinder?mNo=${mNo}">유치원 추가</a></p>
 			<c:if test="${Type == 1}">	
 				<table>
@@ -102,7 +104,7 @@
 						<td>
 							<span class="btnModify"><a href="${pageContext.request.contextPath}/modify/modifyKinder?kNo=${dVo.kVo.kNo}">수정</a></span>
 							<span class="btnManage"><a href="${pageContext.request.contextPath}/manage/manageKinder?kNo=${dVo.kVo.kNo}">관리</a></span>
-							<span class="btnRemove"><a href="${pageContext.request.contextPath}/modify/modifyKinder?kNo=${dVo.kVo.kNo}">삭제</a></span>
+							<span class="btnRemove"><a href="${pageContext.request.contextPath}/manage/removeKinder?kNo=${dVo.kVo.kNo}&mNo=${mNo}">삭제</a></span>
 						</td>
 					</tr>
 				</c:forEach>

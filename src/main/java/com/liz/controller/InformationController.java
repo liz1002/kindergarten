@@ -58,7 +58,7 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 		
 		switch (mVo.getmType()) {
 			case 2:
-				model.addAttribute("tList", teacherService.selectByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
+				model.addAttribute("tList", teacherService.selectListByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
 				break;
 			case 3:
 				model.addAttribute("pList", parentService.selectChildListByMNo(mNo)); //선택한 부모의 자녀 정보
@@ -79,10 +79,10 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 		
 		switch (mVo.getmType()) {
 			case 1:
-				model.addAttribute("dList", teacherService.selectByMNo(mVo.getmNo()));
+				model.addAttribute("dList", teacherService.selectListByMNo(mVo.getmNo()));
 			break;
 			case 2:
-				model.addAttribute("tList", teacherService.selectByMNo(mVo.getmNo()));
+				model.addAttribute("tList", teacherService.selectListByMNo(mVo.getmNo()));
 				break;
 			case 3:
 				model.addAttribute("pList", parentService.selectListByMNo(mVo.getmNo()));

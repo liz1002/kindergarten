@@ -4,15 +4,20 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.liz.domain.KindergartenVO;
+import com.liz.persistence.DirectorDAO;
 import com.liz.persistence.KindergartenDAO;
 
 @Service
 public class KindergartenServiceImpl implements KindergartenService{
 	
 	@Autowired
-	private KindergartenDAO kDao;
+	private KindergartenDAO kDao;	
+	
+	@Autowired
+	private DirectorDAO dDao;
 
 	@Override
 	public List<KindergartenVO> selectList() {
@@ -32,5 +37,13 @@ public class KindergartenServiceImpl implements KindergartenService{
 	@Override
 	public void modify(KindergartenVO kVo) {
 		kDao.update(kVo);
+	}
+
+	@Override
+	@Transactional
+	public void removeByKNo(int kNo) {
+		dDao.deleteByKNo(kNo);
+		kDao.deleteByKNo(kNo);
+		
 	}
 }

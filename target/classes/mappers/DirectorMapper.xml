@@ -27,4 +27,8 @@
 	<select id="updateNickname" resultMap="directorResultMap">
 		update director set d_nickname=#{dNickname} where d_no=#{dNo}
 	</select>
+	
+	<delete id="deleteByKNo">
+		delete from director where k_no=#{kNo}
+	</delete>
 </mapper>

@@ -9,4 +9,5 @@ public interface DirectorDAO {
 	public List<DirectorVO> selectListByMNo(int mNo);
 	public DirectorVO selectByDNo(int dNo);
 	public void updateNickname(DirectorVO vo);
+	public void deleteByKNo(int kNo);
 }

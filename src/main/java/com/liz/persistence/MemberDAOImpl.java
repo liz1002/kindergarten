@@ -51,5 +51,10 @@ public class MemberDAOImpl implements MemberDAO{
 		sqlSession.update(namespace + "updateUseByMNo", mNo);
 	}
 
+	@Override
+	public void updateInfo(MemberVO vo) {
+		sqlSession.update(namespace + "updateInfo", vo);
+	}
+
 }
 

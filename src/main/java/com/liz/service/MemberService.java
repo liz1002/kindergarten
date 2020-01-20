@@ -11,4 +11,5 @@ public interface MemberService {
 	public MemberVO selectById(String mId);
 	public MemberVO selectByIdAndPwd(String mId, String mPwd);
 	public void modifyUseByMNo(int mNo);
+	public void modifyInfo(MemberVO vo);
 }

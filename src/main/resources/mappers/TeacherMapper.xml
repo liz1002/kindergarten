@@ -25,11 +25,11 @@
 		select * from teacher
 	</select>
 	
-	<select id="selectByMNo" resultMap="teacherResultMap">
+	<select id="selectListByMNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where m.m_no=#{mNo}
 	</select>
 
-	<select id="selectByMNoAndKNo" resultMap="teacherResultMap">
+	<select id="selectListByMNoAndKNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo}
 	</select>
 	
@@ -42,7 +42,7 @@
 	</select>
 	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where t.k_no=#{kNo} order by m.m_name
+		<include refid="selectJoin" /> where t.k_no=#{kNo} group by m.m_no order by m.m_name
 	</select>
 	
 	<select id="selectListByCNo" resultMap="teacherResultMap">

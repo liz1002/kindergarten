@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mappers.ApproveyMapper">
+<mapper namespace="mappers.PApproveMapper">
 	
-	<resultMap type="ApproveVO" id="approveResultMap">
+	<resultMap type="PApproveVO" id="pApproveResultMap">
+		<result column="p_nickname" property="pNickname"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
 	
-	<insert id="insert">
-		insert into approve(m_no, ch_no) values(#{mVo.mNo}, #{chVo.chNo})
+	<sql id="selectJoin">
+		select * from p_approve pa join member m on pa.m_no=m.m_no
+			join children ch on pa.ch_no=ch.ch_no 
+	</sql>
+	
+	<insert id="insert" parameterType="PApproveVO">
+		insert into p_approve(m_no, ch_no, p_nickname) values(#{mVo.mNo}, #{chVo.chNo}, #{pNickname})
 	</insert>
 	
-	<select id="selectListByCNo" resultMap="approveResultMap">
-		select * from approve a join member m on a.m_no=m.m_no
-			join children ch on a.ch_no=ch.ch_no where ch.c_no=#{cNo}
+	<select id="selectListByKNo" resultMap="pApproveResultMap">
+		<include refid="selectJoin" /> where ch.k_no=#{kNo}
 	</select>
+	
+	<select id="selectListByCNo" resultMap="pApproveResultMap">
+		<include refid="selectJoin" /> where ch.c_no=#{cNo}
+	</select>	
+	
+	
 	
 	<!-- <select id="selectParentNullListByChNo" resultMap="familyResultMap">
 		select * from parent p left join 
@@ -40,6 +51,6 @@
 	</delete> -->
 	
 	<delete id="deleteByMNoAndChNo">
-		delete from approve where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
+		delete from p_approve where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
 	</delete>
 </mapper>

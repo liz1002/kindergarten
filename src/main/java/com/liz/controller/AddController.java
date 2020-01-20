@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.liz.domain.ApproveVO;
+import com.liz.domain.PApproveVO;
 import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
 import com.liz.domain.DirectorVO;
@@ -114,17 +114,18 @@ public class AddController {
 	/*-------------------------------[교사]--------------------------------*/
 	
 	/* 교사 - 반 추가 */
-//	@RequestMapping(value = "addClass", method = RequestMethod.GET)
-//	public void addClassGet(HttpSession session, Model model) {
-//		logger.info("▶  Add Class GET");
-//		
-//		Object mId = session.getAttribute("Auth");
-//		MemberVO mVo = memberService.selectById((String) mId);
-//
-//		if(mVo.getmType() == 2) {
-//			model.addAttribute("mNo", mVo.getmNo());
-//		}
-//	}	
+	@RequestMapping(value = "addClass", method = RequestMethod.GET)
+	public void addClassGet(HttpSession session, Model model) {
+		logger.info("▶  Add Class GET");
+		
+		Object mId = session.getAttribute("Auth");
+		MemberVO mVo = memberService.selectById((String) mId);
+
+		if(mVo.getmType() == 2) {
+			model.addAttribute("mNo", mVo.getmNo());
+			model.addAttribute("kList", kindergartenService); //유치원 리스트
+		}
+	}	
 	
 //	@RequestMapping(value = "addClass", method = RequestMethod.POST)
 //	public String addClassPost(TeacherVO tVo) {
@@ -207,7 +208,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getNotParent", method = RequestMethod.POST)
-	public List<ApproveVO> getNotParent(@RequestBody ChildrenVO chVo) {
+	public List<PApproveVO> getNotParent(@RequestBody ChildrenVO chVo) {
 		logger.info("▶  Get Not Parent GET");
 		logger.info("[chVo] " + chVo);
 		
@@ -216,7 +217,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "getParent", method = RequestMethod.POST)
-	public List<ApproveVO> getParent(@RequestBody ChildrenVO chVo) {
+	public List<PApproveVO> getParent(@RequestBody ChildrenVO chVo) {
 		logger.info("▶  Get Parent GET");
 		logger.info("[chVo] " + chVo);
 		
@@ -225,7 +226,7 @@ public class AddController {
 	
 	@ResponseBody
 	@RequestMapping(value = "addFamily", method = RequestMethod.POST)
-	public void addFamilyPost(HttpSession session, @RequestBody ApproveVO fVo) {
+	public void addFamilyPost(HttpSession session, @RequestBody PApproveVO fVo) {
 		logger.info("▶  Add Family POST");
 		logger.info("[fVo] " + fVo);
 		

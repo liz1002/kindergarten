@@ -35,5 +35,10 @@ public class DirectorDAOImpl implements DirectorDAO{
 		sqlSession.update(namespace + "updateNickname", vo);
 	}
 
+	@Override
+	public void deleteByKNo(int kNo) {
+		sqlSession.delete(namespace + "deleteByKNo", kNo);
+	}
+
 	
 }

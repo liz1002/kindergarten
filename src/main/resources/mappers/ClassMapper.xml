@@ -4,7 +4,6 @@
 	
 	<resultMap type="ClassVO" id="classResultMap">
 		<id column="c_no" property="cNo"/>
-		<result column="c_code" property="cCode"/>
 		<result column="c_name" property="cName"/>
 		<result column="k_no" property="kNo"/>
 	</resultMap>
@@ -20,10 +19,6 @@
 	
 	<select id="selectByNo" resultMap="classResultMap">
 		select * from class where c_no=#{cNo}
-	</select>
-	
-	<select id="selectByCode" resultMap="classResultMap">
-		select * from class where c_code=#{cCode}
 	</select>
 	
 	<delete id="deleteByCNo">

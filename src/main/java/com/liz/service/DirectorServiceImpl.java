@@ -39,5 +39,10 @@ public class DirectorServiceImpl implements DirectorService{
 	@Override
 	public void modifyNickname(DirectorVO vo) {
 		dDao.updateNickname(vo);
+	}
+
+	@Override
+	public void removeByKNo(int kNo) {
+		dDao.deleteByKNo(kNo);
 	}	
 }

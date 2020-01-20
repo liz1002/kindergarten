@@ -45,4 +45,9 @@ public class MemberServiceImpl implements MemberService{
 	public void modifyUseByMNo(int mNo) {
 		mDao.updateUseByMNo(mNo);
 	}
+
+	@Override
+	public void modifyInfo(MemberVO vo) {
+		mDao.updateInfo(vo);
+	}
 }

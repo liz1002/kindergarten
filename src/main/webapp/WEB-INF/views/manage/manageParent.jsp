@@ -63,7 +63,7 @@
 <script>
 	$(".btnRemove").click(function() {
 		var res = confirm("정말 탈퇴하시겠습니까?\n탈퇴 후 해당 유치원의 모든 정보 및 게시글을 열람하실 수 없으며,\n재가입 시 유치원의 승인이 필요합니다.");
-		if(res == false){
+		if(!res){
 			return false;	
 		}
 	})

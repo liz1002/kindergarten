@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.liz.domain.ApproveVO;
+import com.liz.domain.PApproveVO;
 import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
 import com.liz.domain.KindergartenVO;
@@ -111,6 +111,20 @@ public class ManageController {
 		}
 	}
 	
+	/* 원장 - 유치원 삭제 */
+	@RequestMapping(value = "removeKinder", method = RequestMethod.GET)
+	public String removeKinder(int kNo, int mNo, Model model) {
+		logger.info("▶ Remove Kinder GET");
+		logger.info("[kNo] " + kNo);
+		
+		kindergartenService.removeByKNo(kNo); //원장 및 유치원 삭제
+		
+		model.addAttribute("dList", directorService.selectListByMNo(mNo));
+		model.addAttribute("mNo", mNo);
+		
+		return "manage/manageDirector";
+	}
+	
 	
 	/*-------------------------------[교사]--------------------------------*/
 	
@@ -123,7 +137,7 @@ public class ManageController {
 		MemberVO mVo = memberService.selectById((String) mId);
 		
 		if(mVo.getmType() == 2) {
-			model.addAttribute("tList", teacherService.selectByMNo(mVo.getmNo())); //해당 교사의 유치원&반 리스트
+			model.addAttribute("tList", teacherService.selectListByMNo(mVo.getmNo())); //해당 교사의 유치원&반 리스트
 		}
 	}
 	
@@ -137,7 +151,7 @@ public class ManageController {
 
 		model.addAttribute("mNo", mVo.getmNo());
 		TeacherVO tVo = new TeacherVO();
-		tVo.setcVo(new ClassVO(cNo, null, null, 0));
+		tVo.setcVo(new ClassVO(cNo, null, 0));
 		tVo.setmVo(mVo);
 		tVo.settType(tType);
 		
@@ -161,7 +175,7 @@ public class ManageController {
 			logger.info("[chNo] " + chNo);
 			
 			//유아 번호로 family 검색 null이 아니면 가족 삭제
-			List<ApproveVO> fList = familyService.selectListByChNo(chNo);
+			List<PApproveVO> fList = familyService.selectListByChNo(chNo);
 			logger.info("[fList] " + fList);
 			
 			if(fList.size() != 0){

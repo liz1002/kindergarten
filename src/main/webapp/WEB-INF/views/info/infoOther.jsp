@@ -45,7 +45,7 @@
 		
 		<!-- 학부모 -->	
 		<c:if test="${mVo.mType == 3}">
-			<p class="division">해당 유치원의 자녀 리스트</p>
+			<p class="division">등록된 자녀 목록</p>
 			<c:if test="${pList.size() == 0}">
 				<p>등록된 자녀가 없습니다.</p>
 			</c:if>

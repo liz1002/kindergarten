@@ -10,4 +10,5 @@ public interface KindergartenDAO {
 	public KindergartenVO selectByNo(int kNo);
 	public KindergartenVO selectByCode(String kCode);
 	public void update(KindergartenVO kVo);
+	public void deleteByKNo(int kNo);
 }
