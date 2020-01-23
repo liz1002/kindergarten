@@ -96,7 +96,7 @@
 					</td>
 					<td>${dVo.kVo.kAreacode}-${dVo.kVo.kDialing}-${dVo.kVo.kTel}</td>
 					<td>
-						${dVo.dNickname}<br>
+						<br>${dVo.dNickname}<br>
 						<a href="${pageContext.request.contextPath}/director/modifyNick?dNo=${dVo.dNo}">수정</a>
 					</td>
 					<td>

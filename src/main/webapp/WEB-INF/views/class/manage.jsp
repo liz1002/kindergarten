@@ -45,7 +45,6 @@
 <section>
 	<div id="container">
 		<h1 id="title">${cVo.cName}</h1>
-		<p id="code">반 코드 : ${cVo.cCode}</p>
 		<a href="${pageContext.request.contextPath}/modify/modifyClass?cNo=${cVo.cNo}&tType=${tVo.tType}" id="btnModify">반 정보 수정</a>
 		<div class="wrap">
 			<h1>

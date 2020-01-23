@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liz.domain.ClassVO;
+import com.liz.domain.MemberVO;
+import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
@@ -55,6 +57,24 @@ public class ClassController {
 	
 	/* * * * * method * * * * */
 	
+	/* 반 관리 */
+	@RequestMapping(value = "manage", method = RequestMethod.GET)
+	public void manage(HttpSession session, int cNo, Model model) {
+		logger.info("▶ Class Manage GET");
+		
+		Object mId = session.getAttribute("Auth");
+		MemberVO vo = memberService.selectById((String) mId);
+
+		model.addAttribute("mNo", vo.getmNo());
+		
+		if(vo.getmType() == 2) {
+			model.addAttribute("cVo", classService.selectByNo(cNo)); //해당 반 정보
+			model.addAttribute("tList", teacherService.selectListByCNo(cNo)); //해당 반의 교사 리스트
+			model.addAttribute("pList", parentService.selectListByCNo(cNo)); //해당 반의 학부모 리스트
+			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //해당 반의 원아 리스트
+		}
+	}
+	
 	/* 반 추가 */
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public void addGet(HttpSession session, int kNo, Model model) {
@@ -68,7 +88,7 @@ public class ClassController {
 	}	
 	
 	@RequestMapping(value = "add", method = RequestMethod.POST)
-	public String addPost(HttpSession session, ClassVO cVo, Model model) {
+	public String addPost(ClassVO cVo, Model model) {
 		logger.info("▶ Class Add POST");
 		
 		classService.regist(cVo); //반 추가
@@ -92,12 +112,53 @@ public class ClassController {
 		return classService.selectListByKNo(kNo); //반 리스트
 	}
 	
+	/* 반 수정 */
+	@RequestMapping(value = "modify", method = RequestMethod.GET)
+	public void modifyPost(HttpSession session, int cNo, Model model) {
+		logger.info("▶ Class Modify POST");
+		
+		model.addAttribute("cVo", classService.selectByNo(cNo));
+	}
+	
+	@RequestMapping(value = "modify", method = RequestMethod.POST)
+	public String modifyPost(ClassVO cVo, Model model) {
+		logger.info("▶ Class Remove POST");
+		logger.info("[cVo] " + cVo);
+		
+		classService.modify(cVo);; //반 수정
+		
+//		model.addAttribute("cNo", cVo.getcNo());
+		
+		return "redirect:/teacher/manage"; //반 리스트
+	}
 	
 	
 	
 	
 	
 	
+//	/* 교사 - 반 - 학부모, 원아 관리 */
+//	@RequestMapping(value = "manageClass", method = RequestMethod.GET)
+//	public void manageClass(HttpSession session, int cNo, int tType, Model model) {
+//		logger.info("▶ Manage Class GET");
+//		
+//		Object mId = session.getAttribute("Auth");
+//		MemberVO mVo = memberService.selectById((String) mId);
+//
+//		model.addAttribute("mNo", mVo.getmNo());
+//		TeacherVO tVo = new TeacherVO();
+//		tVo.setcVo(new ClassVO(cNo, null, null));
+//		tVo.setmVo(mVo);
+//		tVo.settType(tType);
+//		
+//		if(mVo.getmType() == 2) {
+//			model.addAttribute("cVo", classService.selectByNo(cNo)); //해당 반 정보
+//			model.addAttribute("tVo", teacherService.selectByMNoAndCNoAndTType(tVo)); //교사 정보
+//			model.addAttribute("pList", parentService.selectListByCNo(cNo)); //해당 반번호의 학부모 리스트
+//			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //해당 반번호의 원아 리스트
+//		}
+//	}
+//	
 	
 	
 	

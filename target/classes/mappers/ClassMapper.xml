@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="selectByNo" resultMap="classResultMap">
-		select * from class where c_no=#{cNo}
+		select * from class c join kindergarten k on c.k_no=k.k_no where c_no=#{cNo}
 	</select>
 	
 	<delete id="deleteByCNo">

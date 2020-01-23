@@ -38,62 +38,27 @@
 </style>
 
 <section>
-	<a href="${pageContext.request.contextPath}/director/manage" id="btnBack"></a>
+	<a href="${pageContext.request.contextPath}/teacher/manage" id="btnBack"></a>
 	<div id="form_wrap">
 		<form action="modify" method="post">
-			<h1>유치원 정보 수정</h1>	
+			<h1>반 정보 수정</h1>	
 			<fieldset>
 				<legend>유치원 정보</legend>
 				<p>
 					<label><span class="necessary">*</span>유치원 이름</label>
-					<input type="text" name="kName" data-msg="이름을 입력하세요." value="${kVo.kName}" placeholder="예) 가나다유치원" maxlength="20">
+					<input type="text" value="${cVo.kVo.kName}" readonly="readonly">
 				</p>
-				<p class="tel">
-					<label><span class="necessary">*</span>유치원 연락처</label>
-					<select name="kAreacode" id="areacode">
-						<option value="02">02</option>
-						<option value="031">031</option>
-						<option value="032">032</option>
-						<option value="033">033</option>
-						<option value="041">041</option>
-						<option value="042">042</option>
-						<option value="043">043</option>
-						<option value="044">044</option>
-						<option value="051">051</option>
-						<option value="052">052</option>
-						<option value="053">053</option>
-						<option value="054">054</option>
-						<option value="055">055</option>
-						<option value="061">061</option>
-						<option value="062">062</option>
-						<option value="063">063</option>
-						<option value="064">064</option>
-					</select>
-					- <input type="tel" name="kDialing" id="dialing" value="${kVo.kDialing}" maxlength="3" size="3" data-msg="연락처를 입력하세요.">
-					- <input type="tel" name="kTel" id="tel" value="${kVo.kTel}" maxlength="4" size="4" data-msg="연락처를 입력하세요.">
-					<br><span class="error">연락처 형식이 올바르지 않습니다.</span>
+				<legend>반 정보</legend>
+				<p>
+					<label><span class="necessary">*</span>반 이름</label>
+					<input type="text" name="cName" data-msg="이름을 입력하세요." value="${cVo.cName}" placeholder="반 이름" maxlength="20">
 				</p>
-				<p id="addr1">
-					<label><span class="necessary">*</span>주소</label>
-					<input name="kZipcode" class="form-control zipCode" id="userZipCode" value="${kVo.kZipcode}" placeholder="우편번호" readonly="readonly"/>
-					<button type="button" onclick="openDaumPostcode();">검색</button>
-				</p>
-				<p id="addr2">
-					<input type="text" name="kFirstaddr" class="form-control userFirstAddr" id="userFirstAddr" value="${kVo.kFirstaddr}" readonly="readonly" size="25" data-msg="주소를 입력하세요." />
-					<input type="text" name="kLastaddr" class="form-control userSecondAddr" id="userSecondAddr" value="${kVo.kLastaddr}" data-msg="상세주소를 입력하세요." placeholder="상세 주소를 입력해주세요"/>
-				</p>
-				
-				<!-- 팝업창 -->
-				<div id="layer">
-					<img src="//t1.daumcdn.net/localimg/localimages/07/postcode/320/close.png"
-						id="btnCloseLayer"
-						onclick="closeDaumPostcode()" alt="닫기 버튼">
-				</div>
 				<p class="guid">
 					<span class="necessary">*</span>은 필수 입력 사항입니다.
 				</p>
 			</fieldset>
 			
+			<input type="hidden" name="cNo" value="${cVo.cNo}">			
 			<input type="hidden" name="kNo" value="${kVo.kNo}">
 			
 			<p id="submit">

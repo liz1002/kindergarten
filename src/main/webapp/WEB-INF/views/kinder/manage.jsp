@@ -209,7 +209,7 @@
 					<p>
 						<input type="checkbox" id="ch${idx.index}" class="checkCh" data-chNo="${chVo.chNo}">
 						<label for="ch${idx.index}"></label>
-						<a href="${pageContext.request.contextPath}/info/infoChild?chNo=${chVo.chNo}">${chVo.chName}</a>
+						<a href="${pageContext.request.contextPath}/info/infoChild?chNo=${chVo.chNo}">${chVo.chName}(${chVo.cVo.cName})</a>
 					</p>
 				</c:forEach>
 			</div>

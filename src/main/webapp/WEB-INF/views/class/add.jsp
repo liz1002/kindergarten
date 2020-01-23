@@ -22,11 +22,11 @@
 				<p><input type="text" name="cName" data-msg="반 이름을 입력하세요." placeholder="반 이름"></p>	
 			</fieldset>
 			
+			<input type="hidden" name="kVo.kNo" value="${kVo.kNo}">
+			
 			<p id="submit">
 				<input type="submit" value="추가">
 			</p>
-			
-			<input type="hidden" name="kVo.kNo" value="${kVo.kNo}">
 		</form>
 	</div>
 </section>

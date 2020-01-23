@@ -67,27 +67,6 @@ public class ManageController {
 	
 	
 	
-	/* 교사 - 반 - 학부모, 원아 관리 */
-	@RequestMapping(value = "manageClass", method = RequestMethod.GET)
-	public void manageClass(HttpSession session, int cNo, int tType, Model model) {
-		logger.info("▶ Manage Class GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-
-		model.addAttribute("mNo", mVo.getmNo());
-		TeacherVO tVo = new TeacherVO();
-		tVo.setcVo(new ClassVO(cNo, null, null));
-		tVo.setmVo(mVo);
-		tVo.settType(tType);
-		
-		if(mVo.getmType() == 2) {
-			model.addAttribute("cVo", classService.selectByNo(cNo)); //해당 반 정보
-			model.addAttribute("tVo", teacherService.selectByMNoAndCNoAndTType(tVo)); //교사 정보
-			model.addAttribute("pList", parentService.selectListByCNo(cNo)); //해당 반번호의 학부모 리스트
-			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //해당 반번호의 원아 리스트
-		}
-	}
 	
 	/* 원아 삭제 */
 	@ResponseBody

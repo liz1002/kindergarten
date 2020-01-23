@@ -6,13 +6,29 @@
 	#container{
 		overflow: hidden;
 	}
-	#container h1#title{
+	#container p.tabs{
 		float: left;
+		line-height: 50px;
+		font-family: 'Poor Story', cursive;
+	}
+	#container .tabs a{
+		display: inline-block;
+		padding: 4px 12px;
+		background: #fff;
+		color: #FBCB00;
+		font-size: 20px;
+		font-weight: bold;
+		border: 1px solid #FBCB00;
+		outline: none;
+	}
+	#container p#active a{
+		background: #FBCB00;
+		color: #fff;
 	}
 	#container p.btns{
-		margin: 0 10px 50px;
 		float: right;
-		line-height: 50px;
+		margin-top: 10px;
+		line-height: 30px;
 		font-family: 'Poor Story', cursive;
 	}
 	#container .btns a{
@@ -33,7 +49,7 @@
 		width: 100%;
 		clear: both;
 		border-collapse: collapse;
-		border-top: 3px solid #ddd;
+		border-top: 3px solid #FBCB00;
 		border-bottom: 3px solid #ddd;
 		font-family: 'Poor Story', cursive;
 	}
@@ -58,6 +74,7 @@
 	#container td.addr span{
 		color: #999;
 	}
+	
 	/* 삭제된 유치원 or 반에 대한 스타일 */
 	#container table tr.unused{
 		background: #eee;
@@ -70,9 +87,9 @@
 
 <section>	
 	<div id="container">
-		<h1 id="title">가입 유치원 목록</h1>	
+		<p class="tabs" id="active"><a href="${pageContext.request.contextPath}/parent/manage">유치원 목록</a></p>
+		<p class="tabs"><a href="${pageContext.request.contextPath}/parent/applyList?mNo=${mNo}">신청 목록</a></p>
 		<p class="btns"><a href="${pageContext.request.contextPath}/parent/apply?mNo=${mNo}">유치원 가입</a></p>
-		<p class="btns"><a href="${pageContext.request.contextPath}/parent/applyList?mNo=${mNo}">가입 신청 목록</a></p>
 		<c:if test="${Type == 3}">
 			<table>
 				<tr>
@@ -108,7 +125,7 @@
 						<td>${pVo.chVo.kVo.kAreacode}-${pVo.chVo.kVo.kDialing}-${pVo.chVo.kVo.kTel}</td>
 						<td>${pVo.chVo.cVo.cName}·${pVo.chVo.chName}</td>
 						<td>
-							${pVo.pNickname}<br>
+							<br>${pVo.pNickname}<br>
 							<a href="${pageContext.request.contextPath}/parent/modifyNick?pNo=${pVo.pNo}">수정</a>
 						</td>
 						<td>

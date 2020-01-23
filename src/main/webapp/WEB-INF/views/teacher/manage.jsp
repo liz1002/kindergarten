@@ -6,13 +6,29 @@
 	#container{
 		overflow: hidden;
 	}
-	#container h1#title{
+	#container p.tabs{
 		float: left;
+		line-height: 50px;
+		font-family: 'Poor Story', cursive;
+	}
+	#container .tabs a{
+		display: inline-block;
+		padding: 4px 12px;
+		background: #fff;
+		color: #FBCB00;
+		font-size: 20px;
+		font-weight: bold;
+		border: 1px solid #FBCB00;
+		outline: none;
+	}
+	#container p#active a{
+		background: #FBCB00;
+		color: #fff;
 	}
 	#container p.btns{
-		margin: 0 10px 50px;
 		float: right;
-		line-height: 50px;
+		margin-top: 10px;
+		line-height: 30px;
 		font-family: 'Poor Story', cursive;
 	}
 	#container .btns a{
@@ -33,7 +49,7 @@
 		width: 100%;
 		clear: both;
 		border-collapse: collapse;
-		border-top: 3px solid #ddd;
+		border-top: 3px solid #FBCB00;
 		border-bottom: 3px solid #ddd;
 		font-family: 'Poor Story', cursive;
 	}
@@ -58,6 +74,7 @@
 	#container td.addr span{
 		color: #999;
 	}
+	
 	/* 삭제된 유치원 or 반에 대한 스타일 */
 	#container table tr.unused{
 		background: #eee;
@@ -70,9 +87,10 @@
 
 <section>	
 	<div id="container">
-		<h1 id="title">가입 유치원 목록</h1>	
+		<p class="tabs" id="active"><a href="${pageContext.request.contextPath}/teacher/manage">유치원 목록</a></p>
+		<p class="tabs"><a href="${pageContext.request.contextPath}/teacher/applyList?mNo=${mNo}">신청 목록</a></p>
 		<p class="btns"><a href="${pageContext.request.contextPath}/teacher/apply?mNo=${mNo}">유치원 가입</a></p>
-		<p class="btns"><a href="${pageContext.request.contextPath}/teacher/applyList?mNo=${mNo}">가입 신청 목록</a></p>
+		
 		<c:if test="${Type == 2}">	
 			<table>
 				<tr>
@@ -82,15 +100,16 @@
 					<th>연락처</th>
 					<th>반·역할</th>
 					<th>별명</th>
+					<th>수정·관리</th>
 					<th>탈퇴</th>					
 				</tr>
 			<c:if test="${tList.size() == 0}">
 				<tr>
-					<td colspan="7">가입한 유치원이 없습니다. 유치원 가입 후 이용해주세요.</td>
+					<td colspan="8">가입한 유치원이 없습니다. 유치원 가입 후 이용해주세요.</td>
 				</tr>
 			</c:if>
 			<c:forEach var="tVo" items="${tList}">
-				<tr ${tVo.kVo.kUse == 1 ? 'class=unused' : ''}>
+				<tr ${tVo.kVo.kUse == 1 || tVo.cVo.cUse == 1? 'class=unused' : ''}>
 					<td class="name">
 						<a href="${pageContext.request.contextPath}/board/main?cNo=${tVo.cVo.cNo}"> <!-- 게시판 이동 -->
 							${tVo.kVo.kName}	
@@ -109,8 +128,12 @@
 						${tVo.cVo.cName}·<c:if test="${tVo.tType == 1}">담임</c:if><c:if test="${tVo.tType == 2}">부담임</c:if>
 					</td>
 					<td>
-						${tVo.tNickname}<br>
+						<br>${tVo.tNickname}<br>
 						<a href="${pageContext.request.contextPath}/teacher/modifyNick?tNo=${tVo.tNo}">수정</a>
+					</td>
+					<td>
+						<span class="btnManage"><a href="${pageContext.request.contextPath}/class/modify?cNo=${tVo.cVo.cNo}">수정</a></span>
+						<span class="btnManage"><a href="${pageContext.request.contextPath}/class/manage?cNo=${tVo.cVo.cNo}">관리</a></span>
 					</td>
 					<td>
 						<span class="btnSecession"><a href="${pageContext.request.contextPath}/teacher/secession?tNo=${tVo.tNo}">탈퇴</a></span>
