@@ -45,4 +45,9 @@ public class ClassDAOImpl implements ClassDAO{
 	public void update(ClassVO cVo) {
 		sqlSession.update(namespace + "update", cVo);
 	}
+
+	@Override
+	public void updateUse(int cNo) {
+		sqlSession.update(namespace + "updateUse", cNo);
+	}
 }

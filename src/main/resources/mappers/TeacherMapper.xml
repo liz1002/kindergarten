@@ -28,18 +28,6 @@
 	<select id="selectListByMNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where m.m_no=#{mNo}
 	</select>
-
-	<select id="selectListByMNoAndKNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo}
-	</select>
-	
-	<select id="selectByMNoAndCNoAndTType" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_no=#{cVo.cNo} and t_type=#{tType}
-	</select>
-	
-	<select id="selectByMNoAndCCodeAndTType" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mVo.mNo} and t.c_code=#{cVo.cCode} and t_type=#{tType}
-	</select>
 	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where t.k_no=#{kNo} group by m.m_no order by m.m_name
@@ -48,8 +36,24 @@
 	<select id="selectListByCNo" resultMap="teacherResultMap">
 		<include refid="selectJoin" /> where t.c_no=#{cNo}
 	</select>
+
+	<select id="selectListByMNoAndKNo" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo}
+	</select>
 	
-	<update id="update">
-		update teacher set t_type=#{tType}, c_no=#{cVo.cNo} where t_no=${tNo}
+	<select id="selectByTNo" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where t.t_no=#{tNo}
+	</select>
+	
+	<select id="selectByMNoAndCNoAndTType" resultMap="teacherResultMap">
+		select * from teacher where m_no=#{mVo.mNo} and c_no=#{cVo.cNo} and t_type=#{tType}
+	</select>
+	
+	<update id="updateNickname">
+		update teacher set t_nickname=#{tNickname} where t_no=${tNo}
 	</update>
+	
+	<delete id="deleteByTNo">
+		delete from teacher where t_no=#{tNo}
+	</delete>
 </mapper>

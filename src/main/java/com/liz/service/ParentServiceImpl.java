@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.liz.domain.PApproveVO;
 import com.liz.domain.ParentVO;
 import com.liz.persistence.ParentDAO;
 
@@ -15,8 +16,8 @@ public class ParentServiceImpl implements ParentService{
 	private ParentDAO dao;
 
 	@Override
-	public void regist(int mNo, int kNo) {
-		dao.insert(mNo, kNo);
+	public void regist(ParentVO pVo) {
+		dao.insert(pVo);
 	}
 
 	@Override
@@ -45,6 +46,16 @@ public class ParentServiceImpl implements ParentService{
 	}
 
 	@Override
+	public ParentVO selectByPNo(int pNo) {
+		return dao.selectByPNo(pNo);
+	}
+
+	@Override
+	public ParentVO selectByMNoAndChNo(PApproveVO paVo) {
+		return dao.selectByMNoAndChNo(paVo);
+	}
+
+	@Override
 	public void removeByMNo(int mNo) {
 		dao.deleteByMNo(mNo);
 	}
@@ -52,5 +63,10 @@ public class ParentServiceImpl implements ParentService{
 	@Override
 	public void removeByPNo(int pNo) {
 		dao.deleteByPNo(pNo);
+	}
+
+	@Override
+	public void modifyNickname(ParentVO pVo) {
+		dao.updateNickname(pVo);
 	}
 }

@@ -9,8 +9,9 @@
 	</resultMap>
 	
 	<sql id="selectJoin">
-		select * from p_approve pa join member m on pa.m_no=m.m_no
-			join children ch on pa.ch_no=ch.ch_no 
+		select * from p_approve pa 
+			join member m on pa.m_no=m.m_no join children ch on pa.ch_no=ch.ch_no 
+			join kindergarten k on k.k_no=ch.k_no join class c on c.c_no=ch.c_no
 	</sql>
 	
 	<insert id="insert" parameterType="PApproveVO">
@@ -18,38 +19,17 @@
 	</insert>
 	
 	<select id="selectListByKNo" resultMap="pApproveResultMap">
-		<include refid="selectJoin" /> where ch.k_no=#{kNo}
+		<include refid="selectJoin" /> where ch.k_no=#{kNo} order by m.m_name, c.c_name, ch.ch_name;
 	</select>
 	
 	<select id="selectListByCNo" resultMap="pApproveResultMap">
 		<include refid="selectJoin" /> where ch.c_no=#{cNo}
-	</select>	
-	
-	
-	
-	<!-- <select id="selectParentNullListByChNo" resultMap="familyResultMap">
-		select * from parent p left join 
-			(select p_no from family where ch_no=#{chNo}) f on p.p_no = f.p_no
-			join member m on p.m_no = m.m_no
-			where m.m_type=3 and k_no=#{kNo} and f.p_no is null;
 	</select>
 	
-	<select id="selectListByChNo" resultMap="familyResultMap">
-		select * from family f join children ch on f.ch_no=ch.ch_no
-			join parent p on f.p_no=p.p_no join member m on p.m_no=m.m_no
-			where ch.ch_no=#{chNo} order by m.m_name
+	<select id="selectListByMNo" resultMap="pApproveResultMap">
+		<include refid="selectJoin" /> where m.m_no=#{mNo}
 	</select>
-	
-	<select id="selectChListByMNoAndKNo" resultMap="familyResultMap">
-		select * from parent p join family f on p.p_no=f.p_no
-			join children ch on f.ch_no=ch.ch_no join class c on ch.c_no=c.c_no
-			join kindergarten k on ch.k_no=k.k_no where p.m_no=#{mNo} and p.k_no=#{kNo} order by ch.ch_regdate;
-	</select>
-	
-	<delete id="deleteByChNo">
-		delete from family where ch_no=#{chNo}
-	</delete> -->
-	
+
 	<delete id="deleteByMNoAndChNo">
 		delete from p_approve where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
 	</delete>

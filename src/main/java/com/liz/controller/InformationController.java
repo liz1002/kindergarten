@@ -56,13 +56,17 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 		MemberVO mVo = memberService.selectByNo(mNo);
 		model.addAttribute("mVo", mVo); //선택한 회원 정보 
 		
-		switch (mVo.getmType()) {
-			case 2:
-				model.addAttribute("tList", teacherService.selectListByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
-				break;
-			case 3:
-				model.addAttribute("pList", parentService.selectChildListByMNo(mNo)); //선택한 부모의 자녀 정보
-				break;
+		if(mVo.getmUse() != 1) { //탈퇴한 회원 아닐 경우
+			switch (mVo.getmType()) {
+				case 2:
+					model.addAttribute("tList", teacherService.selectListByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
+					break;
+				case 3:
+					model.addAttribute("pList", parentService.selectChildListByMNo(mNo)); //선택한 부모의 자녀 정보
+					break;
+			}
+		}else { //탈퇴한 회원
+			model.addAttribute("msg", "탈퇴했거나 존재하지 않는 회원입니다."); //선택한 교사 정보
 		}
 		
 		//선택한 원아 정보 => controller & jsp 따로 만들기

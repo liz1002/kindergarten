@@ -20,11 +20,6 @@ public class MemberServiceImpl implements MemberService{
 	public void regist(MemberVO vo) {
 		mDao.insert(vo); //회원추가
 	}
-	
-	@Override
-	public List<MemberVO> selectList() {
-		return mDao.selectList();
-	}
 
 	@Override
 	public MemberVO selectByNo(int mNo) {

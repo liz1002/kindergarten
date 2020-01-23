@@ -11,20 +11,21 @@
 		<result column="k_zipcode" property="kZipcode"/>
 		<result column="k_firstaddr" property="kFirstaddr"/>
 		<result column="k_lastaddr" property="kLastaddr"/>
-		<result column="k_Date" property="kDate"/> 
+		<result column="k_date" property="kDate"/>
+		<result column="k_use" property="kUse"/>  
 	</resultMap>
 	
 	<insert id="insert" parameterType="KindergartenVO" useGeneratedKeys="true" keyColumn="k_no" keyProperty="kNo">
 		insert into kindergarten(k_name, k_areacode, k_dialing, k_tel, k_zipcode, k_firstaddr, k_lastaddr) 
 		values(#{kName}, #{kAreacode}, #{kDialing}, #{kTel}, #{kZipcode}, #{kFirstaddr}, #{kLastaddr})
 	</insert>
-	
-	<select id="selectList" resultMap="kindergartenResultMap">
-		select * from kindergarten
-	</select>
-	
+
 	<select id="selectByNo" resultMap="kindergartenResultMap">
 		select * from kindergarten where k_no=#{kNo}
+	</select>
+	
+	<select id="selectListByKName" resultMap="kindergartenResultMap">
+		select * from kindergarten where k_use=0 and k_name LIKE CONCAT('%', #{kName}, '%') order by k_name, k_date desc 
 	</select>
 	
 	<update id="update" parameterType="KindergartenVO">
@@ -33,7 +34,7 @@
 			k_zipcode=#{kZipcode}, k_firstaddr=#{kFirstaddr}, k_lastaddr=#{kLastaddr} where k_no=#{kNo}
 	</update>	
 	
-	<delete id="deleteByKNo">
-		delete from kindergarten where k_no=#{kNo}
-	</delete>
+	<update id="updateUse">
+		update kindergarten set k_use=1 where k_no=#{kNo}
+	</update>
 </mapper>

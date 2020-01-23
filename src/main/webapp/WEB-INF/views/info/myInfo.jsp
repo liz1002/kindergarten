@@ -4,7 +4,7 @@
 
 <style>
 	#container div#info{
-		width: 400px;
+		width: 350px;
 		margin: 50px auto;
 		font-size: 18px;
 		clear: both;
@@ -12,11 +12,14 @@
 	}
 	#info p{
 		line-height: 50px;
+		font-family: 'Poor Story', cursive;
+		font-size: 20px;
+		font-weight: bold;
 	}
 	#info span{
-		font-weight: bold;
 		color: #F78300;
 		margin-right: 10px;
+		letter-spacing: 5px;
 	}
 	#btns{
 		text-align: center;
@@ -24,11 +27,11 @@
 	}
 	#btns a{
 		margin: 0 10px;
-		padding: 5px 10px;
+		padding: 10px;
 		color: #F24B6A;
 		border: 1px solid #F24B6A;
 		border-radius: 10px;
-		font-size: 14px;
+		font-size: 15px;
 		font-weight: bold;
 	}
 	#btns a:hover{

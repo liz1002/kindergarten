@@ -31,7 +31,7 @@
 	#form_wrap select{
 	    width: 400px;
 	}
-	#form_wrap #tel input, #form_wrap #tel select{
+	#form_wrap .tel input, #form_wrap .tel select{
 		width: 110px;		
 	}
 	#form_wrap #submit input{
@@ -113,7 +113,7 @@
 					<label><span class="necessary">*</span>생년월일</label>
 					<input type="date" name="mRegdate" data-msg="생년월일을 선택하세요."><!-- selectbox로 만들기 -->
 				</p>
-				<p id="tel">
+				<p class="tel">
 					<label><span class="necessary">*</span>연락처</label>
 					<select name="mFirsttel" id="areacode">
 						<option value="010" selected="selected">010</option>
@@ -131,6 +131,7 @@
 					<span class="necessary">*</span>은 필수 입력 사항입니다.
 				</p>
 			</fieldset>
+			
 			<p id="submit">
 				<input type="submit" value="가입">
 			</p>

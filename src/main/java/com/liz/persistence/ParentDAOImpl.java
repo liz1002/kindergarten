@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.liz.domain.PApproveVO;
 import com.liz.domain.ParentVO;
 
 @Repository
@@ -19,11 +20,8 @@ public class ParentDAOImpl implements ParentDAO{
 	private SqlSession sqlSession;
 
 	@Override
-	public void insert(int mNo, int kNo) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("mNo", mNo);
-		map.put("kNo", kNo);
-		sqlSession.insert(namespace + "insert", map);
+	public void insert(ParentVO pVo) {
+		sqlSession.insert(namespace + "insert", pVo);
 	}
 
 	@Override
@@ -55,6 +53,16 @@ public class ParentDAOImpl implements ParentDAO{
 	}
 
 	@Override
+	public ParentVO selectByPNo(int pNo) {
+		return sqlSession.selectOne(namespace + "selectByPNo", pNo);
+	}
+
+	@Override
+	public ParentVO selectByMNoAndChNo(PApproveVO paVo) {
+		return sqlSession.selectOne(namespace + "selectByMNoAndChNo", paVo);
+	}
+
+	@Override
 	public void deleteByPNo(int pNo) {
 		sqlSession.delete(namespace + "deleteByPNo", pNo);
 	}
@@ -62,5 +70,10 @@ public class ParentDAOImpl implements ParentDAO{
 	@Override
 	public void deleteByMNo(int mNo) {
 		sqlSession.delete(namespace + "deleteByMNo", mNo);
+	}
+
+	@Override
+	public void updateNickname(ParentVO pVo) {
+		sqlSession.update(namespace + "updateNickname", pVo);
 	}
 }

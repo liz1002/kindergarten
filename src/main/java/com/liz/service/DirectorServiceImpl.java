@@ -18,13 +18,6 @@ public class DirectorServiceImpl implements DirectorService{
 	
 	@Autowired
 	private KindergartenDAO kDao;	
-
-	@Override
-	@Transactional
-	public void registDirector(DirectorVO dVo) {
-		kDao.insert(dVo.getkVo()); //유치원추가
-		dDao.insert(dVo); //원장추가
-	}
 	
 	@Override
 	public List<DirectorVO> selectListByMNo(int mNo) {

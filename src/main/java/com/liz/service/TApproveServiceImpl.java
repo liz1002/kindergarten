@@ -25,10 +25,12 @@ public class TApproveServiceImpl implements TApproveService{
 	}
 
 	@Override
-	public void removeByMNoAndCNo(TApproveVO taVo) {
-		dao.deleteByMNoAndCNo(taVo);
+	public List<TApproveVO> selectListByMNo(int mNo) {
+		return dao.selectListByMNo(mNo);
 	}
 
-	
-
+	@Override
+	public void removeByMNoAndCNoAndTType(TApproveVO taVo) {
+		dao.deleteByMNoAndCNoAndTType(taVo);
+	}
 }

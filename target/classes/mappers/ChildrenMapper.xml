@@ -21,7 +21,7 @@
 	</insert>
 
 	<select id="selectListByKNo" resultMap="childrenResultMap">
-		<include refid="selectJoin" /> where ch.k_no=#{kNo} order by c.c_name, ch.ch_name
+		<include refid="selectJoin" /> where ch.k_no=#{kNo} order by ch.ch_name
 	</select>
 	
 	<select id="selectListByCNo" resultMap="childrenResultMap">

@@ -11,7 +11,7 @@ import com.liz.domain.PApproveVO;
 @Repository
 public class PApproveDAOImpl implements PApproveDAO{
 
-	private final static String namespace = "mappers.PApproveyMapper.";
+	private final static String namespace = "mappers.PApproveMapper.";
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -30,12 +30,14 @@ public class PApproveDAOImpl implements PApproveDAO{
 	public List<PApproveVO> selectListByCNo(int cNo) {
 		return sqlSession.selectList(namespace + "selectListByCNo", cNo);
 	}
+	
+	@Override
+	public List<PApproveVO> selectListByMNo(int mNo) {
+		return sqlSession.selectList(namespace + "selectListByMNo", mNo);
+	}
 
 	@Override
 	public void deleteByMNoAndChNo(PApproveVO paVo) {
 		sqlSession.delete(namespace + "deleteByMNoAndChNo", paVo);
-	}
-
-	
-	
+	}	
 }

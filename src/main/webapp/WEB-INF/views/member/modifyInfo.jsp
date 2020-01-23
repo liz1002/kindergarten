@@ -3,12 +3,13 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-	fieldset {
-		border: none;
+	#form_wrap .tel input, #form_wrap .tel select{
+		width: 110px;		
 	}
 </style>
 
 <section>
+	<a href="${pageContext.request.contextPath}/info/myInfo?mId=${mVo.mId}" id="btnBack"></a>
 	<div id="form_wrap">
 		<h1>회원 정보 수정</h1>
 		<form action="modify" method="post">
@@ -34,7 +35,7 @@
 					<label><span class="necessary">*</span>생년월일</label>
 					<input type="date" name="mRegdate" value="<fmt:formatDate value="${mVo.mRegdate}" pattern="yyyy-MM-dd"/>"data-msg="생년월일을 선택하세요."><!-- selectbox로 만들기 -->
 				</p>
-				<p>
+				<p class="tel">
 					<label><span class="necessary">*</span>연락처</label>
 					<select name="mFirsttel" id="areacode">
 						<option value="010">010</option>

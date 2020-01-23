@@ -15,8 +15,8 @@ public class PApproveServiceImpl implements PApproveService{
 	private PApproveDAO dao;
 
 	@Override
-	public void regist(PApproveVO aVo) {
-		dao.insert(aVo);
+	public void regist(PApproveVO paVo) {
+		dao.insert(paVo);
 	}
 	
 	@Override
@@ -30,10 +30,12 @@ public class PApproveServiceImpl implements PApproveService{
 	}
 
 	@Override
-	public void removeByMNoAndChNo(PApproveVO aVo) {
-		dao.deleteByMNoAndChNo(aVo);
+	public List<PApproveVO> selectListByMNo(int mNo) {
+		return dao.selectListByMNo(mNo);
 	}
 
-	
-
+	@Override
+	public void removeByMNoAndChNo(PApproveVO paVo) {
+		dao.deleteByMNoAndChNo(paVo);
+	}
 }

@@ -62,84 +62,10 @@ public class ManageController {
 	
 	/* * * * * method * * * * */
 	
-	/* 학부모 - 유치원 등록, 반 등록, 학부모 생성 */
-	@RequestMapping(value = "registP", method = RequestMethod.POST)
-	public String registPPost(int mNo, int kNo) {
-		logger.info("▶ regist Teacher POST");
-		logger.info("[mNo] " + mNo);
-		logger.info("[kNo] " + kNo);
-		
-		// 학부모 추가
-		parentService.regist(mNo, kNo);
-		
-		return "redirect:/manage/manageMain";
-	}
-	
-	
-	/*-------------------------------[원장]--------------------------------*/
-	
-	/* 원장 관리 화면 */
-	@RequestMapping(value = "manageDirector", method = RequestMethod.GET)
-	public void manageDirector(HttpSession session, Model model) {
-		logger.info("▶ Manage Director GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-		
-		model.addAttribute("mNo", mVo.getmNo()); //회원 번호		
-		if(mVo.getmType() == 1) {
-			model.addAttribute("dList", directorService.selectListByMNo(mVo.getmNo())); //해당 원장의 유치원 리스트
-		}
-	}
-	
-	/* 원장 - 유치원 - 반, 교사, 학부모 관리 */
-	@RequestMapping(value = "manageKinder", method = RequestMethod.GET)
-	public void manageKinder(HttpSession session, int kNo, Model model) {
-		logger.info("▶ Manage Kinder GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO vo = memberService.selectById((String) mId);
-
-		model.addAttribute("mNo", vo.getmNo());
-		
-		if(vo.getmType() == 1) {
-			model.addAttribute("kVo", kindergartenService.selectByNo(kNo)); //해당 유치원 정보
-			model.addAttribute("cList", classService.selectListByKNo(kNo)); //해당 유치원 반 리스트
-			model.addAttribute("tList", teacherService.selectListByKNo(kNo)); //해당 유치원번호의 교사 리스트
-			model.addAttribute("pList", parentService.selectListByKNo(kNo)); //해당 유치원번호의 학부모 리스트
-			model.addAttribute("chList", childrenService.selectListByKNo(kNo)); //해당 유치원번호의 원아 리스트
-		}
-	}
-	
-	/* 원장 - 유치원 삭제 */
-	@RequestMapping(value = "removeKinder", method = RequestMethod.GET)
-	public String removeKinder(int kNo, int mNo, Model model) {
-		logger.info("▶ Remove Kinder GET");
-		logger.info("[kNo] " + kNo);
-		
-		kindergartenService.removeByKNo(kNo); //원장 및 유치원 삭제
-		
-		model.addAttribute("dList", directorService.selectListByMNo(mNo));
-		model.addAttribute("mNo", mNo);
-		
-		return "manage/manageDirector";
-	}
-	
 	
 	/*-------------------------------[교사]--------------------------------*/
 	
-	/* 교사 관리 화면 */
-	@RequestMapping(value = "manageTeacher", method = RequestMethod.GET)
-	public void manageTeacher(HttpSession session, Model model) {
-		logger.info("▶ Manage Teacher GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-		
-		if(mVo.getmType() == 2) {
-			model.addAttribute("tList", teacherService.selectListByMNo(mVo.getmNo())); //해당 교사의 유치원&반 리스트
-		}
-	}
+	
 	
 	/* 교사 - 반 - 학부모, 원아 관리 */
 	@RequestMapping(value = "manageClass", method = RequestMethod.GET)
@@ -151,7 +77,7 @@ public class ManageController {
 
 		model.addAttribute("mNo", mVo.getmNo());
 		TeacherVO tVo = new TeacherVO();
-		tVo.setcVo(new ClassVO(cNo, null, 0));
+		tVo.setcVo(new ClassVO(cNo, null, null));
 		tVo.setmVo(mVo);
 		tVo.settType(tType);
 		
@@ -168,7 +94,6 @@ public class ManageController {
 	@RequestMapping(value = "removeChildren/{cNo}", method = RequestMethod.POST)
 	public List<ChildrenVO> removeChildrenPost(@RequestBody int[] chNoList, @PathVariable("cNo") int cNo) {
 		logger.info("▶ Remove Children POST");
-		
 		logger.info("[cNo] " + cNo);
 		
 		for(int chNo : chNoList) {
@@ -198,22 +123,6 @@ public class ManageController {
 			logger.info("[pNo] " + pNo);
 	
 			familyService.removeByPNoAndChNo(pNo, chNo); //학부모 번호 & 원아 번호로 가족 삭제
-		}
-	}
-	
-	
-	/*-------------------------------[학부모]--------------------------------*/
-	
-	/* 학부모 관리 화면 */
-	@RequestMapping(value = "manageParent", method = RequestMethod.GET)
-	public void manageParent(HttpSession session, Model model) {
-		logger.info("▶ Manage Parent GET");
-		
-		String mId = (String)session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById(mId);
-		
-		if(mVo.getmType() == 3) {
-			model.addAttribute("pList", parentService.selectListByMNo(mVo.getmNo()));//해당 부모의 자녀 & 반 리스트
 		}
 	}
 }

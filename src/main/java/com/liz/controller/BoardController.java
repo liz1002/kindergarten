@@ -24,9 +24,9 @@ import com.liz.service.ParentService;
 import com.liz.service.TeacherService;
 
 @Controller
-@RequestMapping("/main/*")
-public class MainController {
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+@RequestMapping("/board/*")
+public class BoardController {
+	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	/* * * * * service * * * * */
 	
@@ -55,16 +55,15 @@ public class MainController {
 	/* * * * * method * * * * */
 	
 	/* 메인 화면 */
-	@RequestMapping(value = "mainClass", method = RequestMethod.GET)
-	public void mainClassGet(HttpSession session, Model model, int cNo) {
-		logger.info("🏳‍🌈 Main Class GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
+	@RequestMapping(value = "main", method = RequestMethod.GET)
+	public void mainClassGet(HttpSession session, int cNo, Model model) {
+		logger.info("🏳‍🌈 Board Main GET");
+		logger.info("[cNo] " + cNo);
 
-		model.addAttribute("mNo", mVo.getmNo());
+		model.addAttribute("cVo", classService.selectByNo(cNo));
 		
 		//기본 선택 - 게시판
+		
 	}
 
 	/* 원장 - 메인(유치원 리스트) 화면 */
@@ -78,7 +77,7 @@ public class MainController {
 		model.addAttribute("mNo", mVo.getmNo());
 		
 		if(mVo.getmType() == 1) {
-			model.addAttribute("dList", directorService.selectListByNo(mVo.getmNo())); //해당 원장의 유치원 리스트
+			model.addAttribute("dList", directorService.selectListByMNo(mVo.getmNo())); //해당 원장의 유치원 리스트
 		}
 	}
 	

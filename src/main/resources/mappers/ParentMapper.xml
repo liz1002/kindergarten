@@ -15,7 +15,7 @@
 	</sql>
 	
 	<insert id="insert">
-		insert into parent(p_nickname, m_no, k_no) values(#{pNickname}, #{mNo}, #{kNo})
+		insert into parent(p_nickname, m_no, ch_no) values(#{pNickname}, #{mVo.mNo}, #{chVo.chNo})
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="parentResultMap">
@@ -33,9 +33,17 @@
 	<select id="selectListByCNo" resultMap="parentResultMap">
 		<include refid="selectJoin" /> where c.c_no=#{cNo}
 	</select>
+	
+	<select id="selectByPNo" resultMap="parentResultMap">
+		select * from parent where p_no=#{pNo}
+	</select>
 
 	<select id="selectChildListByMNo" resultMap="parentResultMap">
 		<include refid="selectJoin" /> where p.m_no=#{mNo}
+	</select>
+	
+	<select id="selectByMNoAndChNo" resultMap="parentResultMap">
+		select * from parent where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
 	</select>
 	
 	<delete id="deleteByPNo">
@@ -45,4 +53,8 @@
 	<delete id="deleteByMNo">
 		delete from parent where m_no=#{mNo}
 	</delete>
+	
+	<update id="updateNickname">
+		update parent set p_nickname=#{pNickname} where p_no=${pNo}
+	</update>
 </mapper>

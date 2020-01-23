@@ -90,15 +90,14 @@
 				</p>
 			</fieldset>
 			
+			<c:if test="${fail == 'fail'}">
+				<p id="failMsg">아이디 또는 비밀번호가 올바르지 않습니다.</p>
+			</c:if>			
+			
 			<p id="submit">
 				<input type="submit" value="로그인">
 			</p>
 		</form>
-		<p id="failMsg">
-			<c:if test="${fail == 'fail'}">
-				아이디 또는 비밀번호가 올바르지 않습니다.
-			</c:if>
-		</p>
 	</div>
 	<div id="function">
 		<hr>

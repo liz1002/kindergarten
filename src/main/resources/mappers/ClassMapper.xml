@@ -5,16 +5,17 @@
 	<resultMap type="ClassVO" id="classResultMap">
 		<id column="c_no" property="cNo"/>
 		<result column="c_name" property="cName"/>
-		<result column="k_no" property="kNo"/>
+		<result column="c_use" property="cUse"/>
+		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 	</resultMap>
 	
 	<insert id="insert" parameterType="ClassVO" useGeneratedKeys="true" keyColumn="c_no" keyProperty="cNo">
 		insert into class(c_name, k_no) 
-		values(#{cName}, #{kNo})
+		values(#{cName}, #{kVo.kNo})
 	</insert>
 	
 	<select id="selectListByKNo" resultMap="classResultMap">
-		select * from class where k_no=#{kNo} order by c_name
+		select * from class where c_use=0 and k_no=#{kNo} order by c_name
 	</select>
 	
 	<select id="selectByNo" resultMap="classResultMap">
@@ -27,5 +28,9 @@
 	
 	<update id="update">
 		update class set c_name=#{cName} where c_no=#{cNo}
+	</update>
+	
+	<update id="updateUse">
+		update class set c_use=1 where c_no=#{cNo}
 	</update>
 </mapper>

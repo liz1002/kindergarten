@@ -7,5 +7,6 @@ import com.liz.domain.TApproveVO;
 public interface TApproveService {
 	public void regist(TApproveVO taVo);
 	public List<TApproveVO> selectListByKNo(int kNo);
-	public void removeByMNoAndCNo(TApproveVO taVo);
+	public List<TApproveVO> selectListByMNo(int mNo);
+	public void removeByMNoAndCNoAndTType(TApproveVO taVo);
 }

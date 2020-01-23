@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.liz.domain.TApproveVO;
 import com.liz.domain.TeacherVO;
 import com.liz.persistence.TeacherDAO;
 
@@ -45,18 +46,23 @@ public class TeacherServiceImpl implements TeacherService{
 	}
 
 	@Override
-	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo) {
-		return dao.selectByMNoAndCNoAndTType(tVo);
+	public TeacherVO selectByTNo(int tNo) {
+		return dao.selectByTNo(tNo);
 	}
 
 	@Override
-	public TeacherVO selectByMNoAndCCodeAndTType(TeacherVO tVo) {
-		return dao.selectByMNoAndCCodeAndTType(tVo);
+	public TeacherVO selectByMNoAndCNoAndTType(TApproveVO taVo) {
+		return dao.selectByMNoAndCNoAndTType(taVo);
 	}
 	
 	@Override
-	public void modify(TeacherVO tVo) {
-		dao.update(tVo);
+	public void modifyNickname(TeacherVO tVo) {
+		dao.updateNickname(tVo);
+	}
+
+	@Override
+	public void removeByTNo(int tNo) {
+		dao.deleteByTNo(tNo);
 	}
 	
 }

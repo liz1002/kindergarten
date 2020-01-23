@@ -23,12 +23,15 @@
 <section>
 	<div id="container">
 		<h1>${kVo.kName}</h1>
-		<p class="division">연락처</p>
-		<span>${kVo.kTel}</span>
-		<p class="division">주소</p>
-		<span>${kVo.kAddress}</span>
-		<p class="division">코드</p>
-		<span>${kVo.kCode}</span>
+		<c:if test="${kVo.kUse == 1}">
+			<p>삭제된 유치원 입니다.</p>
+		</c:if>
+		<c:if test="${kVo.kUse == 0}">
+			<p class="division">연락처</p>
+			<span>${kVo.kAreacode}-${kVo.kDialing}-${kVo.kTel}</span>
+			<p class="division">주소</p>
+			<span>${kVo.kFirstaddr} ${kVo.kLastaddr}</span>
+		</c:if>
 	</div>
 </section>
 

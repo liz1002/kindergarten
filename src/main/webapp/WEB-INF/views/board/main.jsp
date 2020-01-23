@@ -29,7 +29,8 @@ div.cListView{
 
 <section>
 	<div id="container">
-		<h1>유치원 게시판 ! </h1>
+		<!-- <h1>게시판으로 이동할 유치원을 선택하세요.</h1> -->
+		<h1>${cVo.cName} 게시판</h1>
 	</div>
 </section>
 

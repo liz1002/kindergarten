@@ -2,6 +2,7 @@ package com.liz.persistence;
 
 import java.util.List;
 
+import com.liz.domain.TApproveVO;
 import com.liz.domain.TeacherVO;
 
 public interface TeacherDAO {
@@ -11,7 +12,8 @@ public interface TeacherDAO {
 	public List<TeacherVO> selectListByKNo(int kNo);
 	public List<TeacherVO> selectListByCNo(int cNo);
 	public List<TeacherVO> selectListByMNoAndKNo(int mNo, int kNo);
-	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo);
-	public TeacherVO selectByMNoAndCCodeAndTType(TeacherVO tVo);
-	public void update(TeacherVO tVo);
+	public TeacherVO selectByTNo(int tNo);
+	public TeacherVO selectByMNoAndCNoAndTType(TApproveVO taVo);
+	public void updateNickname(TeacherVO tVo);
+	public void deleteByTNo(int tNo);
 }

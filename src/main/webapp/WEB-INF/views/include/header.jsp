@@ -31,6 +31,16 @@
 		width: 1200px;
 		margin: 0 auto;
 		overflow: hidden;
+		position: relative;
+	}
+	section a#btnBack{
+		display: inline-block;
+		width: 70px;
+		height: 70px;
+		background: url("${pageContext.request.contextPath}/resources/images/yy.png") center no-repeat;
+		position: absolute;
+		top: -10px;
+		left: 10px;
 	}
 	ul{
 		list-style: none;
@@ -51,13 +61,11 @@
 	/* 폼 화면 */
 	div#form_wrap{
 		width: 1100px;
-		min-height: 500px;
-		padding: 50px;
 		margin: 0 auto;
 		text-align: center;
 	}
 	#form_wrap h1{
-		margin: 0 auto 20px;
+		margin: 0 auto 50px;
 		line-height: 70px;
 		text-shadow: 1px 1px 2px #999;
 		letter-spacing: 5px;
@@ -67,7 +75,7 @@
 	}
 	#form_wrap fieldset{
 		width: 60%;
-		margin: 50px auto;
+		margin: 20px auto;
 		padding: 0 50px;
 		border: none;
 		text-align: left;
@@ -76,7 +84,7 @@
 		padding: 10px;
 		font-weight: bold;
 	}
-	#form_wrap label {
+	#form_wrap label{
 		display: inline-block;
 		width: 20%;
 		float: left;
@@ -113,6 +121,7 @@
 		border: 1px solid #FBCB00;
 		color: #FBCB00;
 		background: #fff;
+		cursor: pointer;
 	}
 	#form_wrap button:hover{
 		color: #fff;
@@ -122,9 +131,9 @@
 		font-size: 12px;
 		color: gray;
 		text-align: left;
+		margin-left: 140px;
 	}
 	#form_wrap p.guid{
-		line-height: 12px;
 	    margin-top: 20px;
 		font-size: 12px;
 		color: gray;
@@ -157,7 +166,7 @@
 	
 	div#container{
 		width: 1000px;
-		min-height: 500px;
+		/* min-height: 500px; */ /* 01/21 10:38수정 */
 		padding: 50px;
 		margin: 0 auto;
 		text-align: center;
@@ -171,11 +180,22 @@
 		font-size: 40px;
 		font-family: 'CookieRunOTF-Bold', sans-serif;
 	}
-	/* #container > p{
-		line-height: 100px;
+	#container button{
+		padding: 16px 10px;
+		background: #fff;
+		font-size: 17px;
 		font-weight: bold;
-		font-size: 18px;
-	} */
+		font-family: 'Poor Story', cursive;
+		color: #FBCB00;
+		background: #fff;
+		border: 1px solid #FBCB00;
+		outline: none;
+		cursor: pointer;
+	}
+	#container button:hover{
+		color: #fff;
+		background: #FBCB00;
+	}
 </style>
 
 <!-- script -->
@@ -185,7 +205,7 @@
 <style>
 	header{
 		width: 1200px;
-		margin: 0 auto;
+		margin: 0 auto 50px;
 		border-bottom: 5px solid #FBCB00;
 		overflow: hidden;
 	}
@@ -203,6 +223,7 @@
 		padding: 0px 20px;
 		font-size: 20px;
 		line-height: 100px;
+		font-family: 'Jua', sans-serif;
 	}
 	header a#btnHome{
 		float: left;
@@ -212,7 +233,8 @@
 		vertical-align: middle;
 	}
 	#wrap a.active{
-		background: #8FDBFF;
+		color: #DC0203;
+		font-weight: bold;
 	}
 	#wrap a span{
 		font-weight: bold;
@@ -229,16 +251,16 @@
 				<c:if test="${Type == 1}">
 					<!-- 원장 -->
 					<a href="${pageContext.request.contextPath}/main/mainDirector" data-pick="kinder">유치원</a>
-					<a href="${pageContext.request.contextPath}/manage/manageDirector" data-pick="manage">관리</a>
+					<a href="${pageContext.request.contextPath}/director/manage" data-pick="manage">관리</a>
 				</c:if>
 				<c:if test="${Type == 2}">
 					<!-- 교사 -->
-					<a href="${pageContext.request.contextPath}" data-pick="board">게시판</a>
+					<a href="${pageContext.request.contextPath}/board/main" data-pick="board">커뮤니티</a>
 					<a href="${pageContext.request.contextPath}" data-pick="notice">알림장</a>
 					<a href="${pageContext.request.contextPath}" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}" data-pick="schedule">일정표</a>
 					<a href="${pageContext.request.contextPath}" data-pick="dosage">투약의뢰서</a>
-					<a href="${pageContext.request.contextPath}/manage/manageTeacher" data-pick="manage">관리</a>
+					<a href="${pageContext.request.contextPath}/teacher/manage" data-pick="manage">관리</a>
 				</c:if>
 				<c:if test="${Type == 3}">
 					<!-- 학부모 -->
@@ -247,7 +269,7 @@
 					<a href="${pageContext.request.contextPath}" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}" data-pick="schedule">일정표</a>
 					<a href="${pageContext.request.contextPath}" data-pick="dosage">투약의뢰서</a>
-					<a href="${pageContext.request.contextPath}/manage/manageParent" data-pick="manage">관리</a>
+					<a href="${pageContext.request.contextPath}/parent/manage" data-pick="manage">관리</a>
 				</c:if>
 				<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}" data-pick="mypage"><span>${Name}</span>님</a>
 				<a href="${pageContext.request.contextPath}/auth/logout" data-pick="logout">로그아웃</a>
@@ -261,11 +283,13 @@
 
 	<!----- S C R I P T ----->	
 	<script>	
-		/* var pick = "${Pick}";
-		$("a[data-pick='mypage']").addClass("active");
+		$("a[data-pick='${Pick}']").addClass("active"); //선택된 a태그에 class 추가
 		
-		//선택한 a태그 배경 주기(갱신 때메 안 통하는 중)
-		$("#wrap a").click(function() {
+		//선택한 a태그의 pick 값을 session에 저장
+		$("#wrap a").click(function(e) {
+			e.preventDefault(); //이동 막기
+			
+			var href = $(this).attr("href");
 			var pick = $(this).attr("data-pick");
 			
 			$.ajax({
@@ -274,11 +298,12 @@
 				headers: {"Content-Type" : "application/json"},
 				success: function(res) {
 					console.log(res);
+					location.href=href;
 				},
 				error: function(err) {
 					console.log(err);
 				}
 			})
-		}) */
+		})
 	</script>
 	

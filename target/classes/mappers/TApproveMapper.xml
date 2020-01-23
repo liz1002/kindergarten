@@ -4,24 +4,29 @@
 	
 	<resultMap type="TApproveVO" id="tApproveResultMap">
 		<result column="t_nickname" property="tNickname"/>
+		<result column="t_type" property="tType"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 	
 	<sql id="selectJoin">
 		select * from t_approve ta join member m on ta.m_no=m.m_no
-			join class c on ta.c_no=c.c_no
+			join class c on ta.c_no=c.c_no join kindergarten k on k.k_no=c.k_no
 	</sql>
 	
 	<insert id="insert" parameterType="TApproveVO">
-		insert into t_approve(m_no, c_no, t_nickname) values(#{mVo.mNo}, #{cVo.cNo}, #{tNickname})
+		insert into t_approve(m_no, c_no, t_nickname, t_type) values(#{mVo.mNo}, #{cVo.cNo}, #{tNickname}, #{tType})
 	</insert>
 	
 	<select id="selectListByKNo" resultMap="tApproveResultMap">
-		<include refid="selectJoin" /> where c.k_no=#{kNo};
+		<include refid="selectJoin" /> where c.k_no=#{kNo} order by m.m_name, c.c_name;
 	</select>
 	
-	<delete id="deleteByMNoAndCNo">
-		delete from t_approve where m_no=#{mVo.mNo} and c_no=#{cVo.cNo}
+	<select id="selectListByMNo" resultMap="tApproveResultMap">
+		<include refid="selectJoin" /> where m.m_no=#{mNo}
+	</select>
+	
+	<delete id="deleteByMNoAndCNoAndTType">
+		delete from t_approve where m_no=#{mVo.mNo} and c_no=#{cVo.cNo} and t_type=#{tType}
 	</delete>
 </mapper>

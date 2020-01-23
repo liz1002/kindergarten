@@ -20,12 +20,7 @@ public class KindergartenDAOImpl implements KindergartenDAO{
 	public void insert(KindergartenVO kVo) {
 		sqlSession.insert(namespace + "insert", kVo);
 	}
-
-	@Override
-	public List<KindergartenVO> selectList() {
-		return sqlSession.selectList(namespace + "selectList");
-	}
-
+	
 	@Override
 	public KindergartenVO selectByNo(int kNo) {
 		return sqlSession.selectOne(namespace + "selectByNo", kNo);
@@ -37,12 +32,17 @@ public class KindergartenDAOImpl implements KindergartenDAO{
 	}
 
 	@Override
+	public List<KindergartenVO> selectListByKName(String kName) {
+		return sqlSession.selectList(namespace + "selectListByKName", kName);
+	}
+
+	@Override
 	public void update(KindergartenVO vo) {
 		sqlSession.update(namespace + "update", vo);
 	}
 
 	@Override
-	public void deleteByKNo(int kNo) {
-		sqlSession.delete(namespace + "deleteByKNo", kNo);
+	public void updateUse(int kNo) {
+		sqlSession.update(namespace + "updateUse", kNo);
 	}
 }

@@ -55,98 +55,9 @@ public class ModifyController {
 	
 	/* * * * * method * * * * */
 	
-	/*-------------------------------[원장]--------------------------------*/
-	
-	/* 원장 - 유치원 수정 */
-	@RequestMapping(value = "modifyKinder", method = RequestMethod.GET)
-	public void modifyKinderGet(HttpSession session, int kNo, Model model) {
-		logger.info("▶  Modify Kinder GET");
-		
-		int mType = (int) session.getAttribute("Type");
-
-		if(mType == 1) {
-			model.addAttribute("kVo", kindergartenService.selectByNo(kNo));
-		}else {
-			model.addAttribute("msg", "권한이 없습니다.");
-		}
-	}	
-	
-	@RequestMapping(value = "modifyKinder", method = RequestMethod.POST)
-	public String modifyKinderPost(KindergartenVO kVo, Model model) {
-		logger.info("▶  Modify Kinder POST");
-
-		kindergartenService.modify(kVo);
-		
-//		model.addAttribute("kNo", kVo.getkNo());
-		
-		return "redirect:/manage/manageDirector";
-	}	
-	
-	/* 원장 - 별명 수정 */
-	@RequestMapping(value = "modifyNick", method = RequestMethod.GET)
-	public void modifyNickGet(HttpSession session, int dNo, Model model) {
-		logger.info("▶  Modify Nick GET");
-		
-		int mType = (int) session.getAttribute("Type");
-
-		if(mType == 1) {
-			model.addAttribute("dVo", directorService.selectByDNo(dNo)); //원장 정보(회원, 유치원)
-		}else {
-			model.addAttribute("msg", "권한이 없습니다.");
-		}
-	}	
-	
-	@RequestMapping(value = "modifyNick", method = RequestMethod.POST)
-	public String modifyNickPost(DirectorVO dVo) {
-		logger.info("▶  Modify Nick POST");
-		
-		directorService.modifyNickname(dVo); //별명 수정
-		
-		return "redirect:/manage/manageDirector";
-	}	
-	
-	
 	/*-------------------------------[교사]--------------------------------*/
 	
-	/* 교사 - 반 수정 */
-	@RequestMapping(value = "modifyClass", method = RequestMethod.GET)
-	public void addClassGet(HttpSession session, int cNo, int tType, Model model) {
-		logger.info("▶  Modify Class GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-		
-		TeacherVO tVo = new TeacherVO();
-		tVo.setcVo(new ClassVO(cNo, null, null, 0));
-		tVo.setmVo(mVo);
-		tVo.settType(tType);
-
-		if(mVo.getmType() == 2) {
-			ClassVO cVo = classService.selectByNo(cNo);
-			logger.info("[cVo] " + cVo);
-			model.addAttribute("cVo", cVo);
-			model.addAttribute("kVo", kindergartenService.selectByNo(cVo.getkNo()));
-			model.addAttribute("tVo", teacherService.selectByMNoAndCNoAndTType(tVo));
-		}else {
-			model.addAttribute("msg", "권한이 없습니다.");
-		}
-	}	
 	
-	@RequestMapping(value = "modifyClass", method = RequestMethod.POST)
-	public String addClassPost(TeacherVO tVo, Model model) {
-		logger.info("▶  Modify Class POST");
-		logger.info("[tVo] " + tVo);
-		
-		teacherService.modify(tVo); //교사 타입, 반 번호 수정
-		if(tVo.gettType() == 1) { //담임
-			classService.modify(tVo.getcVo()); //반 이름 수정
-		}
-		
-		model.addAttribute("cNo", tVo.getcVo().getcNo());
-		model.addAttribute("tType", tVo.gettType());
-		
-		return "redirect:/manage/manageClass";
-	}	
 	
 	/*-------------------------------[학부모]--------------------------------*/
 	

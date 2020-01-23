@@ -15,14 +15,15 @@ public class KindergartenVO {
 	private String kLastaddr; //유치원상세주소
 	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private Date kDate; //등록날짜
-
+	private int kUse; //삭제여부
+	
 	public KindergartenVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public KindergartenVO(int kNo, String kName, String kAreacode, String kDialing, String kTel, String kZipcode,
-			String kFirstaddr, String kLastaddr, Date kDate) {
+			String kFirstaddr, String kLastaddr, Date kDate, int kUse) {
 		super();
 		this.kNo = kNo;
 		this.kName = kName;
@@ -33,6 +34,7 @@ public class KindergartenVO {
 		this.kFirstaddr = kFirstaddr;
 		this.kLastaddr = kLastaddr;
 		this.kDate = kDate;
+		this.kUse = kUse;
 	}
 
 	public int getkNo() {
@@ -105,12 +107,20 @@ public class KindergartenVO {
 
 	public void setkDate(Date kDate) {
 		this.kDate = kDate;
+	}	
+
+	public int getkUse() {
+		return kUse;
+	}
+
+	public void setkUse(int kUse) {
+		this.kUse = kUse;
 	}
 
 	@Override
 	public String toString() {
 		return "KindergartenVO [kNo=" + kNo + ", kName=" + kName + ", kAreacode=" + kAreacode + ", kDialing=" + kDialing
 				+ ", kTel=" + kTel + ", kZipcode=" + kZipcode + ", kFirstaddr=" + kFirstaddr + ", kLastaddr="
-				+ kLastaddr + ", kDate=" + kDate + "]";
+				+ kLastaddr + ", kDate=" + kDate + ", kUse=" + kUse + "]";
 	}
 }

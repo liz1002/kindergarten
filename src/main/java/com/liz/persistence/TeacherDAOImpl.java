@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.liz.domain.TApproveVO;
 import com.liz.domain.TeacherVO;
 
 @Repository
@@ -52,17 +53,22 @@ public class TeacherDAOImpl implements TeacherDAO{
 	}
 
 	@Override
-	public TeacherVO selectByMNoAndCNoAndTType(TeacherVO tVo) {
-		return sqlSession.selectOne(namespace + "selectByMNoAndCNoAndTType", tVo);
+	public TeacherVO selectByTNo(int tNo) {
+		return sqlSession.selectOne(namespace + "selectByTNo", tNo);
 	}
 	
 	@Override
-	public TeacherVO selectByMNoAndCCodeAndTType(TeacherVO tVo) {
-		return sqlSession.selectOne(namespace + "selectByMNoAndCCodeAndTType", tVo);
+	public TeacherVO selectByMNoAndCNoAndTType(TApproveVO taVo) {
+		return sqlSession.selectOne(namespace + "selectByMNoAndCNoAndTType", taVo);
 	}
-	
+		
 	@Override
-	public void update(TeacherVO tVo) {
-		sqlSession.update(namespace + "update", tVo);
+	public void updateNickname(TeacherVO tVo) {
+		sqlSession.update(namespace + "updateNickname", tVo);
+	}
+
+	@Override
+	public void deleteByTNo(int tNo) {
+		sqlSession.delete(namespace + "deleteByTNo", tNo);
 	}
 }

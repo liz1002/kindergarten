@@ -11,4 +11,5 @@ public interface ClassDAO {
 	public List<ClassVO> selectListByKNo(int kNo);
 	public void deleteByCNo(int cNo);
 	public void update(ClassVO cVo);
+	public void updateUse(int cNo);
 }

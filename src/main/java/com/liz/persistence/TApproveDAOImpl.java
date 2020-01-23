@@ -11,7 +11,7 @@ import com.liz.domain.TApproveVO;
 @Repository
 public class TApproveDAOImpl implements TApproveDAO{
 
-	private final static String namespace = "mappers.TApproveyMapper.";
+	private final static String namespace = "mappers.TApproveMapper.";
 
 	@Autowired
 	private SqlSession sqlSession;
@@ -27,7 +27,12 @@ public class TApproveDAOImpl implements TApproveDAO{
 	}
 
 	@Override
-	public void deleteByMNoAndCNo(TApproveVO taVo) {
-		sqlSession.delete(namespace + "deleteByMNoAndCNo", taVo);
+	public List<TApproveVO> selectListByMNo(int mNo) {
+		return sqlSession.selectList(namespace + "selectListByMNo", mNo);
+	}
+	
+	@Override
+	public void deleteByMNoAndCNoAndTType(TApproveVO taVo) {
+		sqlSession.delete(namespace + "deleteByMNoAndCNoAndTType", taVo);
 	}
 }

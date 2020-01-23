@@ -16,7 +16,7 @@
 	
 	<select id="selectListByMNo" resultMap="directorResultMap">
 		select * from director d join member m on d.m_no=m.m_no 
-			join kindergarten k on d.k_no=k.k_no where m.m_no=#{mNo}
+			join kindergarten k on d.k_no=k.k_no where k.k_use=0 and m.m_no=#{mNo}
 	</select>
 	
 	<select id="selectByDNo" resultMap="directorResultMap">

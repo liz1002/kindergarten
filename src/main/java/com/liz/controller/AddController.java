@@ -1,7 +1,6 @@
 package com.liz.controller;
 
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.liz.domain.PApproveVO;
 import com.liz.domain.ChildrenVO;
-import com.liz.domain.ClassVO;
-import com.liz.domain.DirectorVO;
 import com.liz.domain.MemberVO;
-import com.liz.domain.TeacherVO;
+import com.liz.domain.PApproveVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
@@ -63,109 +59,16 @@ public class AddController {
 	
 	/*-------------------------------[원장]--------------------------------*/
 	
-	/* 원장 - 유치원 추가 */
-	@RequestMapping(value = "addKinder", method = RequestMethod.GET)
-	public void addKinderGet(HttpSession session, int mNo, Model model) {
-		logger.info("▶  Add Kinder GET");
-		logger.info("[mNo] " + mNo);
-		
-		int mType = (int) session.getAttribute("Type");
-
-		if(mType == 1) {
-			model.addAttribute("mNo", mNo);
-		}
-	}	
-	
-	@RequestMapping(value = "addKinder", method = RequestMethod.POST) 
-	public String addKinderPost(DirectorVO dVo, Model model) {
-		logger.info("▶ Add Kinder POST");
-		logger.info("[dVo] " + dVo);
-
-		directorService.registDirector(dVo); //유치원 & 원장 추가
-			
-		return "redirect:/manage/manageDirector";
-	}
 	
 	
-	/* 원장 - 반 추가 */
-	@RequestMapping(value = "addClass", method = RequestMethod.GET)
-	public void addClassGet(HttpSession session, int kNo, Model model) {
-		logger.info("▶  Add Class GET");
-		
-		int mType = (int) session.getAttribute("Type");
-
-		if(mType == 1) {
-			model.addAttribute("kVo", kindergartenService.selectByNo(kNo));
-		}
-	}	
 	
-	@RequestMapping(value = "addClass", method = RequestMethod.POST)
-	public String addClassPost(HttpSession session, ClassVO cVo, Model model) {
-		logger.info("▶  Add Class POST");
-		
-		classService.regist(cVo); //반 추가
-		
-		model.addAttribute("kNo",cVo.getkNo());
-		
-		return "redirect:/manage/manageKinder";
-	}
+	
 	
 	
 	/*-------------------------------[교사]--------------------------------*/
 	
-	/* 교사 - 반 추가 */
-	@RequestMapping(value = "addClass", method = RequestMethod.GET)
-	public void addClassGet(HttpSession session, Model model) {
-		logger.info("▶  Add Class GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-
-		if(mVo.getmType() == 2) {
-			model.addAttribute("mNo", mVo.getmNo());
-			model.addAttribute("kList", kindergartenService); //유치원 리스트
-		}
-	}	
 	
-//	@RequestMapping(value = "addClass", method = RequestMethod.POST)
-//	public String addClassPost(TeacherVO tVo) {
-//		logger.info("▶ Add Class POST");
-//		
-//		logger.info("[tVo] " + tVo);
-//		
-//		//반 코드 생성
-//		Random rnd = new Random();		
-//		StringBuffer temp = new StringBuffer();
-//		
-//		for(int i = 0; i < 5; i++) { //(5자리 문자열 생성)
-//		    int rndIdx = rnd.nextInt(2); //숫자 or 영어 선택할 랜덤 값(0, 1)
-//		    switch (rndIdx) {
-//			    case 0:
-//			    	// 0-9
-//			    	temp.append((rnd.nextInt(10)));
-//			        break;
-//			    case 1:
-//			        // A-Z
-//			    	temp.append((char) ((int) (rnd.nextInt(26)) + 65));
-//			        break;
-//		    }
-//		}
-//		
-//		String code = temp.toString();
-//		logger.info("[Kcode] " + code);
-//		tVo.getcVo().setcCode(code); //새로 생성한 cCode SET
-//		
-//		tVo.getcVo().setkNo(tVo.getkVo().getkNo()); //kNo SET
-//		
-//		if(tVo.getcVo().getcNo() == 0) { //담임
-//			classService.regist(tVo); //반 추가 , 교사 추가
-//		}else { //부담임
-//			teacherService.regist(tVo); //교사만 추가
-//		}
-//		
-//		return "redirect:/manage/manageTeacher";
-//	}
-
+	
 	/* 교사 - 원아 추가 */
 	@RequestMapping(value = "addChildren", method = RequestMethod.GET)
 	public void addChildrenGet(HttpSession session, int cNo, Model model) {
@@ -180,7 +83,25 @@ public class AddController {
 			
 		}
 	}	
+	
+	
+	
+	
+	
+	
 
+	@RequestMapping(value = "applyClass", method = RequestMethod.GET)
+	public void addClassGet(HttpSession session, Model model) {
+		logger.info("▶  Add Class GET");
+		
+		Object mId = session.getAttribute("Auth");
+		MemberVO mVo = memberService.selectById((String) mId);
+
+		if(mVo.getmType() == 2) {
+			model.addAttribute("mNo", mVo.getmNo());
+		}
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "addChildren", method = RequestMethod.POST)
 	public List<ChildrenVO> addChildrenPost(@RequestBody ChildrenVO chVo) {
@@ -192,65 +113,52 @@ public class AddController {
 		return childrenService.selectListByCNo(chVo.getcVo().getcNo());
 	}
 
-	/* 교사 - 가족 추가 */ //ajax로 원아 번호 제외 부모 검색
-	@RequestMapping(value = "addFamily", method = RequestMethod.GET)
-	public void addFamilyGet(HttpSession session, int cNo, Model model) {
-		logger.info("▶  Add Family GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-		
-		if(mVo.getmType() == 2) {
-			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
-			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
-		}
-	}	
+//	/* 교사 - 가족 추가 */ //ajax로 원아 번호 제외 부모 검색
+//	@RequestMapping(value = "addFamily", method = RequestMethod.GET)
+//	public void addFamilyGet(HttpSession session, int cNo, Model model) {
+//		logger.info("▶  Add Family GET");
+//		
+//		Object mId = session.getAttribute("Auth");
+//		MemberVO mVo = memberService.selectById((String) mId);
+//		
+//		if(mVo.getmType() == 2) {
+//			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
+//			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
+//		}
+//	}	
+//	
+//	@ResponseBody
+//	@RequestMapping(value = "getNotParent", method = RequestMethod.POST)
+//	public List<PApproveVO> getNotParent(@RequestBody ChildrenVO chVo) {
+//		logger.info("▶  Get Not Parent GET");
+//		logger.info("[chVo] " + chVo);
+//		
+//		return familyService.selectParentNullListByChNo(chVo.getkVo().getkNo(), chVo.getChNo());
+//	}	
+//	
+//	@ResponseBody
+//	@RequestMapping(value = "getParent", method = RequestMethod.POST)
+//	public List<PApproveVO> getParent(@RequestBody ChildrenVO chVo) {
+//		logger.info("▶  Get Parent GET");
+//		logger.info("[chVo] " + chVo);
+//		
+//		return familyService.selectListByChNo(chVo.getChNo());
+//	}	
+//	
+//	@ResponseBody
+//	@RequestMapping(value = "addFamily", method = RequestMethod.POST)
+//	public void addFamilyPost(HttpSession session, @RequestBody PApproveVO fVo) {
+//		logger.info("▶  Add Family POST");
+//		logger.info("[fVo] " + fVo);
+//		
+//		int mType = (int) session.getAttribute("Type");
+//		
+//		if(mType == 2) {
+//			familyService.regist(fVo.getpVo().getpNo(), fVo.getChVo().getChNo()); //가족 추가
+//		}
+//	}	
 	
-	@ResponseBody
-	@RequestMapping(value = "getNotParent", method = RequestMethod.POST)
-	public List<PApproveVO> getNotParent(@RequestBody ChildrenVO chVo) {
-		logger.info("▶  Get Not Parent GET");
-		logger.info("[chVo] " + chVo);
-		
-		return familyService.selectParentNullListByChNo(chVo.getkVo().getkNo(), chVo.getChNo());
-	}	
-	
-	@ResponseBody
-	@RequestMapping(value = "getParent", method = RequestMethod.POST)
-	public List<PApproveVO> getParent(@RequestBody ChildrenVO chVo) {
-		logger.info("▶  Get Parent GET");
-		logger.info("[chVo] " + chVo);
-		
-		return familyService.selectListByChNo(chVo.getChNo());
-	}	
-	
-	@ResponseBody
-	@RequestMapping(value = "addFamily", method = RequestMethod.POST)
-	public void addFamilyPost(HttpSession session, @RequestBody PApproveVO fVo) {
-		logger.info("▶  Add Family POST");
-		logger.info("[fVo] " + fVo);
-		
-		int mType = (int) session.getAttribute("Type");
-		
-		if(mType == 2) {
-			familyService.regist(fVo.getpVo().getpNo(), fVo.getChVo().getChNo()); //가족 추가
-		}
-	}	
 	
 	
 	
-	/*-------------------------------[학부모]--------------------------------*/
-	
-	/* 학부모 - 유치원 추가 */
-	@RequestMapping(value = "addParent", method = RequestMethod.GET)
-	public void addParentGet(HttpSession session, Model model) {
-		logger.info("▶  Add Parent GET");
-		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-
-		if(mVo.getmType() == 3) {
-			model.addAttribute("mNo", mVo.getmNo());
-		}
-	}	
 }

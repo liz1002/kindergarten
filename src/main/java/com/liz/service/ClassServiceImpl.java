@@ -45,4 +45,9 @@ public class ClassServiceImpl implements ClassService{
 	public void modify(ClassVO cVo) {
 		cDao.update(cVo);
 	}
+
+	@Override
+	public void modifyUse(int cNo) {
+		cDao.updateUse(cNo);
+	}
 }

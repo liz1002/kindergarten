@@ -4,7 +4,7 @@
 
 <section>
 	<div id="form_wrap">
-		<form action="modifyClass" method="post">	
+		<form action="modify" method="post">	
 			<fieldset>
 				<legend>유치원 정보</legend>
 				<p>
@@ -54,7 +54,7 @@
 <script>
 	/* 역할 자동 선택 */
 	$("option[value='${tVo.tType}']").attr("selected", "selected");
-	checkType(${tVo.tType});	
+	checkType("${tVo.tType}");	
 	
 	/* 반 코드 확인 */
 	$("#btnCCode").click(function() {
