@@ -14,6 +14,10 @@ public interface TeacherDAO {
 	public List<TeacherVO> selectListByMNoAndKNo(int mNo, int kNo);
 	public TeacherVO selectByTNo(int tNo);
 	public TeacherVO selectByMNoAndCNoAndTType(TApproveVO taVo);
+	public TeacherVO selectBytMainAndMNo(int mNo);
 	public void updateNickname(TeacherVO tVo);
+	public void updateTMainByMNo(int mNo);
+	public void updateTMainByTNo(int tNo);
 	public void deleteByTNo(int tNo);
+	public void deleteByMNoAndKNo(int mNo, int kNo);
 }

@@ -48,8 +48,16 @@ public class ParentDAOImpl implements ParentDAO{
 	}
 
 	@Override
-	public List<ParentVO> selectChildListByMNo(int mNo) {
-		return sqlSession.selectList(namespace + "selectChildListByMNo", mNo);
+	public List<ParentVO> selectChildListByMNoAndKNo(int mNo, int kNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("mNo", mNo);
+		map.put("kNo", kNo);
+		return sqlSession.selectList(namespace + "selectChildListByMNoAndKNo", map);
+	}
+
+	@Override
+	public List<ParentVO> selectListByChNo(int chNo) {
+		return sqlSession.selectList(namespace + "selectListByChNo", chNo);
 	}
 
 	@Override
@@ -63,6 +71,19 @@ public class ParentDAOImpl implements ParentDAO{
 	}
 
 	@Override
+	public ParentVO selectBypMainAndMNo(int mNo) {
+		return sqlSession.selectOne(namespace + "selectBypMainAndMNo", mNo);
+	}
+
+	@Override
+	public void deleteByMNoAndKNo(int mNo, int kNo) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("mNo", mNo);
+		map.put("kNo", kNo); 
+		sqlSession.delete(namespace + "deleteByMNoAndKNo", map);
+	}
+
+	@Override
 	public void deleteByPNo(int pNo) {
 		sqlSession.delete(namespace + "deleteByPNo", pNo);
 	}
@@ -71,9 +92,24 @@ public class ParentDAOImpl implements ParentDAO{
 	public void deleteByMNo(int mNo) {
 		sqlSession.delete(namespace + "deleteByMNo", mNo);
 	}
+	
+	@Override
+	public void deleteByChNo(int chNo) {
+		sqlSession.delete(namespace + "deleteByChNo", chNo);
+	}
 
 	@Override
 	public void updateNickname(ParentVO pVo) {
 		sqlSession.update(namespace + "updateNickname", pVo);
+	}
+
+	@Override
+	public void updatePMainByMNo(int mNo) {
+		sqlSession.update(namespace + "updatePMainByMNo", mNo);
+	}
+
+	@Override
+	public void updatePMainByPNo(int pNo) {
+		sqlSession.update(namespace + "updatePMainByPNo", pNo);
 	}
 }

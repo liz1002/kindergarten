@@ -21,7 +21,6 @@ import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
 import com.liz.domain.PApproveVO;
 import com.liz.domain.ParentVO;
-import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
@@ -75,6 +74,10 @@ public class ParentController {
 		
 		if(mVo.getmType() == 3) {
 			model.addAttribute("pList", parentService.selectListByMNo(mVo.getmNo())); //해당 학부모의 유치원&반&자녀 리스트
+			for(ParentVO pVo :  parentService.selectListByMNo(mVo.getmNo())) {
+				logger.info("[pVo] " + pVo);
+			}
+			
 			model.addAttribute("mNo", mVo.getmNo()); //회원번호
 		}
 	}
@@ -216,17 +219,45 @@ public class ParentController {
 		return "redirect:/parent/manage";
 	}	
 	
-	/* 교사 삭제 */	
+	/* 원장 - 학부모 삭제 */	
 	@ResponseBody
-	@RequestMapping(value = "remove/{kNo}", method = RequestMethod.POST)
-	public List<TeacherVO> removePost(@RequestBody int[] tNoList, @PathVariable("kNo") int kNo) {
-		logger.info("▶ Teacher Remove POST");
+	@RequestMapping(value = "removeD/{kNo}", method = RequestMethod.POST)
+	public List<ParentVO> directorRemovePost(@RequestBody int[] mNoList, @PathVariable("kNo") int kNo) {
+		logger.info("▶ Parent Remove POST");
 		
-		for(int tNo : tNoList) {
-			logger.info("[tNo 확인] " + tNo);
-			teacherService.removeByTNo(tNo);; //교사 삭제
+		for(int mNo : mNoList) {
+			logger.info("[mNo 확인] " + mNo);
+			parentService.removeByMNoAndKNo(mNo, kNo); //학부모 삭제
 		}
 		
-		return teacherService.selectListByKNo(kNo); //교사 리스트
+		return parentService.selectListByKNo(kNo); //학부모 리스트
+	}
+
+	/* 교사 - 학부모 삭제 */	
+	@ResponseBody
+	@RequestMapping(value = "removeT/{cNo}", method = RequestMethod.POST)
+	public List<ParentVO> teacherRemovePost(@RequestBody int[] mNoList, @PathVariable("cNo") int cNo) {
+		logger.info("▶ Parent Remove POST");
+		logger.info("[cNo] " + cNo);
+		
+		ClassVO cVo = classService.selectByNo(cNo);
+		
+		for(int mNo : mNoList) {
+			logger.info("[mNo 확인] " + mNo);
+			parentService.removeByMNoAndKNo(mNo, cVo.getkVo().getkNo()); //학부모 삭제
+		}
+		
+		return parentService.selectListByKNo(cNo); //학부모 리스트
+	}
+	
+	/* 대표 유치원 설정 */
+	@ResponseBody
+	@RequestMapping(value = "main", method = RequestMethod.POST)
+	public void main(@RequestBody ParentVO pVo) {
+		logger.info("▶ Parent Remove POST");
+
+		logger.info("[pVo] " + pVo);		
+		
+		parentService.modifyPMain(pVo);
 	}
 }

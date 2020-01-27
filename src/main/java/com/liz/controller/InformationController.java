@@ -51,7 +51,6 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 	public void infoOther(int mNo, int kNo, Model model) {
 		logger.info("🏳‍🌈 Info Other GET");
 		logger.info("[mNo] " + mNo);
-		logger.info("[kNo] " + kNo);
 		
 		MemberVO mVo = memberService.selectByNo(mNo);
 		model.addAttribute("mVo", mVo); //선택한 회원 정보 
@@ -62,7 +61,7 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 					model.addAttribute("tList", teacherService.selectListByMNoAndKNo(mNo, kNo)); //선택한 교사 정보
 					break;
 				case 3:
-					model.addAttribute("pList", parentService.selectChildListByMNo(mNo)); //선택한 부모의 자녀 정보
+					model.addAttribute("pList", parentService.selectChildListByMNoAndKNo(mNo, kNo)); //선택한 부모의 자녀 정보
 					break;
 			}
 		}else { //탈퇴한 회원
@@ -80,19 +79,6 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 		
 		MemberVO mVo = memberService.selectById(mId); 
 		model.addAttribute("mVo", mVo); //나의 회원 정보
-		
-		switch (mVo.getmType()) {
-			case 1:
-				model.addAttribute("dList", teacherService.selectListByMNo(mVo.getmNo()));
-			break;
-			case 2:
-				model.addAttribute("tList", teacherService.selectListByMNo(mVo.getmNo()));
-				break;
-			case 3:
-				model.addAttribute("pList", parentService.selectListByMNo(mVo.getmNo()));
-				//선택한 부모의 자녀 정보
-				break;
-		}
 	}
 	
 	/* 유치원 정보 */
@@ -127,5 +113,6 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 		logger.info("[chNo] " + chNo);
 		
 		model.addAttribute("chVo", childrenService.selectByChNo(chNo)); //해당 원아의 정보
+		model.addAttribute("pList", parentService.selectListByChNo(chNo)); //해당 원아의 학부모 리스트
 	}
 }

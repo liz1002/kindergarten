@@ -26,6 +26,19 @@
 		<span> 
 			<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${chVo.cVo.cNo}">${chVo.cVo.cName}</a>
 		</span>
+		<p class="division">등록된 학부모 목록</p>
+		<c:if test="${pList.size() == 0}">
+			<p>등록된 학부모가 없습니다.</p>
+		</c:if>
+		<div id="pList">
+			<c:forEach var="pVo" items="${pList}"> 
+				<span>
+					<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${pVo.chVo.kVo.kNo}">${pVo.mVo.mName}</a>
+				</span>
+				<br>
+			</c:forEach>
+		</div>
+				
 	</div>
 </section>
 

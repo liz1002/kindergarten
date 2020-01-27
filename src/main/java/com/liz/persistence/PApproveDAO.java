@@ -9,5 +9,7 @@ public interface PApproveDAO {
 	public List<PApproveVO> selectListByKNo(int kNo);
 	public List<PApproveVO> selectListByCNo(int cNo);
 	public List<PApproveVO> selectListByMNo(int mNo);
+	public List<PApproveVO> selectListByChNo(int chNo);
 	public void deleteByMNoAndChNo(PApproveVO paVo);
+	public void deleteByChNo(int chNo);
 }

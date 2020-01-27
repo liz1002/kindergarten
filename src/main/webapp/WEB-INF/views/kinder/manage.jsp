@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
 
-<!-- manage Kinder -->
-
 <style>
 	div#container{
 		overflow: hidden;
@@ -49,6 +47,7 @@
 		color: #A782E8;
 		line-height: 30px;
 		margin: 10px auto;
+		cursor: pointer;
 	}
 	#container .wrap p.btnManage a:hover{
 		color: #fff;
@@ -139,7 +138,7 @@
 			<p><span> | 연락처</span> ${kVo.kAreacode}-${kVo.kDialing}-${kVo.kTel}</p>
 		</div>
 		<div class="wrap">
-			<p class="division">반 리스트<span>${cList.size()}개</span></p>
+			<p class="division">반 목록<span>${cList.size()}개</span></p>
 			<div class="listBox cList">
 				<c:if test="${cList.size() == 0}">
 					<p class="coment">등록된 반이 없습니다.</p>
@@ -158,14 +157,14 @@
 			</p>
 		</div>
 		<div class="wrap">
-			<p class="division">교사 리스트<span>${tList.size()}명</span></p>
+			<p class="division">교사 목록<span>${tList.size()}명</span></p>
 			<div class="listBox tList">
 				<c:if test="${tList.size() == 0}">
 					<p class="coment">등록된 교사가 없습니다.</p>
 				</c:if>
 				<c:forEach var="tVo" items="${tList}" varStatus="idx">
 					<p>
-						<input type="checkbox" id="t${idx.index}" class="checkT" data-tNo="${tVo.tNo}">
+						<input type="checkbox" id="t${idx.index}" class="checkT" data-mNo="${tVo.mVo.mNo}">
 						<label for="t${idx.index}"></label>
 						<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${tVo.mVo.mNo}&kNo=${tVo.kVo.kNo}"> 
 							${tVo.mVo.mName}
@@ -179,14 +178,14 @@
 			</p>
 		</div>
 		<div class="wrap">
-			<p class="division">학부모 리스트<span>${pList.size()}명</span></p>
+			<p class="division">학부모 목록<span>${pList.size()}명</span></p>
 			<div class="listBox pList">
 				<c:if test="${pList.size() == 0}">
 					<p class="coment">등록된 학부모가 없습니다.</p>
 				</c:if>
 				<c:forEach var="pVo" items="${pList}" varStatus="idx">
 					<p>
-						<input type="checkbox" id="p${idx.index}" class="checkP" data-pNo="${pVo.pNo}">
+						<input type="checkbox" id="p${idx.index}" class="checkP" data-mNo="${pVo.mVo.mNo}">
 						<label for="p${idx.index}"></label>
 						<a href="${pageContext.request.contextPath}/info/infoOther?mNo=${pVo.mVo.mNo}&kNo=${kVo.kNo}">
 							${pVo.mVo.mName}
@@ -200,7 +199,7 @@
 			</p>
 		</div>
 		<div class="wrap">
-			<p class="division">원아 리스트<span>${chList.size()}명</span></p>
+			<p class="division">원아 목록<span>${chList.size()}명</span></p>
 			<div class="listBox chList">
 				<c:if test="${chList.size() == 0}">
 					<p class="coment">등록된 원아가 없습니다.</p>
@@ -282,14 +281,14 @@
 			return false;	
 		}
 		
-		var tNoList = new Array(); //tNo를 저장할 배열
+		var mNoList = new Array(); //tNo를 저장할 배열
 		
 		$(".checkT:checked").each(function(i, obj) {
-			tNoList.push($(obj).attr("data-tNo")); //리스트에 교사 번호 저장
+			mNoList.push($(obj).attr("data-mNo")); //리스트에 교사 번호 저장
 		});
 		
 		//교사 선택 안 했을 경우
-		if(tNoList.length == 0){
+		if(mNoList.length == 0){
 			alert("삭제할 교사를 선택하세요.");
 			return false;
 		}
@@ -297,7 +296,7 @@
 		$.ajax({
 			url: "${pageContext.request.contextPath}/teacher/remove/${kVo.kNo}",
 			type: "post",
-			data: JSON.stringify(tNoList),
+			data: JSON.stringify(mNoList),
 			headers: {"Content-Type" : "application/json"},
 			dataType: "json",
 			success: function(res) {
@@ -313,9 +312,9 @@
 				}else{ //있을 경우
 					$(res).each(function(i, obj) {
 						var $p = $("<p>");								
-						var $input = $("<input>").addClass("checkT").attr("id", "p"+i).attr("type", "checkbox").attr("data-tNo", obj.tNo);
-						var $label = $("<label>").attr("for", "p"+i);
-						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/info/infoOther?mNo=" + obj.mVo.mNo).text(obj.mVo.mName);
+						var $input = $("<input>").addClass("checkT").attr("id", "t"+i).attr("type", "checkbox").attr("data-mNo", obj.mVo.mNo);
+						var $label = $("<label>").attr("for", "t"+i);
+						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/info/infoOther?mNo=" + obj.mVo.mNo + "&kNo=${kVo.kNo}").text(obj.mVo.mName);
 						
 						$p.append($input).append($label).append($a);
 						$(".tList").append($p);
@@ -327,6 +326,111 @@
 			}
 		}) //ajax(teacher/remove)
 	}) //교사 삭제
+	
+	/* 학부모 삭제 */
+	$("#btnRemoveP").click(function() {
+		var res = confirm("정말 삭제 하시겠습니까? 삭제 시 현재 유치원에 등록된 해당 학부모의 모든 정보가 삭제됩니다.");
+		if(!res){
+			return false;	
+		}
+		
+		var mNoList = new Array(); //mNo를 저장할 배열
+		
+		$(".checkP:checked").each(function(i, obj) {
+			mNoList.push($(obj).attr("data-mNo")); //리스트에 학부모 번호 저장
+		});
+		
+		//학부모 선택 안 했을 경우
+		if(mNoList.length == 0){
+			alert("삭제할 학부모를 선택하세요.");
+			return false;
+		}
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/parent/removeD/${kVo.kNo}",
+			type: "post",
+			data: JSON.stringify(mNoList),
+			headers: {"Content-Type" : "application/json"},
+			dataType: "json",
+			success: function(res) {
+				console.log(res);
+				
+				alert("학부모가 삭제 되었습니다.");
+				
+				$(".pList").empty(); //기존 리스트 삭제
+				
+				if(res.length == 0){ //리스트가 없을 경우
+					var $p = $("<p>").text("등록된 학부모가 없습니다.");
+					$(".pList").append($p);
+				}else{ //있을 경우
+					$(res).each(function(i, obj) {
+						var $p = $("<p>");								
+						var $input = $("<input>").addClass("checkP").attr("id", "p"+i).attr("type", "checkbox").attr("data-mNo", obj.mVo.mNo);
+						var $label = $("<label>").attr("for", "p"+i);
+						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/info/infoOther?mNo=" + obj.mVo.mNo + "&kNo=${kVo.kNo}").text(obj.mVo.mName);
+						
+						$p.append($input).append($label).append($a);
+						$(".pList").append($p);
+					})//each
+				}//else
+			},
+			error: function(err) {
+				console.log(err);
+			}
+		}) //ajax(parent/remove)
+	}) //학부모 삭제
+	
+	/* 원아 삭제 */
+	$("#btnRemoveCh").click(function() {
+		var res = confirm("정말 삭제 하시겠습니까? 삭제 시 해당 원아에게 등록된 모든 학부모의 정보가 함께 삭제됩니다.");
+		if(!res){
+			return false;	
+		}
+		
+		var chNoList = new Array(); //chNo를 저장할 배열
+		
+		$(".checkCh:checked").each(function(i, obj) {
+			chNoList.push($(obj).attr("data-chNo")); //리스트에 원아 번호 저장
+		});
+		
+		//원아 선택 안 했을 경우
+		if(chNoList.length == 0){
+			alert("삭제할 원아를 선택하세요.");
+			return false;
+		}
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/children/removeD/${kVo.kNo}",
+			type: "post",
+			data: JSON.stringify(chNoList),
+			headers: {"Content-Type" : "application/json"},
+			dataType: "json",
+			success: function(res) {
+				console.log(res);
+				
+				alert("원아가 삭제 되었습니다.");
+				
+				$(".chList").empty(); //기존 리스트 삭제
+				
+				if(res.length == 0){ //리스트가 없을 경우
+					var $p = $("<p>").text("등록된 원아가 없습니다.");
+					$(".chList").append($p);
+				}else{ //있을 경우
+					$(res).each(function(i, obj) {
+						var $p = $("<p>");								
+						var $input = $("<input>").addClass("checkCh").attr("id", "ch"+i).attr("type", "checkbox").attr("data-chNo", obj.chNo);
+						var $label = $("<label>").attr("for", "ch"+i);
+						var $a = $("<a>").attr("href", "${pageContext.request.contextPath}/info/infoChild?chNo=" + obj.chNo).text(obj.chName + "(" + obj.cVo.cName + ")");
+						$p.append($input).append($label).append($a);
+						$(".chList").append($p);
+					})//each
+				}//else
+			},
+			error: function(err) {
+				console.log(err);
+			}
+		}) //ajax(children/remove)
+	}) //원아 삭제
 </script>
 
 <%@include file="../include/footer.jsp" %>

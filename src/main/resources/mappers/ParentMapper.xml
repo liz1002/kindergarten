@@ -4,7 +4,8 @@
 	
 	<resultMap type="ParentVO" id="parentResultMap">
 		<id column="p_no" property="pNo"/>		
-		<id column="p_nickname" property="pNickname"/>
+		<result column="p_nickname" property="pNickname"/>
+		<result column="p_main" property="pMain"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
@@ -19,13 +20,9 @@
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where p.m_no=#{mNo};
+		<include refid="selectJoin" /> where p.m_no=#{mNo} order by p_main desc;
 	</select>
 	
-	<select id="selectListByMNoAndKNO" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where p.m_no=#{mNo} and k.k_no=#{kNo}
-	</select>
-
 	<select id="selectListByKNo" resultMap="parentResultMap">
 		<include refid="selectJoin" /> where k.k_no=#{kNo} group by m.m_no order by m.m_name
 	</select>
@@ -34,17 +31,30 @@
 		<include refid="selectJoin" /> where c.c_no=#{cNo}
 	</select>
 	
+	<select id="selectListByChNo" resultMap="parentResultMap">
+		<include refid="selectJoin" /> where ch.ch_no=#{chNo} order by m.m_name
+	</select>
+	
 	<select id="selectByPNo" resultMap="parentResultMap">
 		select * from parent where p_no=#{pNo}
 	</select>
 
-	<select id="selectChildListByMNo" resultMap="parentResultMap">
-		<include refid="selectJoin" /> where p.m_no=#{mNo}
+	<select id="selectChildListByMNoAndKNo" resultMap="parentResultMap">
+		<include refid="selectJoin" /> where p.m_no=#{mNo} and k.k_no=#{kNo}
 	</select>
 	
 	<select id="selectByMNoAndChNo" resultMap="parentResultMap">
 		select * from parent where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
 	</select>
+		
+	<select id="selectBypMainAndMNo" resultMap="parentResultMap">
+		<include refid="selectJoin" /> where p_main=1 and m.m_no=#{mNo}
+	</select>
+	
+	<delete id="deleteByMNoAndKNo">
+		delete p from parent p join children ch on p.ch_no=ch.ch_no
+			join kindergarten k on ch.k_no=k.k_no where p.m_no=#{mNo} and k.k_no=#{kNo}
+	</delete>
 	
 	<delete id="deleteByPNo">
 		delete from parent where p_no=#{pNo}
@@ -54,7 +64,19 @@
 		delete from parent where m_no=#{mNo}
 	</delete>
 	
+	<delete id="deleteByChNo">
+		delete from parent where ch_no=#{chNo}
+	</delete>
+	
 	<update id="updateNickname">
 		update parent set p_nickname=#{pNickname} where p_no=${pNo}
+	</update>
+	
+	<update id="updatePMainByMNo">
+		update parent set p_main=0 where m_no=#{mNo}
+	</update>
+	
+	<update id="updatePMainByPNo">
+		update parent set p_main=1 where p_no=#{tNo}
 	</update>
 </mapper>

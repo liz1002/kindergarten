@@ -6,7 +6,7 @@ public class Criteria {
 	
 	public Criteria() {
 		page = 1;
-		perPageNum = 15;
+		perPageNum = 10;
 	}
 	
 	public Criteria(int page, int perPageNum) {

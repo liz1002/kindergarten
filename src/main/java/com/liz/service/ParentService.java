@@ -10,11 +10,15 @@ public interface ParentService {
 	public List<ParentVO> selectListByMNo(int mNo);
 	public List<ParentVO> selectListByKNo(int kNo);
 	public List<ParentVO> selectListByCNo(int cNo);
-	public List<ParentVO> selectListByMNoAndKNO(int mNo, int kNo);
-	public List<ParentVO> selectChildListByMNo(int mNo);
+	public List<ParentVO> selectChildListByMNoAndKNo(int mNo, int kNo);
+	public List<ParentVO> selectListByChNo(int chNo);
 	public ParentVO selectByPNo(int pNo);
 	public ParentVO selectByMNoAndChNo(PApproveVO paVo);
-	public void removeByMNo(int mNo);
+	public ParentVO selectBypMainAndMNo(int mNo);
+	public void removeByMNoAndKNo(int mNo, int kNo);
 	public void removeByPNo(int pNo);
+	public void removeByMNo(int mNo);
+	public void removeByChNo(int chNo);
 	public void modifyNickname(ParentVO pVo);
+	public void modifyPMain(ParentVO pVo);
 }

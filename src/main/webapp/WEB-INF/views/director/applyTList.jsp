@@ -167,11 +167,6 @@
 
 	/* 가입 승인 */
 	$("#admit").click(function() {
-		var res = confirm("가입을 승인 하시겠습니까?");
-		if(!res){
-			return false;
-		}
-		
 		var tList = new Array(); //tVo 객체를 저장할 배열
 		
 		$(".check:checked").each(function(i, obj) {
@@ -198,6 +193,12 @@
 			return false;
 		}
 		
+		var res = confirm("가입을 승인 하시겠습니까?");
+		if(!res){
+			return false;
+		}
+		
+		
 		$.ajax({
 			url: "${pageContext.request.contextPath}/director/admitT/${kVo.kNo}",
 			type: "post",
@@ -220,12 +221,7 @@
 	})
 	
 	/* 가입 거절 */
-	$("#refuse").click(function() {
-		var res = confirm("가입을 거절 하시겠습니까?");
-		if(!res){
-			return false;	
-		}
-		
+	$("#refuse").click(function() {		
 		var taList = new Array(); //taVo 객체를 저장할 배열
 		
 		$(".check:checked").each(function(i, obj) {
@@ -246,6 +242,11 @@
 		if(taList.length == 0){
 			alert("가입 거부할 교사를 선택하세요.");
 			return false;
+		}
+
+		var res = confirm("가입을 거절 하시겠습니까?");
+		if(!res){
+			return false;	
 		}
 		
 		$.ajax({

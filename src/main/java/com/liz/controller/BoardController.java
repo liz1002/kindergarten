@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liz.domain.ClassVO;
 import com.liz.domain.MemberVO;
+import com.liz.domain.ParentVO;
+import com.liz.domain.TeacherVO;
+import com.liz.service.BoardService;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
@@ -50,26 +53,39 @@ public class BoardController {
 	
 	@Autowired
 	private ChildrenService childrenService;
+	
+	@Autowired
+	private BoardService boardService;
 
 	
 	/* * * * * method * * * * */
 	
 	/* 메인 화면 */
 	@RequestMapping(value = "main", method = RequestMethod.GET)
-	public void mainClassGet(HttpSession session, int cNo, Model model) {
-		logger.info("🏳‍🌈 Board Main GET");
-		logger.info("[cNo] " + cNo);
+	public void mainClassGet(HttpSession session, Model model) {
+		logger.info("▶ Board Main GET");
 
-		model.addAttribute("cVo", classService.selectByNo(cNo));
-		
-		//기본 선택 - 게시판
-		
+		Object mId = session.getAttribute("Auth");
+		MemberVO mVo = memberService.selectById((String) mId);
+		logger.info("[mVo] " + mVo);
+
+		if(mVo.getmType() == 2) {
+			TeacherVO tVo = teacherService.selectBytMainAndMNo(mVo.getmNo());
+			logger.info("[tVo] " + tVo);
+			model.addAttribute("tVo", tVo); 
+			model.addAttribute("bList", boardService.selectListByCNo(tVo.getcVo().getcNo()));
+		}else if(mVo.getmType() == 3) {
+			ParentVO pVo = parentService.selectBypMainAndMNo(mVo.getmNo());
+			logger.info("[pVo] " + pVo);
+			model.addAttribute("pVo", pVo);
+			model.addAttribute("bList", boardService.selectListByCNo(pVo.getChVo().getcVo().getcNo()));
+		}	
 	}
 
 	/* 원장 - 메인(유치원 리스트) 화면 */
 	@RequestMapping(value = "mainDirector", method = RequestMethod.GET)
 	public void mainDirectorGet(HttpSession session, Model model) {
-		logger.info("🏳‍🌈 Main Director GET");
+		logger.info("▶ Main Director GET");
 		
 		Object mId = session.getAttribute("Auth");
 		MemberVO mVo = memberService.selectById((String) mId);
@@ -85,7 +101,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value = "getCList", method = RequestMethod.GET)
 	public List<ClassVO> getCList(int kNo) {
-		logger.info("🏳‍🌈 Get Class List GET");
+		logger.info("▶ Get Class List GET");
 		logger.info("[kNo] " + kNo);
 		
 		return classService.selectListByKNo(kNo); //해당 유치원의 반 리스트

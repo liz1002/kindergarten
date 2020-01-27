@@ -29,8 +29,16 @@
 	<select id="selectListByMNo" resultMap="pApproveResultMap">
 		<include refid="selectJoin" /> where m.m_no=#{mNo}
 	</select>
+	
+	<select id="selectListByChNo" resultMap="pApproveResultMap">
+		<include refid="selectJoin" /> where pa.ch_no=#{chNo}
+	</select>
 
 	<delete id="deleteByMNoAndChNo">
 		delete from p_approve where m_no=#{mVo.mNo} and ch_no=#{chVo.chNo}
+	</delete>
+	
+	<delete id="deleteByChNo">
+		delete from p_approve where ch_no=#{chNo}
 	</delete>
 </mapper>

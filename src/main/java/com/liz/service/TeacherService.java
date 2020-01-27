@@ -14,6 +14,9 @@ public interface TeacherService {
 	public List<TeacherVO> selectListByMNoAndKNo(int mNo, int kNo);
 	public TeacherVO selectByTNo(int tNo);
 	public TeacherVO selectByMNoAndCNoAndTType(TApproveVO taVo);
+	public TeacherVO selectBytMainAndMNo(int mNo);
 	public void modifyNickname(TeacherVO tVo);
-	public void removeByTNo(int tNo);
+	public void modifyTMain(TeacherVO tVo);
+	public void removeByTNo (int tNo);
+	public void removeByMNoAndKNo (int mNo, int kNo);
 }

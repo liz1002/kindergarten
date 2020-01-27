@@ -35,7 +35,17 @@ public class PApproveServiceImpl implements PApproveService{
 	}
 
 	@Override
+	public List<PApproveVO> selectListByChNo(int chNo) {
+		return dao.selectListByChNo(chNo);
+	}
+
+	@Override
 	public void removeByMNoAndChNo(PApproveVO paVo) {
 		dao.deleteByMNoAndChNo(paVo);
+	}
+
+	@Override
+	public void removeByChNo(int chNo) {
+		dao.deleteByChNo(chNo);
 	}
 }

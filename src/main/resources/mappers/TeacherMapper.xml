@@ -6,6 +6,7 @@
 		<id column="t_no" property="tNo"/>
 		<result column="t_type" property="tType"/>
 		<result column="t_nickname" property="tNickname"/>
+		<result column="t_main" property="tMain"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
@@ -26,19 +27,19 @@
 	</select>
 	
 	<select id="selectListByMNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mNo}
+		<include refid="selectJoin" /> where m.m_no=#{mNo} order by t_main desc
 	</select>
 	
 	<select id="selectListByKNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where t.k_no=#{kNo} group by m.m_no order by m.m_name
+		<include refid="selectJoin" /> where t.k_no=#{kNo} group by m.m_no order by t.t_type, m.m_name
 	</select>
 	
 	<select id="selectListByCNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where t.c_no=#{cNo}
+		<include refid="selectJoin" /> where t.c_no=#{cNo} group by m.m_no order by t.t_type, m.m_name
 	</select>
 
 	<select id="selectListByMNoAndKNo" resultMap="teacherResultMap">
-		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo}
+		<include refid="selectJoin" /> where m.m_no=#{mNo} and t.k_no=#{kNo} group by m.m_no order by t.t_type, m.m_name
 	</select>
 	
 	<select id="selectByTNo" resultMap="teacherResultMap">
@@ -49,11 +50,27 @@
 		select * from teacher where m_no=#{mVo.mNo} and c_no=#{cVo.cNo} and t_type=#{tType}
 	</select>
 	
+	<select id="selectBytMainAndMNo" resultMap="teacherResultMap">
+		<include refid="selectJoin" /> where t_main=1 and m.m_no=#{mNo}
+	</select>
+	
 	<update id="updateNickname">
-		update teacher set t_nickname=#{tNickname} where t_no=${tNo}
+		update teacher set t_nickname=#{tNickname} where t_no=#{tNo}
+	</update>
+	
+	<update id="updateTMainByMNo">
+		update teacher set t_main=0 where m_no=#{mNo}
+	</update>
+	
+	<update id="updateTMainByTNo">
+		update teacher set t_main=1 where t_no=#{tNo}
 	</update>
 	
 	<delete id="deleteByTNo">
 		delete from teacher where t_no=#{tNo}
+	</delete>
+	
+	<delete id="deleteByMNoAndKNo">
+		delete from teacher where m_no=#{mNo} and k_no=#{kNo} 
 	</delete>
 </mapper>

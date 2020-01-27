@@ -4,7 +4,7 @@ use kindergarten;
 
 
 
--- È¸¿ø ¹× À¯Ä¡¿ø(ÃÖ¼Ò ±¸¼º Å×ÀÌºí) -----
+-- íšŒì› ë° ìœ ì¹˜ì›(ìµœì†Œ êµ¬ì„± í…Œì´ë¸”) -----
 
 desc member;
 select * from member;
@@ -21,7 +21,7 @@ select * from t_approve;
 desc p_approve;
 select * from p_approve;
 
--- È¸¿ø »ó¼¼ ºĞ·ù -----
+-- íšŒì› ìƒì„¸ ë¶„ë¥˜ -----
 
 desc director;
 select * from director order by d_no desc;
@@ -37,7 +37,7 @@ desc children;
 select * from children order by ch_no desc;
 
 
--- Ä«Å×°í¸® -----
+-- ì¹´í…Œê³ ë¦¬ -----
 
 desc board;
 select * from board;
@@ -59,9 +59,9 @@ select * from schedule;
 
 
 
--- Attach Å×ÀÌºí -----
+-- Attach í…Œì´ë¸” -----
 
--- ¿ø¾ÆX¾Ù¹ü
+-- ì›ì•„Xì•¨ë²”
 desc album_children;
 select * from album_children;
 
@@ -70,99 +70,100 @@ select * from album_children;
 
 -- join ----------------------------------------------------
 
-/* À¯Ä¡¿ø º° ¹İ ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ ë°˜ ë¦¬ìŠ¤íŠ¸ */
 select * from class where k_no=2 order by c_name;
 
-/* Æ¯Á¤ ¿øÀåÀÇ ¸ğµç Á¤º¸*/
+/* íŠ¹ì • ì›ì¥ì˜ ëª¨ë“  ì •ë³´*/
 select * from director d join member m on d.m_no=m.m_no 
 						join kindergarten k on d.k_no=k.k_no 
 						where k_use=0 and m.m_no=2;
 
-/* À¯Ä¡¿ø º° ±³»ç ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ êµì‚¬ ë¦¬ìŠ¤íŠ¸ */
 select * from teacher t join member m on t.m_no=m.m_no 
 						join class c on t.c_no=c.c_no 
 						join kindergarten k on t.k_no=k.k_no
 						where t.k_no = 2; 
 
-/* ¹İ º° ±³»ç ¸®½ºÆ® */
+/* ë°˜ ë³„ êµì‚¬ ë¦¬ìŠ¤íŠ¸ */
 select * from teacher t join member m on t.m_no=m.m_no 
 						join class c on t.c_no=c.c_no 
 						join kindergarten k on t.k_no=k.k_no
 						where t.c_no = 1;
 				
-/* Æ¯Á¤ ±³»çÀÇ ¸ğµç Á¤º¸*/
+/* íŠ¹ì • êµì‚¬ì˜ ëª¨ë“  ì •ë³´*/
 select * from teacher t join member m on t.m_no=m.m_no 
 						join class c on t.c_no=c.c_no
 						join kindergarten k on t.k_no=k.k_no
-						where m.m_no = 4 and t.k_no = 2;
+						where m.m_no = 4;
 						
-/* ±³»çº° À¯Ä¡¿ø&¹İ ¸®½ºÆ® */			
+/* êµì‚¬ë³„ ìœ ì¹˜ì›&ë°˜ ë¦¬ìŠ¤íŠ¸ */			
 select * from teacher t join class c on t.c_no=c.c_no 
 						join kindergarten k on c.k_no=k.k_no
 						where t.m_no = 4;
 					
-/* À¯Ä¡¿ø º° ºÎ¸ğ ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ */
 select * from parent p join member m on p.m_no=m.m_no
 						join children ch on p.ch_no=ch.ch_no
 						join class c on ch.c_no=c.c_no 
 						join kindergarten k on ch.k_no=k.k_no
-						where k.k_no=2 group by m.m_no order by m_name;
+						where k.k_no=2 order by m_name;
+group by m.m_no 
 
-/* ¹İ º° ºÎ¸ğ ¸®½ºÆ® */	
+/* ë°˜ ë³„ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ */	
 select * from parent p join member m on p.m_no=m.m_no
 						join children ch on p.ch_no=ch.ch_no
 						join class c on ch.c_no=c.c_no
 						join kindergarten k on ch.k_no=k.k_no
 						where c.c_no=1 order by m_name; 
 
-/* Æ¯Á¤ ºÎ¸ğÀÇ ¸ğµç Á¤º¸ */
+/* íŠ¹ì • ë¶€ëª¨ì˜ ëª¨ë“  ì •ë³´ */
 select * from parent p join member m on p.m_no=m.m_no 
 						join children ch on P.ch_no=ch.ch_no
 						join class c on ch.c_no=c.c_no
 						join kindergarten k on ch.k_no=k.k_no
-						where p.m_no=9 and k.k_no=2; 
+						where p.m_no=9 order by p_main desc;
 				
-/* À¯Ä¡¿ø º° ¿ø¾Æ ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ ì›ì•„ ë¦¬ìŠ¤íŠ¸ */
 select * from children ch join class c on ch.c_no=c.c_no 
 							join kindergarten k on ch.k_no=k.k_no 
 							where ch.k_no=2 order by c.c_name, ch.ch_name;
 				
-/* ¹İ º° ¿ø¾Æ ¸®½ºÆ® */
+/* ë°˜ ë³„ ì›ì•„ ë¦¬ìŠ¤íŠ¸ */
 select * from children ch join class c on ch.c_no=c.c_no
 							join kindergarten k on ch.k_no=k.k_no 
 							where ch.c_no=1
 							order by ch.ch_name;
 					
-/* Æ¯Á¤ À¯¾ÆÀÇ ¸ğµç Á¤º¸*/
+/* íŠ¹ì • ìœ ì•„ì˜ ëª¨ë“  ì •ë³´*/
 select * from children ch join class c on ch.c_no=c.c_no 
 							join kindergarten k on ch.k_no=k.k_no 
 							where ch.ch_no=2 and k.k_no=2;
 
-/* Æ¯Á¤ ºÎ¸ğÀÇ ÀÚ³à ¸®½ºÆ® */
+/* íŠ¹ì • ë¶€ëª¨ì˜ ìë…€ ë¦¬ìŠ¤íŠ¸ */
 select * from parent p join children ch on p.ch_no=ch.ch_no
 						join class c on ch.c_no=c.c_no
 						join kindergarten k on ch.k_no=k.k_no
 						where p.m_no=9 and ch.k_no=2 order by ch.ch_regdate;
 				
-/* Æ¯Á¤ ÀÚ³àÀÇ ºÎ¸ğ ¸®½ºÆ® (ÇöÀç ¹Ì»ç¿ë) */
+/* íŠ¹ì • ìë…€ì˜ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ (í˜„ì¬ ë¯¸ì‚¬ìš©) */
 select * from children ch join parent p on ch.ch_no=p.ch_no
 						join member m on p.m_no=m.m_no
-						where ch.ch_no=3
+						where ch.ch_no=1
 						order by m.m_name;
 	
 				
-/* À¯¾Æ ¼±ÅÃ ½Ã ¼±ÅÃ ÇÏÁö ¾ÊÀº ºÎ¸ğ ¸®½ºÆ® */
+/* ìœ ì•„ ì„ íƒ ì‹œ ì„ íƒ í•˜ì§€ ì•Šì€ ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸ */
 -- select * from member m left join 
 -- 	(select m_no from parent where ch_no = 1) p on m.m_no = p.m_no
 -- 	where m.m_type = 3 and p.m_no is null;
 		
--- À¯Ä¡¿ø º° 
+-- ìœ ì¹˜ì› ë³„ 
 -- select * from parent p left join 
 -- 	(select p_no from family where ch_no = 3) f on p.p_no = f.p_no
 -- 	join member m on p.m_no = m.m_no
 -- 	where m.m_type = 3 and k_no = 2 and f.p_no is null;
 
--- °¡Á· °Ë»ö
+-- ê°€ì¡± ê²€ìƒ‰
 -- select m_name, m_nickname, group_concat(ch_no separator '|')  group by ch_no;
 -- 
 -- select m_name, m_nickname, group_concat(ch.ch_no separator '|') as ch_no 
@@ -172,33 +173,39 @@ select * from children ch join parent p on ch.ch_no=p.ch_no
 -- 				group by ch.ch_no;
 				
 				
-/* À¯Ä¡¿ø º° ±³»ç ½ÂÀÎ ´ë±â ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ êµì‚¬ ìŠ¹ì¸ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸ */
 select * from t_approve ta join member m on ta.m_no=m.m_no
 							join class c on ta.c_no=c.c_no
 							where c.k_no=1;
 					
-select * from teacher where m_no=6 and c_no=1 and t_type=1; -- ÀÌ¹Ì Á¸ÀçÇÏ´Â ±³»ç °Ë»ö¿ë
-select * from teacher t join kindergarten k on t.k_no=k.k_no where k.k_no=1; -- À¯Ä¡¿øÀÇ ±³»ç ¸®½ºÆ®
+select * from teacher where m_no=6 and c_no=1 and t_type=1; -- ì´ë¯¸ ì¡´ì¬í•˜ëŠ” êµì‚¬ ê²€ìƒ‰ìš©
+select * from teacher t join kindergarten k on t.k_no=k.k_no where k.k_no=1; -- ìœ ì¹˜ì›ì˜ êµì‚¬ ë¦¬ìŠ¤íŠ¸
 					
-/* À¯Ä¡¿ø º° ÇĞºÎ¸ğ ½ÂÀÎ ´ë±â ¸®½ºÆ® */
+/* ìœ ì¹˜ì› ë³„ í•™ë¶€ëª¨ ìŠ¹ì¸ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸ */
 select * from p_approve pa join member m on pa.m_no=m.m_no
 						join children ch on pa.ch_no=ch.ch_no
 						where ch.k_no=2 order by m.m_name;
 				
-select * from parent where m_no=9 and ch_no=1; -- ÀÌ¹Ì Á¸ÀçÇÏ´Â ºÎ¸ğ °Ë»ö¿ë
+select * from parent where m_no=9 and ch_no=1; -- ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ë¶€ëª¨ ê²€ìƒ‰ìš©
 select * from parent p join children ch on p.ch_no=ch.ch_no
-						join kindergarten k on k.k_no=ch.k_no where k.k_no=2; -- À¯Ä¡¿øÀÇ ÇĞºÎ¸ğ ¸®½ºÆ®
+						join kindergarten k on k.k_no=ch.k_no where k.k_no=2; -- ìœ ì¹˜ì›ì˜ í•™ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸
 				
-/* ¹İ º° ÇĞºÎ¸ğ  ½ÂÀÎ ´ë±â ¸®½ºÆ® */
+/* ë°˜ ë³„ í•™ë¶€ëª¨  ìŠ¹ì¸ ëŒ€ê¸° ë¦¬ìŠ¤íŠ¸ */
 select * from p_approve pa join member m on pa.m_no=m.m_no
 						join children ch on pa.ch_no=ch.ch_no
 						where ch.c_no=9;
 select * from parent p join children ch on p.ch_no=ch.ch_no
-						join class c on c.c_no=ch.c_no where c.c_no=9; -- ¹İÀÇ ÇĞºÎ¸ğ ¸®½ºÆ®
+						join class c on c.c_no=ch.c_no where c.c_no=9; -- ë°˜ì˜ í•™ë¶€ëª¨ ë¦¬ìŠ¤íŠ¸
 
-/* À¯Ä¡¿ø ÀÌ¸§À¸·Î °Ë»ö */
-select * from kindergarten where k_name like '%À¯%' order by k_name, k_date desc;
+/* ìœ ì¹˜ì› ì´ë¦„ìœ¼ë¡œ ê²€ìƒ‰ */
+select * from kindergarten where k_name like '%ìœ %' order by k_name, k_date desc;
 insert into t_approve(m_no, c_no, t_nickname, t_type) values(6,3, '232323', 1) 
 
 
-select * from teacher;
+select * from board b join member m on b.m_no=m.m_no
+						 -- join teacher t on t.m_no=m.m_no 
+					 	-- join parent p on p.m_no=m.m_no
+					 	join director d on d.m_no=m.m_no
+					 	join class c on c.c_no=b.c_no
+					 	join kindergarten k on k.k_no=c.k_no
+				where c.c_no=8 order by b_noitce desc, b_no desc;

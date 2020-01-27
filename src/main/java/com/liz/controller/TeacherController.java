@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.liz.domain.ChildrenVO;
 import com.liz.domain.ClassVO;
-import com.liz.domain.DirectorVO;
 import com.liz.domain.KindergartenVO;
 import com.liz.domain.MemberVO;
+import com.liz.domain.PApproveVO;
+import com.liz.domain.ParentVO;
 import com.liz.domain.TApproveVO;
 import com.liz.domain.TeacherVO;
 import com.liz.service.ChildrenService;
@@ -27,6 +27,7 @@ import com.liz.service.ClassService;
 import com.liz.service.DirectorService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
+import com.liz.service.PApproveService;
 import com.liz.service.ParentService;
 import com.liz.service.TApproveService;
 import com.liz.service.TeacherService;
@@ -58,9 +59,12 @@ public class TeacherController {
 	
 	@Autowired
 	private ChildrenService childrenService;
-	
+
 	@Autowired
 	private TApproveService tApproveService;
+	
+	@Autowired
+	private PApproveService pApproveService;
 	
 	
 	/* * * * * method * * * * */	
@@ -124,7 +128,7 @@ public class TeacherController {
 		try{
 			logger.info("[중복 값 확인] " + teacherService.selectByMNoAndCNoAndTType(taVo));
 			if(teacherService.selectByMNoAndCNoAndTType(taVo) != null){ //가입한 목록에서 중복 확인
-				 throw new Exception();	 //값이 있으면 에러 발생
+				 throw new Exception();	//값이 있으면 에러 발생
 			}
 			tApproveService.regist(taVo); //교사 가입 신청
 		}catch (Exception e) { //신청 목록에서 중복이면 에러 발생
@@ -210,49 +214,75 @@ public class TeacherController {
 	/* 교사 삭제 */	
 	@ResponseBody
 	@RequestMapping(value = "remove/{kNo}", method = RequestMethod.POST)
-	public List<TeacherVO> removePost(@RequestBody int[] tNoList, @PathVariable("kNo") int kNo) {
+	public List<TeacherVO> removePost(@RequestBody int[] mNoList, @PathVariable("kNo") int kNo) {
 		logger.info("▶ Teacher Remove POST");
 		
-		for(int tNo : tNoList) {
-			logger.info("[tNo 확인] " + tNo);
-			teacherService.removeByTNo(tNo);; //교사 삭제
+		for(int mNo : mNoList) {
+			logger.info("[mNo 확인] " + mNo);
+			teacherService.removeByMNoAndKNo(mNo, kNo); //교사 삭제
 		}
+		
+		logger.info("[kNo] 확인 " + kNo);
 		
 		return teacherService.selectListByKNo(kNo); //교사 리스트
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	/* 원아 추가 */
-	@RequestMapping(value = "addChildren", method = RequestMethod.GET)
-	public void addChildrenGet(HttpSession session, int cNo, Model model) {
-		logger.info("▶  Add Children GET");
+	/* 학부모 가입 신청 목록 */
+	@RequestMapping(value = "applyPList", method = RequestMethod.GET)
+	public void applyPListGet(HttpSession session, int cNo, Model model) {
+		logger.info("▶  Teacher Apply Parent List GET");
+		logger.info("[cNo] " + cNo);
 		
-		Object mId = session.getAttribute("Auth");
-		MemberVO mVo = memberService.selectById((String) mId);
-
-		if(mVo.getmType() == 2) {
-			model.addAttribute("cVo", classService.selectByNo(cNo)); //반 정보
-			model.addAttribute("chList", childrenService.selectListByCNo(cNo)); //반 원아 리스트
-			
+		int mType = (int) session.getAttribute("Type");
+		
+		if(mType == 2) {
+			logger.info("[paList] " + model.addAttribute("paList", pApproveService.selectListByCNo(cNo)));
+			model.addAttribute("paList", pApproveService.selectListByCNo(cNo));
+			model.addAttribute("cVo", classService.selectByNo(cNo));
 		}
 	}	
-
-	@ResponseBody
-	@RequestMapping(value = "addChildren", method = RequestMethod.POST)
-	public List<ChildrenVO> addChildrenPost(@RequestBody ChildrenVO chVo) {
-		logger.info("▶ Add Children POST");
-		logger.info("[chVo] " + chVo);
-		
-		childrenService.regist(chVo);
-		
-		return childrenService.selectListByCNo(chVo.getcVo().getcNo());
-	}
-
 	
+	//가입 승인
+	@ResponseBody
+	@RequestMapping(value = "admitP/{cNo}", method = RequestMethod.POST)
+	public List<PApproveVO> admitP(@RequestBody ParentVO[] pList, @PathVariable("cNo") int cNo) {
+		logger.info("▶ Teacher Admit Parent POST");
+		logger.info("[cNo] " + cNo);
+		
+		for(ParentVO pVo : pList) {
+			logger.info("[생성한 pVo 확인] " + pVo);
+			parentService.regist(pVo); //학부모 추가
+			PApproveVO paVo = new PApproveVO(pVo.getmVo(), pVo.getChVo(), null);
+			logger.info("[생성한 paVO 값 확인] " + paVo);
+			pApproveService.removeByMNoAndChNo(paVo);; //승인 목록에서 삭제
+		}
+		
+		return pApproveService.selectListByCNo(cNo); //남은 신청 학부모 목록
+	}	
+	
+	//가입 거부
+	@ResponseBody
+	@RequestMapping(value = "refuseP/{cNo}", method = RequestMethod.POST)
+	public List<PApproveVO> refuseP(@RequestBody PApproveVO[] pList, @PathVariable("cNo") int cNo) {
+		logger.info("▶ Teacher Refuse Parent POST");
+		logger.info("[cNo] " + cNo);
+		
+		for(PApproveVO paVo : pList) {
+			logger.info("[생성한 paVo 확인] " + paVo);
+			pApproveService.removeByMNoAndChNo(paVo);; //승인 목록에서 삭제
+		}
+		
+		return pApproveService.selectListByCNo(cNo); //남은 신청 학부모 목록
+	}	
+	
+	/* 대표 유치원 설정 */
+	@ResponseBody
+	@RequestMapping(value = "main", method = RequestMethod.POST)
+	public void main(@RequestBody TeacherVO tVo) {
+		logger.info("▶ Teacher Remove POST");
+
+		logger.info("[tVo] " + tVo);		
+		
+		teacherService.modifyTMain(tVo);
+	}	
 }

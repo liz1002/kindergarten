@@ -23,19 +23,19 @@ public class AuthController {
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public void loginGet() {
-		logger.info("🏳‍🌈 Login GET");
+		logger.info("▶ Login GET");
 	}
 	
 	@RequestMapping(value = "loginPost", method = RequestMethod.POST)
 	public String loginPost(MemberVO vo, Model model) {
-		logger.info("🏳‍🌈 Login POST");
+		logger.info("▶ Login POST");
 		
 		MemberVO dbVo = service.selectByIdAndPwd(vo.getmId(), vo.getmPwd());
 		if(dbVo == null) { //id & pw 불일치
-			logger.info("🏳‍🌈 Login POST NOT!!");
+			logger.info("▶ Login POST NOT!!");
 			model.addAttribute("fail", "fail");
 		}else if(dbVo.getmUse() == 1) { //탈퇴한 회원
-			logger.info("🏳‍🌈 Login POST NOT!!");
+			logger.info("▶ Login POST NOT!!");
 			model.addAttribute("fail", "fail");
 		}else {
 			//일치
@@ -49,7 +49,7 @@ public class AuthController {
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logoutGet(HttpSession session) {
-		logger.info("🏳‍🌈 Logout GET");
+		logger.info("▶ Logout GET");
 		session.invalidate();
 		
 		return "redirect:/"; //홈 이동

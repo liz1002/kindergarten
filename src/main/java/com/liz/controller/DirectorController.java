@@ -108,7 +108,7 @@ public class DirectorController {
 	/* 교사 가입 신청 목록 */
 	@RequestMapping(value = "applyTList", method = RequestMethod.GET)
 	public void applyTListGet(HttpSession session, int kNo, Model model) {
-		logger.info("▶  Apply Teacher List GET");
+		logger.info("▶ Director Apply Teacher List GET");
 		logger.info("[kNo] " + kNo);
 		
 		int mType = (int) session.getAttribute("Type");
@@ -124,7 +124,7 @@ public class DirectorController {
 	@ResponseBody
 	@RequestMapping(value = "admitT/{kNo}", method = RequestMethod.POST)
 	public List<TApproveVO> admitT(@RequestBody TeacherVO[] tList, @PathVariable("kNo") int kNo) {
-		logger.info("▶  Admit Teacher POST");
+		logger.info("▶ Director Admit Teacher POST");
 		logger.info("[kNo] " + kNo);
 		
 		for(TeacherVO tVo : tList) {
@@ -142,7 +142,7 @@ public class DirectorController {
 	@ResponseBody
 	@RequestMapping(value = "refuseT/{kNo}", method = RequestMethod.POST)
 	public List<TApproveVO> refuseT(@RequestBody TApproveVO[] taList, @PathVariable("kNo") int kNo) {
-		logger.info("▶  Refuse Teacher POST");
+		logger.info("▶ Director Refuse Teacher POST");
 		logger.info("[kNo] " + kNo);
 		
 		for(TApproveVO taVo : taList) {
@@ -156,7 +156,7 @@ public class DirectorController {
 	/* 학부모 가입 신청 목록 */
 	@RequestMapping(value = "applyPList", method = RequestMethod.GET)
 	public void applyPListGet(HttpSession session, int kNo, Model model) {
-		logger.info("▶  Apply Parent List GET");
+		logger.info("▶ Director Apply Parent List GET");
 		logger.info("[kNo] " + kNo);
 		
 		int mType = (int) session.getAttribute("Type");
@@ -172,7 +172,7 @@ public class DirectorController {
 	@ResponseBody
 	@RequestMapping(value = "admitP/{kNo}", method = RequestMethod.POST)
 	public List<PApproveVO> admitP(@RequestBody ParentVO[] pList, @PathVariable("kNo") int kNo) {
-		logger.info("▶  Admit Parent POST");
+		logger.info("▶ Director Admit Parent POST");
 		logger.info("[kNo] " + kNo);
 		
 		for(ParentVO pVo : pList) {
@@ -190,7 +190,7 @@ public class DirectorController {
 	@ResponseBody
 	@RequestMapping(value = "refuseP/{kNo}", method = RequestMethod.POST)
 	public List<PApproveVO> refuseP(@RequestBody PApproveVO[] pList, @PathVariable("kNo") int kNo) {
-		logger.info("▶  Refuse Parent POST");
+		logger.info("▶ Director Refuse Parent POST");
 		logger.info("[kNo] " + kNo);
 		
 		for(PApproveVO paVo : pList) {

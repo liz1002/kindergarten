@@ -35,9 +35,19 @@ public class PApproveDAOImpl implements PApproveDAO{
 	public List<PApproveVO> selectListByMNo(int mNo) {
 		return sqlSession.selectList(namespace + "selectListByMNo", mNo);
 	}
+	
+	@Override
+	public List<PApproveVO> selectListByChNo(int chNo) {
+		return sqlSession.selectList(namespace + "selectListByChNo", chNo);
+	}
 
 	@Override
 	public void deleteByMNoAndChNo(PApproveVO paVo) {
 		sqlSession.delete(namespace + "deleteByMNoAndChNo", paVo);
+	}
+
+	@Override
+	public void deleteByChNo(int chNo) {
+		sqlSession.delete(namespace + "deleteByChNo", chNo);
 	}	
 }

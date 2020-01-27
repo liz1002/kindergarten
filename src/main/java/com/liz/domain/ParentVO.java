@@ -5,18 +5,19 @@ public class ParentVO {
 	private String pNickname; //학부모 별명
 	private MemberVO mVo; //학부모 회원 정보
 	private ChildrenVO chVo; //원아 정보
+	private int pMain; //대표여부
 	
 	public ParentVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public ParentVO(int pNo, String pNickname, MemberVO mVo, ChildrenVO chVo) {
+	public ParentVO(int pNo, String pNickname, MemberVO mVo, ChildrenVO chVo, int pMain) {
 		super();
 		this.pNo = pNo;
 		this.pNickname = pNickname;
 		this.mVo = mVo;
 		this.chVo = chVo;
+		this.pMain = pMain;
 	}
 
 	public int getpNo() {
@@ -49,10 +50,19 @@ public class ParentVO {
 
 	public void setChVo(ChildrenVO chVo) {
 		this.chVo = chVo;
-	}
+	}	
 
+	public int getpMain() {
+		return pMain;
+	}
+	
+	public void setpMain(int pMain) {
+		this.pMain = pMain;
+	}
+	
 	@Override
 	public String toString() {
-		return "ParentVO [pNo=" + pNo + ", pNickname=" + pNickname + ", mVo=" + mVo + ", chVo=" + chVo + "]";
+		return "ParentVO [pNo=" + pNo + ", pNickname=" + pNickname + ", mVo=" + mVo + ", chVo=" + chVo + ", pMain="
+				+ pMain + "]";
 	}
 }

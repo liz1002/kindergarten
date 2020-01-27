@@ -31,17 +31,14 @@
 			<p class="division">연락처</p>
 			<span>${mVo.mFirsttel}-${mVo.mMiddletel}-${mVo.mLasttel}</span>
 			
-			<!-- 접속자가 본인이면 -->
-			<c:if test="${mVo.mId == Auth}">
-				<p>생년월일 : <fmt:formatDate value="${mVo.mRegdate}" pattern="yyyy년 MM월 dd일"/></p>
-				<p>비밀번호 : ${mVo.mPwd}</p>
-			</c:if>
-			
 			<!-- mType에 따라 -->
 			
 			<!-- 교사 -->
 			<c:if test="${mVo.mType == 2}">
 				<p class="division">소속</p>
+				<c:if test="${tList.size() == 0}">
+					<p>등록된 유치원이 없습니다.</p>
+				</c:if>
 				<c:forEach var="tVo" items="${tList}"> 
 					<p>
 						<a href="${pageContext.request.contextPath}/info/infoClass?cNo=${tVo.cVo.cNo}">${tVo.cVo.cName}</a> | 
@@ -53,6 +50,10 @@
 			
 			<!-- 학부모 -->	
 			<c:if test="${mVo.mType == 3}">
+				<%-- <c:if test="${Type == 1 || Type == 2}"> <!-- 학부모는 서로 연락처 열람 불가 -->
+					<p class="division">연락처</p>
+					<span>${mVo.mFirsttel}-${mVo.mMiddletel}-${mVo.mLasttel}</span>
+				</c:if> --%>
 				<p class="division">등록된 자녀 목록</p>
 				<c:if test="${pList.size() == 0}">
 					<p>등록된 자녀가 없습니다.</p>

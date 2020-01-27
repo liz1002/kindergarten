@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.NoticeMapper">
+	
+	<resultMap type="NoticeVO" id="noticeResultMap">
+		<id column="n_no" property="nNo"/>
+		<result column="n_content" property="nContent"/>
+		<result column="n_date" property="nDate"/>
+		<association property="tVo" resultMap="mappers.TeacherMapper.teacherResultMap"/>
+		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="NoticeVO">
+		insert into board(b_content, b_noitce, m_no, c_no)
+		values(#{bContent}, #{bNoitce}, #{mVo.mNo}, #{cVo.cNo})
+	</insert>
+	
+	<select id="selectListByCNo" resultMap="noticeResultMap">
+		select * from board where c_no=#{cNo} order by b_noitce desc, b_no desc
+	</select>
+</mapper>

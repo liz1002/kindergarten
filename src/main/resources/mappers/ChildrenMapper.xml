@@ -32,11 +32,6 @@
 		<include refid="selectJoin" /> where ch.ch_no=#{chNo}
 	</select>
 	
-	<select id="selectParentListByChNo" resultMap="childrenResultMap">
-		<include refid="selectJoin" /> join parent p on ch.ch_no=p.ch_no
-			join member m on p.m_no=m.m_no where ch.ch_no=#{chNo} order by m.m_name
-	</select>
-	
 	<delete id="deleteByChNo">
 		delete from children where ch_no=#{chNo}
 	</delete>

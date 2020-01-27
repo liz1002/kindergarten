@@ -40,9 +40,4 @@ public class ChildrenDAOImpl implements ChildrenDAO{
 	public void deleteByChNo(int chNo) {
 		sqlSession.delete(namespace + "deleteByChNo", chNo);
 	}
-
-	@Override
-	public List<ChildrenVO> selectParentListByChNo(int chNo) {
-		return sqlSession.selectList(namespace + "selectParentListByChNo", chNo);
-	}
 }

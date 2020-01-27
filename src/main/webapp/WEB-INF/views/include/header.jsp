@@ -251,9 +251,9 @@
 				<c:if test="${Type == 1}">
 					<!-- 원장 -->
 					<a href="${pageContext.request.contextPath}/main/mainDirector" data-pick="kinder">유치원</a>
-					<a href="${pageContext.request.contextPath}/director/manage" data-pick="manage">관리</a>
+					<a href="${pageContext.request.contextPath}/director/manage" data-pick="manage">유치원 관리</a>
 					<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}" data-pick="mypage">
-						<span>${Name}</span><b>원장님</b>
+						<span>${Name}</span>원장님
 					</a>
 				</c:if>
 				<c:if test="${Type == 2}">
@@ -263,7 +263,7 @@
 					<a href="${pageContext.request.contextPath}" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}" data-pick="schedule">일정표</a>
 					<a href="${pageContext.request.contextPath}" data-pick="dosage">투약의뢰서</a>
-					<a href="${pageContext.request.contextPath}/teacher/manage" data-pick="manage">관리</a>
+					<a href="${pageContext.request.contextPath}/teacher/manage" data-pick="manage">유치원 관리</a>
 					<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}" data-pick="mypage">
 						<span>${Name}</span><b>선생님</b>
 					</a>
@@ -275,7 +275,7 @@
 					<a href="${pageContext.request.contextPath}" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}" data-pick="schedule">일정표</a>
 					<a href="${pageContext.request.contextPath}" data-pick="dosage">투약의뢰서</a>
-					<a href="${pageContext.request.contextPath}/parent/manage" data-pick="manage">관리</a>
+					<a href="${pageContext.request.contextPath}/parent/manage" data-pick="manage">유치원 관리</a>
 					<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}" data-pick="mypage">
 						<span>${Name}</span><b>학부모님</b>
 					</a>

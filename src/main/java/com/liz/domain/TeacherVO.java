@@ -7,13 +7,14 @@ public class TeacherVO {
 	private MemberVO mVo; //회원정보
 	private KindergartenVO kVo; //유치원정보
 	private ClassVO cVo; //반정보
+	private int tMain; //대표여부
 	
 	public TeacherVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public TeacherVO(int tNo, int tType, String tNickname, MemberVO mVo, KindergartenVO kVo, ClassVO cVo) {
+	
+	public TeacherVO(int tNo, int tType, String tNickname, MemberVO mVo, KindergartenVO kVo, ClassVO cVo, int tMain) {
 		super();
 		this.tNo = tNo;
 		this.tType = tType;
@@ -21,6 +22,7 @@ public class TeacherVO {
 		this.mVo = mVo;
 		this.kVo = kVo;
 		this.cVo = cVo;
+		this.tMain = tMain;
 	}
 
 	public int gettNo() {
@@ -70,11 +72,19 @@ public class TeacherVO {
 	public void setcVo(ClassVO cVo) {
 		this.cVo = cVo;
 	}
+	
+	public int gettMain() {
+		return tMain;
+	}
+
+	public void settMain(int tMain) {
+		this.tMain = tMain;
+	}
 
 	@Override
 	public String toString() {
 		return "TeacherVO [tNo=" + tNo + ", tType=" + tType + ", tNickname=" + tNickname + ", mVo=" + mVo + ", kVo="
-				+ kVo + ", cVo=" + cVo + "]";
+				+ kVo + ", cVo=" + cVo + ", tMain=" + tMain + "]";
 	}	
 }
 

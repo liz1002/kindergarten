@@ -163,12 +163,7 @@
 	})
 
 	/* 가입 승인 */
-	$("#admit").click(function() {
-		var res = confirm("가입을 승인 하시겠습니까?");
-		if(!res){
-			return false;
-		}
-		
+	$("#admit").click(function() {		
 		var pList = new Array(); //pVo 객체를 저장할 배열
 		
 		$(".check:checked").each(function(i, obj) {
@@ -188,6 +183,11 @@
 		//학부모 선택 안 했을 경우
 		if(pList.length == 0){
 			alert("가입 승인할 학부모를 선택하세요.");
+			return false;
+		}
+		
+		var res = confirm("가입을 승인 하시겠습니까?");
+		if(!res){
 			return false;
 		}
 		
@@ -213,12 +213,7 @@
 	})
 	
 	/* 가입 거절 */
-	$("#refuse").click(function() {
-		var res = confirm("가입을 거절 하시겠습니까?");
-		if(!res){
-			return false;	
-		}
-		
+	$("#refuse").click(function() {		
 		var paList = new Array(); //paVo 객체를 저장할 배열
 		
 		$(".check:checked").each(function(i, obj) {
@@ -238,6 +233,11 @@
 		if(paList.length == 0){
 			alert("가입 거부할 학부모를 선택하세요.");
 			return false;
+		}
+
+		var res = confirm("가입을 거절 하시겠습니까?");
+		if(!res){
+			return false;	
 		}
 		
 		$.ajax({
