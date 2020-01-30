@@ -3,30 +3,29 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-	div#container{
-		width: 80%;
-		overflow: hidden;
-		margin: 0 auto;
-		display: flex;
-		justify-content: center;
-		align-items: center;
+	#container h1{
+		margin-bottom: 100px;
 	}
-	#container a{
+	#container p a{
 		display: inline-block;
-		width: 100%;
-		height: 100%;
-		font-size: 25px;
+		padding: 2px 10px;
+		background: #fff;
+		color: #FBCB00;
+		font-size: 20px;
 		font-weight: bold;
+		border: 1px solid #FBCB00;
+		outline: none;
+	}
+	#container p a:hover {
+		background: #FBCB00;
+		color: #fff;
 	}
 </style>
 
 <section>
 	<div id="container">
-		<div>
-			<h3>성공적으로 가입하셨습니다.</h3>
-			
-			<a href="${pageContext.request.contextPath}/auth/login">로그인</a>
-		</div>
+		<h1>성공적으로 가입하셨습니다.</h1>
+		<p><a href="${pageContext.request.contextPath}/auth/login">로그인</a></p>
 	</div>
 </section>
 

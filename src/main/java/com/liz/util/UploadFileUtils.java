@@ -13,7 +13,7 @@ import org.springframework.util.FileCopyUtils;
 
 public class UploadFileUtils {
 	//upload함수, 원본 업로드, 썸네일 업로드, 년/월/일 폴더 만들기
-	//uploadPath = C:/photomanage/upload
+	//uploadPath = C:/kids/upload
 	//originalFileName = 파일명
 	//data = 이미지 데이터
 	//return 값 = 썸네일 파일명	
@@ -46,8 +46,8 @@ public class UploadFileUtils {
 		//메모리상의 이미지 리사이징 - 높이 100 기준으로 가로 자동 조정
 		BufferedImage destImg = Scalr.resize(sourceImg, 
 												Scalr.Method.AUTOMATIC, //자동
-												Scalr.Mode.FIT_TO_HEIGHT, //높이 기준
-												100); //높이 100
+												250, //높이 기준
+												250); //높이 300
 		
 		//작은 이미지가 데이터가 들어갈 파일 만들기
 		String thumbnailName = uploadPath + "/s_" + filename;		

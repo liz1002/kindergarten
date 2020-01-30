@@ -1,7 +1,5 @@
 package com.liz.service;
 
-import java.util.List;
-
 import com.liz.domain.MemberVO;
 
 public interface MemberService {

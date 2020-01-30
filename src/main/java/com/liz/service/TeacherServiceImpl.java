@@ -20,8 +20,7 @@ public class TeacherServiceImpl implements TeacherService{
 	public void regist(TeacherVO vo) {
 		if(dao.selectBytMainAndMNo(vo.getmVo().getmNo()) == null) { //대표(tMain이 1인) 컬럼이 없으면
 			vo.settMain(1); //대표로 설정
-		}
-		
+		}		
 		dao.insert(vo);
 	}
 

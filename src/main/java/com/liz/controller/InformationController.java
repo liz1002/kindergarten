@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.liz.domain.MemberVO;
 import com.liz.service.ChildrenService;
 import com.liz.service.ClassService;
+import com.liz.service.DirectorService;
 import com.liz.service.KindergartenService;
 import com.liz.service.MemberService;
 import com.liz.service.ParentService;
@@ -33,6 +34,9 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 	private ClassService classService; 
 	
 	@Autowired
+	private DirectorService directorService; 
+	
+	@Autowired
 	private TeacherService teacherService; 
 	
 	@Autowired
@@ -41,8 +45,6 @@ private static final Logger logger = LoggerFactory.getLogger(InformationControll
 	@Autowired
 	private ChildrenService childrenService; 
 
-//	@Autowired
-//	private FamilyService familyService; 
 	
 	/* * * * * method * * * * */
 	

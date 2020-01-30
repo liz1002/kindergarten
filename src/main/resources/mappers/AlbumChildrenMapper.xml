@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.AlbumChildrenMapper">
+	
+	<resultMap type="AlbumChildrenVO" id="albumChildrenResultMap">
+		<association property="chVo" resultMap="mappers.AlbumMapper.albumResultMap"/>
+		<association property="aVo" resultMap="mappers.AlbumMapper.albumResultMap"/>
+	</resultMap>
+	
+	<sql id="selectJoin">
+		
+	</sql>
+	
+	<insert id="insert" parameterType="AlbumChildrenVO">
+		insert into album(ch_no, a_no) values(#{chVo.chNo}, #{aVo.aNo})                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+	</insert>
+	
+	<select id="selectListByCNo">
+		select * from album a join album_children ac on a.a_no=ac.ac_no where a_no=#{aNo}
+	</select>
+	
+	<select id="selectByANo">
+		select * from album_children where a_no=#{aNo}
+	</select>
+	
+	<delete id="delete">
+		delete from album where a_no=#{aNo}
+	</delete>
+</mapper>

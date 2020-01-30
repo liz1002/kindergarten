@@ -5,9 +5,15 @@
 	<resultMap type="DirectorVO" id="directorResultMap">
 		<id column="d_no" property="dNo"/>
 		<id column="d_nickname" property="dNickname"/>
+		<id column="d_main" property="dMain"/>
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="kVo" resultMap="mappers.KindergartenMapper.kindergartenResultMap"/>
 	</resultMap>
+	
+	<sql id="selectJoin">
+		select * from director d join member m on d.m_no=m.m_no 
+			join kindergarten k on d.k_no=k.k_no 
+	</sql>
 	
 	<insert id="insert" parameterType="DirectorVO">
 		insert into director(d_nickname, m_no, k_no) 
@@ -15,18 +21,28 @@
 	</insert>
 	
 	<select id="selectListByMNo" resultMap="directorResultMap">
-		select * from director d join member m on d.m_no=m.m_no 
-			join kindergarten k on d.k_no=k.k_no where k.k_use=0 and m.m_no=#{mNo}
+		<include refid="selectJoin" /> where k.k_use=0 and m.m_no=#{mNo} order by d_main desc
 	</select>
 	
 	<select id="selectByDNo" resultMap="directorResultMap">
-		select * from director d join member m on d.m_no=m.m_no 
-			join kindergarten k on d.k_no=k.k_no where d.d_no=#{dNo}
+		<include refid="selectJoin" /> where d.d_no=#{dNo}
+	</select>
+	
+	<select id="selectBydMainAndMNo" resultMap="directorResultMap">
+		<include refid="selectJoin" /> where d_main=1 and m.m_no=#{mNo}
 	</select>
 
-	<select id="updateNickname" resultMap="directorResultMap">
+	<update id="updateNickname">
 		update director set d_nickname=#{dNickname} where d_no=#{dNo}
-	</select>
+	</update>
+	
+	<update id="updateDMainByMNo">
+		update director set d_main=0 where m_no=#{mNo}
+	</update>
+	
+	<update id="updateDMainByDNo">
+		update director set d_main=1 where d_no=#{dNo}
+	</update>
 	
 	<delete id="deleteByKNo">
 		delete from director where k_no=#{kNo}

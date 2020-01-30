@@ -7,6 +7,8 @@ import com.liz.domain.DirectorVO;
 public interface DirectorService {
 	public List<DirectorVO> selectListByMNo(int mNo);
 	public DirectorVO selectByDNo(int dNo);
-	public void modifyNickname(DirectorVO vo);
+	public DirectorVO selectBydMainAndMNo(int mNo);
+	public void modifyNickname(DirectorVO dvo);
+	public void modifyDMain(DirectorVO dVo);
 	public void removeByKNo(int kNo);
 }

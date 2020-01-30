@@ -3,41 +3,46 @@
 <%@include file="../include/header.jsp" %>
 
 <style>
-div#container {
-	width: 100%;
-	min-height: 400px;
-}
-
-#container h1 {
-	text-align: center;
-	line-height: 200px;
-}
-
-#container p {
-	text-align: center;
-}
-div.cListView{
-	text-align: center;
-}
-.cListView span{	
-	line-height: 50px;
-}
-#container a:hover {
-	text-decoration: underline;
-}
+	div#container {
+		width: 100%;
+	}
+	#container h1 {
+		text-align: center;
+	}
+	#container p {
+		text-align: center;
+		overflow: hidden;
+	}
+	#container #coment{
+		font-size: 18px;
+		margin: 50px auto;
+		clear: both;
+	}
+	#container .cName {
+		font-size: 20px;
+		line-height: 40px; 
+	}
+	#container .cName a{
+		font-weight: bold; 
+	}
+	#container .cName a:hover {
+		color: #FBCB00;
+	}
 </style>
 
 <section>
 	<div id="container">
-		<h1>유치원 게시판 바로가기</h1>
-		<c:if test="${Auth == null}">
-			<h1>로그인 후 이용해주세요.</h1>
-			<p><a href="${pageContext.request.contextPath}/auth/login">로그인</a>
-		</c:if>
-		<c:forEach var="dVo" items="${dList}">
-			<p class="btnOpen" data-kNo="${dVo.kVo.kNo}">${dVo.kVo.kName}</p>
-			<div class="cListView"></div>
-		</c:forEach>
+		<h1>${dVo.kVo.kName}<fmt:formatDate value="${dVo.kVo.kDate}" pattern="(yyyy)"/> 게시판</h1>		
+		<p id="coment">앨범으로 이동할 반을 선택하세요.</p> 
+		<div class="cList">
+			<c:forEach var="cVo" items="${cList}">
+				<p class="cName">
+					<a href="${pageContext.request.contextPath}/album/main?cNo=${cVo.cNo}">
+						${cVo.cName}
+					</a>
+				</p>
+			</c:forEach>
+		</div>
 	</div>
 </section>
 

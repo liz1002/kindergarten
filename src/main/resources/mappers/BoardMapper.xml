@@ -4,19 +4,42 @@
 	
 	<resultMap type="BoardVO" id="boardResultMap">
 		<id column="b_no" property="bNo"/>
-		<result column="b_date" property="bDate"/>
+		<result column="b_title" property="bTitle"/>
 		<result column="b_content" property="bContent"/>
-		<result column="b_noitce" property="bNoitce"/> 
+		<result column="b_date" property="bDate"/>
+		<result column="b_notice" property="bNotice"/> 
+		<result column="b_nickname" property="bNickname"/> 
 		<association property="mVo" resultMap="mappers.MemberMapper.memberResultMap"/>
 		<association property="cVo" resultMap="mappers.ClassMapper.classResultMap"/>
 	</resultMap>
 	
+	<sql id="selectJoin">
+		select * from board b join member m on b.m_no=m.m_no join class c on c.c_no=b.c_no
+			join kindergarten k on k.k_no=c.k_no
+	</sql>
+	
 	<insert id="insert" parameterType="BoardVO">
-		insert into board(b_content, b_noitce, m_no, c_no)
-		values(#{bContent}, #{bNoitce}, #{mVo.mNo}, #{cVo.cNo})
+		insert into board(b_title, b_content, b_notice, b_nickname, m_no, c_no)
+		values(#{bTitle}, #{bContent}, #{bNotice}, #{bNickname}, #{mVo.mNo}, #{cVo.cNo})
 	</insert>
 	
 	<select id="selectListByCNo" resultMap="boardResultMap">
-		select * from board where c_no=#{cNo} order by b_noitce desc, b_no desc
+		<include refid="selectJoin"/> where b.c_no=#{cNo} order by b_notice desc, b_no desc limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
+	
+	<select id="selectByBNo" resultMap="boardResultMap">
+		<include refid="selectJoin"/> where b_no=#{bNo}
+	</select>
+	
+	<select id="selectListCountByCNo" resultType="int">
+		select count(b_no) from board where c_no=#{cNo}
+	</select>
+	
+	<update id="update" parameterType="BoardVO">
+		update board set b_title=#{bTitle}, b_content=#{bContent}, b_notice=#{bNotice} where b_no=#{bNo}
+	</update>
+	
+	<delete id="delete">
+		delete from board where b_no=#{bNo}
+	</delete>
 </mapper>

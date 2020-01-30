@@ -76,8 +76,7 @@
 		line-height: 20px;
 	}
 </style>
-</head>
-<body>
+<section>
 	<div id="form_wrap">
 		<h1>로그인</h1>
 		<form action="loginPost" method="post">
@@ -116,17 +115,18 @@
 			</a>
 		</p>
 	</div>
+</section>
 
-	<!----- S C R I P T ----->
-	<script>
-		/* 가입 완료 시 공백 확인 */
-		$("form").submit(function() {
-			var res = check("input[data-msg]");
-			
-			if(res == false){ //공백 있을 시
-				return false;
-			}
-		})
-	</script>
-</body> 
-</html>
+<!----- S C R I P T ----->
+<script>
+	/* 가입 완료 시 공백 확인 */
+	$("form").submit(function() {
+		var res = check("input[data-msg]");
+		
+		if(res == false){ //공백 있을 시
+			return false;
+		}
+	})
+</script>
+
+<%@include file="../include/footer.jsp" %>

@@ -4,8 +4,8 @@ public class PageMaker {
 	private int totalCount; //전체 게시물 개수
 	private int startPage; //현재 보이는 페이지 시작번호
 	private int endPage; //현재 보이는 페이지 끝번호
-	private boolean prev; //이전 10개 존재 여부
-	private boolean next; //이후 10개 존재 여부
+	private boolean prev; //이전 존재 여부
+	private boolean next; //이후 존재 여부
 	
 	private int displayPageNum = 5; //보이는 페이지 숫자의 개수(보일 게시글 개수)
 	

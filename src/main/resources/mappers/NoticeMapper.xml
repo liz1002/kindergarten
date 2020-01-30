@@ -10,12 +10,35 @@
 		<association property="chVo" resultMap="mappers.ChildrenMapper.childrenResultMap"/>
 	</resultMap>
 	
+	<sql id="selectJoin">
+		select * from notice n join teacher t on n.t_no=t.t_no
+			join children ch on n.ch_no=ch.ch_no
+	</sql>
+	
 	<insert id="insert" parameterType="NoticeVO">
-		insert into board(b_content, b_noitce, m_no, c_no)
-		values(#{bContent}, #{bNoitce}, #{mVo.mNo}, #{cVo.cNo})
+		insert into notice(n_content, t_no, ch_no)
+		values(#{nContent}, #{tVo.tNo}, #{chVo.chNo})
 	</insert>
 	
-	<select id="selectListByCNo" resultMap="noticeResultMap">
-		select * from board where c_no=#{cNo} order by b_noitce desc, b_no desc
+	<select id="selectListByChNo" resultMap="noticeResultMap">
+		<include refid="selectJoin" /> where ch.ch_no=#{chNo} order by n_date desc limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
+	
+	<select id="selectByNNo" resultMap="noticeResultMap">
+		<include refid="selectJoin" /> where n_no=#{nNo}
+	</select>
+	
+	<select id="selectListCountByChNo" resultType="int">
+		select count(n_no) from notice where ch_no=#{chNo}
+	</select>
+	
+	<update id="update" parameterType="NoticeVO">
+		update notice set n_content=#{nContent} where n_no=#{nNo}
+	</update>
+	
+	<delete id="delete">
+		delete from notice where n_no=#{nNo}
+	</delete>
+	
+	
 </mapper>

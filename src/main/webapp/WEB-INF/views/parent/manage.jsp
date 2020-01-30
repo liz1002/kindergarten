@@ -158,7 +158,7 @@
 							<label for="${idx.index}"></label>
 						</td>
 						<td class="name">
-							<a href="${pageContext.request.contextPath}/board/main?cNo=${pVo.chVo.cVo.cNo}"> <!-- 게시판 이동 -->
+							<a href="${pageContext.request.contextPath}/board/main?mNo=${mNo}&cNo=${pVo.chVo.cVo.cNo}"> <!-- 게시판 이동 -->
 								${pVo.chVo.kVo.kName}	
 							</a>
 						</td>
@@ -183,7 +183,7 @@
 				</c:forEach>
 			</c:if>
 			</table>
-			<p id="coment">삭제된 유치원 또는 반은 목록에서만 조회 가능하며,<br>탈퇴한 유치원은 조회할 수 없습니다.</p>
+			<p id="coment">유치원 이름 선택 시 해당 유치원의 게시판으로 이동합니다.<br>탈퇴한 유치원은 조회할 수 없습니다.</p>
 		</c:if>
 	</div>
 </section>

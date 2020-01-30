@@ -41,7 +41,7 @@
 	<a href="${pageContext.request.contextPath}/director/manage" id="btnBack"></a>
 	<div id="form_wrap">
 		<h1>유치원 추가</h1>
-		<form action="addKinder" method="post">	
+		<form action="add" method="post">	
 			<fieldset>
 				<legend>유치원 정보</legend>
 				<p>

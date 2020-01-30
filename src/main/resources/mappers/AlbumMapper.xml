@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.AlbumMapper">
+	
+	<resultMap type="AlbumVO" id="albumResultMap">
+		<id column="a_no" property="aNo"/>
+		<result column="a_file" property="aFile"/>
+		<result column="a_coment" property="aComent"/>
+		<association property="tVo" resultMap="mappers.TeacherMapper.teacherResultMap"/>
+	</resultMap>
+	
+	<sql id="selectJoin">
+		select * from album a join album_children ac on a.a_no=ac.a_no
+			join teacher t on a.t_no=t.t_no		
+	</sql>
+	
+	<insert id="insert" parameterType="AlbumVO">
+		insert into album(a_file, a_coment, t_no) values(#{aFile}, #{aComent}, #{tVo.tNo})                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+	</insert>
+	
+	<select id="selectListByCNo" resultMap="albumResultMap">
+		select * from album a join teacher t on a.t_no=t.t_no  
+			join member m on t.m_no=m.m_no where t.c_no=#{cNo} limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectListCountByCNo" resultType="int">
+		select count(a_no) from album a join teacher t on a.t_no=t.t_no where t.c_no=#{cNo}
+	</select>
+	
+	<select id="selectByANo" resultMap="albumResultMap">
+		select * from album a join teacher t on a.t_no=t.t_no  
+			join member m on t.m_no=m.m_no join class c on c.c_no=t.c_no
+			where a_no=#{aNo}
+	</select>
+	
+	<delete id="delete">
+		delete from album where a_no=#{aNo}
+	</delete>
+</mapper>

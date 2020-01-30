@@ -41,6 +41,7 @@
 		position: absolute;
 		top: -10px;
 		left: 10px;
+	    z-index: 100;
 	}
 	ul{
 		list-style: none;
@@ -101,7 +102,7 @@
 		color: #f00;
 		vertical-align: middle;
 	}
-	#form_wrap input, #form_wrap select{
+	#form_wrap input, #form_wrap select, #form_wrap textarea{
 		width: 380px;
 	    height: 50px;
 	    padding: 0 0 0 20px;
@@ -112,16 +113,18 @@
 	#form_wrap select{
 	    width: 400px;
 	}
+	#form_wrap textarea{
+		width: 600px;
+		height: 200px; 
+	}
 	#form_wrap button{
 		width: 80px;
 		height: 50px;
-		background: #fff;
 		font-size: 15px;
 		outline: none;
 		border: 1px solid #FBCB00;
 		color: #FBCB00;
 		background: #fff;
-		cursor: pointer;
 	}
 	#form_wrap button:hover{
 		color: #fff;
@@ -162,8 +165,7 @@
 		background: RGBA(251, 203, 0, 0.8);
 	}
 	
-	/* 일반 화면 */
-	
+	/* 일반 화면 */	
 	div#container{
 		width: 1000px;
 		/* min-height: 500px; */ /* 01/21 10:38수정 */
@@ -250,7 +252,8 @@
 			<c:if test="${Auth != null}">				
 				<c:if test="${Type == 1}">
 					<!-- 원장 -->
-					<a href="${pageContext.request.contextPath}/main/mainDirector" data-pick="kinder">유치원</a>
+					<a href="${pageContext.request.contextPath}/board/mainD" data-pick="board">게시판</a>
+					<a href="${pageContext.request.contextPath}/album/mainD" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}/director/manage" data-pick="manage">유치원 관리</a>
 					<a href="${pageContext.request.contextPath}/info/myInfo?mId=${Auth}" data-pick="mypage">
 						<span>${Name}</span>원장님
@@ -258,9 +261,9 @@
 				</c:if>
 				<c:if test="${Type == 2}">
 					<!-- 교사 -->
-					<a href="${pageContext.request.contextPath}/board/main" data-pick="board">커뮤니티</a>
-					<a href="${pageContext.request.contextPath}" data-pick="notice">알림장</a>
-					<a href="${pageContext.request.contextPath}" data-pick="album">앨범</a>
+					<a href="${pageContext.request.contextPath}/board/main?cNo=0" data-pick="board">게시판</a>
+					<a href="${pageContext.request.contextPath}/notice/main" data-pick="notice">알림장</a>
+					<a href="${pageContext.request.contextPath}/album/main?cNo=0" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}" data-pick="schedule">일정표</a>
 					<a href="${pageContext.request.contextPath}" data-pick="dosage">투약의뢰서</a>
 					<a href="${pageContext.request.contextPath}/teacher/manage" data-pick="manage">유치원 관리</a>
@@ -270,9 +273,9 @@
 				</c:if>
 				<c:if test="${Type == 3}">
 					<!-- 학부모 -->
-					<a href="${pageContext.request.contextPath}" data-pick="board">게시판</a>
-					<a href="${pageContext.request.contextPath}" data-pick="notice">알림장</a>
-					<a href="${pageContext.request.contextPath}" data-pick="album">앨범</a>
+					<a href="${pageContext.request.contextPath}/board/main?cNo=0" data-pick="board">게시판</a>
+					<a href="${pageContext.request.contextPath}/notice/parent" data-pick="notice">알림장</a>
+					<a href="${pageContext.request.contextPath}/album/main?cNo=0" data-pick="album">앨범</a>
 					<a href="${pageContext.request.contextPath}" data-pick="schedule">일정표</a>
 					<a href="${pageContext.request.contextPath}" data-pick="dosage">투약의뢰서</a>
 					<a href="${pageContext.request.contextPath}/parent/manage" data-pick="manage">유치원 관리</a>

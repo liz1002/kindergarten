@@ -31,12 +31,14 @@ public class LoginIntercepter extends HandlerInterceptorAdapter{
 			request.getSession().setAttribute("Name", name);
 			request.getSession().setAttribute("Type", type);
 			
-			String dest = (String) request.getSession().getAttribute("dest"); //기존 주소
-			if(dest != null) {
-				response.sendRedirect(dest);
-			}else {
+//			String dest = (String) request.getSession().getAttribute("dest"); //기존 주소
+//			if(dest != null) {
+//				System.out.println("로그인 테스트");
+//				request.getSession().removeAttribute("dest");
+//				response.sendRedirect(dest);
+//			}else {
 				response.sendRedirect(request.getContextPath()); //home 이동
-			}
+//			}
 		}
 		
 	}

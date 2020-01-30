@@ -6,6 +6,12 @@
 	#form_wrap .tel input, #form_wrap .tel select{
 		width: 110px;		
 	}
+	#form_wrap span.error{
+		margin-left: 140px;
+		color: #D91E1E;
+		font-size: 14px;
+		display: none;
+	}
 </style>
 
 <section>
@@ -30,6 +36,7 @@
 				<p>
 					<label><span class="necessary">*</span>성명</label>
 					<input type="text" name="mName" value="${mVo.mName}" data-msg="이름을 입력하세요.">
+					<span class="error">이름 형식이 올바르지 않습니다.</span>
 				</p>
 				<p>
 					<label><span class="necessary">*</span>생년월일</label>
@@ -68,6 +75,20 @@
 <script>
 	$("select option[value='${mVo.mType}']").attr("selected", "selected");
 	$("select option[value='${mVo.mFirsttel}']").attr("selected", "selected");
+
+	/* 형식 확인 */
+	var regRes = true;
+	
+	//이름
+	$("input[name='mName']").change(function() {		
+		var nameReg = /^[가-힣]{2,5}$/;
+		regRes = nameReg.test($("input[name='mName']").val());
+		if(!regRes){
+			$(this).next().css("display", "inline");
+		}else{
+			$(this).next().css("display", "none");
+		}
+	})
 	
 	/* 수정 완료 시 공백 확인 */
 	$("form").submit(function() {
@@ -77,8 +98,8 @@
 			return false;
 		}
 		
-		if($("input[name='mPwd']").val() != $("input[name='mPwdCheck']").val()){ //비밀번호 불일치 시
-			alert("비밀번호가 일치하지 않습니다.");
+		if(regRes == false){ //형식 틀릴 시
+			alert("올바르지 않은 형식입니다.");
 			return false;
 		}
 	})

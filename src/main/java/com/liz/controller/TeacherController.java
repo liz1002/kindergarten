@@ -279,7 +279,7 @@ public class TeacherController {
 	@ResponseBody
 	@RequestMapping(value = "main", method = RequestMethod.POST)
 	public void main(@RequestBody TeacherVO tVo) {
-		logger.info("▶ Teacher Remove POST");
+		logger.info("▶ Teacher Main POST");
 
 		logger.info("[tVo] " + tVo);		
 		

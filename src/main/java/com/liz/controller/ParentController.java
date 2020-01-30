@@ -254,7 +254,7 @@ public class ParentController {
 	@ResponseBody
 	@RequestMapping(value = "main", method = RequestMethod.POST)
 	public void main(@RequestBody ParentVO pVo) {
-		logger.info("▶ Parent Remove POST");
+		logger.info("▶ Parent Main POST");
 
 		logger.info("[pVo] " + pVo);		
 		

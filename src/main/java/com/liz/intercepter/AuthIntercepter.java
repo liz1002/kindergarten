@@ -12,10 +12,11 @@ public class AuthIntercepter extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		System.out.println("-----------------------AuthIntercepter");
 		HttpSession session = request.getSession();
 		String auth = (String) session.getAttribute("Auth");
 		if(auth == null) { //로그인 no
-			saveDest(request); //강제 이동 전에 원래 이동할 주소와 매개변수를 session에 저장
+//			saveDest(request); //강제 이동 전에 원래 이동할 주소와 매개변수를 session에 저장
 			response.sendRedirect(request.getContextPath() + "/auth/login"); //login 화면으로 강제 이동
 			return false; //원래 실행해야 하는 controller 실행 막음
 		}
@@ -23,19 +24,20 @@ public class AuthIntercepter extends HandlerInterceptorAdapter{
 		return super.preHandle(request, response, handler);
 	}
 	
-	private void saveDest(HttpServletRequest request) { //destination
-		String uri = request.getRequestURI(); //로그인 후 이동할 주소 (?전)
-		String query = request.getQueryString(); //매개변수 & 값 (?뒤)
-		if(query == null || query.equals("null")) {
-			query = "";
-		}else {
-			query = "?" + query;
-		}
-		
-		if(request.getMethod().equalsIgnoreCase("get")) { //post는 이 방법 불가능
-			request.getSession().setAttribute("dest", uri + query);
-		}
-	}
+//	private void saveDest(HttpServletRequest request) { //destination
+//		String uri = request.getRequestURI(); //로그인 후 이동할 주소 (?전)
+//		String query = request.getQueryString(); //매개변수 & 값 (?뒤)
+//		if(query == null || query.equals("null")) {
+//			query = "";
+//		}else {
+//			query = "?" + query;
+//		}
+//		
+//		if(request.getMethod().equalsIgnoreCase("get")) { //post는 이 방법 불가능
+//			System.out.println("------save dest : "+uri + query);
+//			request.getSession().setAttribute("dest", uri + query);
+//		}
+//	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,

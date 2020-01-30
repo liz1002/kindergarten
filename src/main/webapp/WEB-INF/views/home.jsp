@@ -3,29 +3,33 @@
 <%@include file="include/header.jsp" %>
 
 <style>
-	#container p#title{
-		margin-top: 50px;
-		font-size: 30px;
-		letter-spacing: 10px;
+	#container h1{
+		margin-bottom: 50px;
 	}
 	#container p{
 		text-align: center;
-		line-height: 100px;
+		line-height: 50px;
 		font-size: 20px;
 		font-weight: bold;
 	}
 	#container p a{
 		text-decoration: underline;
 	}
+	#container p span{
+		font-size: 30px;
+	}
+	#container img{
+		width: 90%;
+		margin: 150px auto 20px;
+	}
 </style>
 
 <section>
 	<div id="container">
-		<p id="title">KIDS DIARY</p>
-		<c:if test="${Auth == null}">
-			<p>로그인 후 이용해주세요.<p>
-			<p><a href="${pageContext.request.contextPath}/auth/login">로그인</a>
-		</c:if>
+		<h1>키즈 다이어리</h1>
+		<p><span>&ldquo;</span> 아이의 소식을 언제 어디서나 간편하게 한눈에 <span>&rdquo;</span></p>
+		<p><span>&ldquo;</span> 공지사항, 알림장 등 원과 가정의 소통을 더 쉽게 <span>&rdquo;</span></p>
+		<img src="resources/images/like.jpg">
 	</div>
 </section>
 

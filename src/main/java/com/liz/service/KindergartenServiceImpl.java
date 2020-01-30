@@ -8,12 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.liz.domain.DirectorVO;
 import com.liz.domain.KindergartenVO;
-import com.liz.persistence.ChildrenDAO;
-import com.liz.persistence.ClassDAO;
 import com.liz.persistence.DirectorDAO;
 import com.liz.persistence.KindergartenDAO;
-import com.liz.persistence.ParentDAO;
-import com.liz.persistence.TeacherDAO;
 
 @Service
 public class KindergartenServiceImpl implements KindergartenService{
@@ -24,22 +20,13 @@ public class KindergartenServiceImpl implements KindergartenService{
 	@Autowired
 	private DirectorDAO dDao;
 	
-	@Autowired
-	private TeacherDAO tDao;
-	
-	@Autowired
-	private ChildrenDAO chDao;
-	
-	@Autowired
-	private ParentDAO pDao;
-
-	@Autowired
-	private ClassDAO cDao;
-	
 	@Override
 	@Transactional
 	public void regist(DirectorVO dVo) {
 		kDao.insert(dVo.getkVo()); //유치원추가
+		if(dDao.selectBydMainAndMNo(dVo.getmVo().getmNo()) == null) { //대표(dMain이 1인) 컬럼이 없으면
+			dVo.setdMain(1); //대표로 설정
+		}
 		dDao.insert(dVo); //원장추가
 	}
 

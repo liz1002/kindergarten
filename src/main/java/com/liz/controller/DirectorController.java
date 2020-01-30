@@ -201,6 +201,15 @@ public class DirectorController {
 		return pApproveService.selectListByKNo(kNo); //남은 신청 학부모 목록
 	}	
 	
-	
+	/* 대표 유치원 설정 */
+	@ResponseBody
+	@RequestMapping(value = "main", method = RequestMethod.POST)
+	public void main(@RequestBody DirectorVO dVo) {
+		logger.info("▶ Director Main POST");
+
+		logger.info("[dVo] " + dVo);		
+		
+		directorService.modifyDMain(dVo);
+	}	
 	
 }
